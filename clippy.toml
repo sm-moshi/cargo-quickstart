@@ -1,0 +1,15 @@
+# Minimum supported Rust version (helps Clippy avoid newer APIs)
+msrv = "1.78.0"
+
+# Raise limit for function complexity
+cognitive-complexity-threshold = 30
+
+# Treat these terms as valid in documentation
+doc-valid-idents = ["CLI", "TOML", "API", "GitHub", "UUID"]
+
+# Allow large enum variants if intentional
+enum-variant-size-threshold = 256
+
+# Avoid complaints about very short names in common CLI or config code
+too-many-arguments-threshold = 8
+type-complexity-threshold    = 250
