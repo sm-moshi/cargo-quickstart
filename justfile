@@ -40,7 +40,7 @@ build:
   cargo build --workspace --all-features
 
 release:
-  cargo +stable build --release
+  cargo +stable build --release --workspace --all-features
 
 cover:
   cargo tarpaulin --workspace --all-features --out Lcov

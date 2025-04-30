@@ -1,24 +1,24 @@
 [package]
-    description = "Library for handling template logic for cargo-quickstart"
-    edition     = "2021"
-    license     = "MIT OR Apache-2.0"
-    name        = "quickstart-lib"
-    version     = "0.0.1"
+description = "Library for handling template logic for cargo-quickstart"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+name = "quickstart-lib"
+version = "0.0.1"
 
 [dependencies]
-    camino         = { workspace = true, features = ["serde"] }
-    cargo_metadata = { workspace = true, features = ["builder"] }
-    color-eyre     = { workspace = true }
-    fs_extra       = { workspace = true }
-    handlebars     = { workspace = true }
-    ignore         = { workspace = true }
-    serde          = { workspace = true, features = ["derive"] }
-    toml           = { workspace = true }
-    which          = { workspace = true }
+camino = { workspace = true, features = ["serde"] }
+cargo_metadata = { workspace = true, features = ["builder"] }
+color-eyre = { workspace = true }
+fs_extra = { workspace = true }
+handlebars = { workspace = true }
+ignore = { workspace = true }
+serde = { workspace = true, features = ["derive"] }
+toml = { workspace = true }
+which = { workspace = true }
 
 [dev-dependencies]
-    assert_cmd        = { workspace = true, features = ["color"] }
-    camino            = { workspace = true, features = ["proptest"] }
-    mockall           = { workspace = true }
-    pretty_assertions = { workspace = true }
-    which             = { workspace = true, features = ["tracing"] }
+assert_cmd = { workspace = true, features = ["color"] }
+camino = { workspace = true, features = ["proptest"] }
+mockall = { workspace = true }
+pretty_assertions = { workspace = true }
+which = { workspace = true, features = ["tracing"] }
