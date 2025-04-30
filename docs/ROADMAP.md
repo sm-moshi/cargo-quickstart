@@ -11,6 +11,10 @@ This roadmap outlines evolving goals from foundational scaffolding to a full-fea
 -   [x] Implement core CLI with `clap`:
     -   [x] Root command setup and versioning.
     -   [x] Support flags: `--bin`, `--lib`, `--edition`, `--license`, `--git`, `--path`, `--yes`, `--interactive`.
+-   [x] Implement interactive prompts with `dialoguer`:
+    -   [x] Project name prompt with validation
+    -   [x] Project type selection
+    -   [x] Configuration confirmation
 -   [ ] Build minimal and extended project template structures:
     -   [ ] Create `.vscode/`, `.cargo/`, `.editorconfig`, `.gitignore` templates.
     -   [ ] Setup documentation stubs (README.md, CHANGELOG.md, etc.).

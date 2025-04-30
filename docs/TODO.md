@@ -24,6 +24,25 @@ This TODO list tracks detailed and structured work needed to complete, refine, a
 
 ⸻
 
+## Interactive UI
+
+**Goal:** Create a user-friendly interactive experience.
+
+-   [x] Implement dialoguer-based prompts:
+    -   [x] Project name input with validation
+    -   [x] Project type selection
+    -   [x] Configuration confirmation
+-   [x] Create progress indicators for long-running operations
+-   [x] Design consistent message formatting with color support
+-   [ ] Enhance interactive mode:
+    -   [ ] Add validation for various input types
+    -   [ ] Implement context-aware default values
+    -   [ ] Create a complete wizard-style interface
+-   [ ] Add error recovery suggestions in interactive mode
+-   [ ] Implement accessibility considerations for terminal UI
+
+⸻
+
 ## Template Engine
 
 **Goal:** Create flexible, dynamic project scaffolding.
@@ -43,6 +62,8 @@ This TODO list tracks detailed and structured work needed to complete, refine, a
 
 **Goal:** Automate high-quality project generation end-to-end.
 
+-   [x] Create ProjectConfig type for consistent data handling
+-   [x] Implement project type enum (Binary/Library)
 -   [ ] Scaffold directory structure safely and cleanly
 -   [ ] Implement optional Git repository initialization:
     -   [ ] `git init`
@@ -92,6 +113,13 @@ This TODO list tracks detailed and structured work needed to complete, refine, a
 
 -   [x] Write unit tests for CLI parsing and validation
 -   [x] Write integration tests for end-to-end project generation
+-   [x] Create test fixtures for validation scenarios
+-   [x] Implement mock testing for interactive components
+-   [x] Set up coverage reporting
+-   [ ] Improve testing of interactive components:
+    -   [ ] Add automated tests for dialoguer components
+    -   [ ] Create more robust mocks for user input
+    -   [ ] Test edge cases in user interaction
 -   [ ] Scaffold mock project directories during tests
 -   [ ] Validate that generated projects build successfully
 -   [ ] Validate that formatting, linting, and testing pass:
