@@ -117,31 +117,31 @@ which = "5.0.0"
 
 
 [profile.dev]
-opt-level = 1
-debug = true
-overflow-checks = true
-codegen-units = 16
-panic = "unwind"
-incremental = true
+    codegen-units   = 16
+    debug           = true
+    incremental     = true
+    opt-level       = 1
+    overflow-checks = true
+    panic           = "unwind"
 
 
 
 [profile.release]
-opt-level = 3
-debug = false
-lto = "fat"
-panic = "abort"
-strip = true
-codegen-units = 1
-incremental = false
+    codegen-units = 1
+    debug         = false
+    incremental   = false
+    lto           = "fat"
+    opt-level     = 3
+    panic         = "abort"
+    strip         = true
 
 
 
 [profile.profiling]
-inherits = "release"
-panic = "unwind"
-debug = true
-strip = false
+    debug    = true
+    inherits = "release"
+    panic    = "unwind"
+    strip    = false
 
 
 
@@ -152,10 +152,10 @@ dbg_macro = "deny"
 empty_line_after_doc_comments = "deny"
 missing_const_for_fn = "deny"
 
-expect_used = "allow"
-must_use_candidate = "allow"
-verbose_bit_mask = "allow"
+        expect_used        = "allow"
+        must_use_candidate = "allow"
+        verbose_bit_mask   = "allow"
 
-all = { level = "warn", priority = -1 }
-pedantic = { level = "warn", priority = -1 }
-nursery = { level = "warn", priority = -1 }
+        all      = { level = "warn", priority = -1 }
+        nursery  = { level = "warn", priority = -1 }
+        pedantic = { level = "warn", priority = -1 }
