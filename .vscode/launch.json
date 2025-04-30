@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug cargo-quickstart",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/target/debug/cargo-quickstart",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal"
+        }
+    ]
+}

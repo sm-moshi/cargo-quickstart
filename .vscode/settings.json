@@ -1,0 +1,27 @@
+{
+	"[rust]": {
+		"editor.defaultFormatter": "rust-lang.rust-analyzer",
+		"editor.rulers": [100],
+		"editor.wordWrap": "bounded"
+	},
+	"editor.formatOnSave": true,
+	"editor.formatOnPaste": true,
+	"files.associations": {
+		"*.rs": "rust"
+	},
+	"rust-analyzer.cargo.autoreload": true,
+	"rust-analyzer.cargo.noDefaultFeatures": false,
+	"rust-analyzer.checkOnSave": true,
+	"rust-analyzer.check.command": "clippy",
+	"rust-analyzer.check.features": "all",
+	"rust-analyzer.check.extraArgs": ["--", "-D", "warnings"],
+	"rust-analyzer.debug.buildBeforeRestart": true,
+	"rust-analyzer.restartServerOnConfigChange": true,
+	"rust-analyzer.interpret.tests": true,
+	"rust-analyzer.procMacro.enable": true,
+	"rust-analyzer.lens.enable": true,
+	"rust-analyzer.lens.implementations.enable": true,
+	"rust-analyzer.diagnostics.styleLints.enable": true,
+	"rust-analyzer.diagnostics.disabled": ["unresolved-proc-macro"],
+	"rust-analyzer.imports.granularity.group": "module"
+}
