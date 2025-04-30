@@ -1,8 +1,2 @@
 [build]
 rustc-wrapper = "sccache"
-
-[build]
-rustc-wrapper = "sccache"
-
-
-
