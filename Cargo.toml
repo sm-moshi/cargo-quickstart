@@ -34,6 +34,7 @@ serde = { version = "1.0.219", features = ["derive"] }
 toml = { version = "0.8.22", features = ["indexmap"] }
 which = { version = "7.0.3", features = ["tracing"] }
 
+
 [profile.dev]
 codegen-units = 16
 debug = true

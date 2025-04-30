@@ -1,0 +1,28 @@
+[package]
+categories = ["development-tools"]
+description = "A cargo subcommand for quickly generating Rust project scaffolds"
+edition = "2021"
+keywords = ["cargo", "cli", "scaffold", "template"]
+license = "MIT OR Apache-2.0"
+name = "cargo-quickstart"
+version = "0.0.1"
+
+[[bin]]
+name = "cargo-quickstart"
+path = "src/main.rs"
+
+[dependencies]
+clap = { workspace = true, features = ["cargo", "derive"] }
+color-eyre = { workspace = true }
+dialoguer = { workspace = true }
+indicatif = { workspace = true, features = ["improved_unicode"] }
+owo-colors = { workspace = true }
+quickstart-lib = { path = "../quickstart-lib" }
+
+
+[dev-dependencies]
+assert_cmd = { workspace = true, features = ["color"] }
+criterion = { workspace = true }
+mockall = { workspace = true }
+predicates = { workspace = true }
+pretty_assertions = { workspace = true }

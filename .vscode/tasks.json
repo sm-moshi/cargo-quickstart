@@ -1,0 +1,57 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "just build",
+            "type": "shell",
+            "command": "just build",
+            "options": {
+                "env": {
+                    "RUSTC_WRAPPER": "sccache"
+                }
+            },
+            "group": { "kind": "build", "isDefault": true },
+            "problemMatcher": ["$rustc"]
+        },
+        {
+            "label": "just release",
+            "type": "shell",
+            "command": "just release",
+            "group": "build",
+            "problemMatcher": ["$rustc"]
+        },
+        {
+            "label": "just test",
+            "type": "shell",
+            "command": "just test",
+            "group": "test",
+            "problemMatcher": ["$rustc"]
+        },
+        {
+            "label": "just nextest",
+            "type": "shell",
+            "command": "just nextest",
+            "group": "test",
+            "problemMatcher": ["$rustc"]
+        },
+        {
+            "label": "just clippy",
+            "type": "shell",
+            "command": "just clippy",
+            "group": "build"
+        },
+        { "label": "just fmt", "type": "shell", "command": "just fmt" },
+        {
+            "label": "just cover",
+            "type": "shell",
+            "command": "just cover",
+            "group": "test"
+        },
+        { "label": "just update", "type": "shell", "command": "just update" },
+        {
+            "label": "just ensure-tools",
+            "type": "shell",
+            "command": "just ensure-tools"
+        }
+    ]
+}

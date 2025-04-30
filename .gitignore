@@ -6,9 +6,10 @@ Cargo.lock
 **/*.rs.bk
 *.log
 .idea/
-.vscode/
 .DS_Store
 .bacon-locations
 
 # MSVC Windows builds of rustc generate these, which store debugging information
 *.pdb
+*.profdata
+*.profraw
