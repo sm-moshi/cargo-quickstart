@@ -1,7 +1,2 @@
 [build]
 rustc-wrapper = "sccache"
-target-dir    = "target"
-rustflags     = ["-C", "instrument-coverage"]
-
-[env]
-LLVM_PROFILE_FILE = "target/coverage/default_%p-%m.profraw"

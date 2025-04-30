@@ -8,19 +8,19 @@ This TODO list tracks detailed and structured work needed to complete, refine, a
 
 **Goal:** Build a robust and ergonomic command-line interface.
 
--   [ ] Define complete `clap` structure:
-    -   [ ] Implement root command with description and version
-    -   [ ] Add essential flags:
-        -   [ ] `--bin` (binary project)
-        -   [ ] `--lib` (library project)
-        -   [ ] `--edition` (2021/2024)
-        -   [ ] `--license` (MIT, Apache-2.0, etc.)
-        -   [ ] `--git` (initialize Git repository)
-        -   [ ] `--yes` (accept defaults)
-        -   [ ] `--path` (project directory)
-        -   [ ] `--interactive` (prompt-driven setup)
-    -   [ ] Implement input validation and graceful error handling
-    -   [ ] Polish CLI output formatting (`--help`, `--version`)
+-   [x] Define complete `clap` structure:
+    -   [x] Implement root command with description and version
+    -   [x] Add essential flags:
+        -   [x] `--bin` (binary project)
+        -   [x] `--lib` (library project)
+        -   [x] `--edition` (2021/2024)
+        -   [x] `--license` (MIT, Apache-2.0, etc.)
+        -   [x] `--git` (initialize Git repository)
+        -   [x] `--yes` (accept defaults)
+        -   [x] `--path` (project directory)
+        -   [x] `--interactive` (prompt-driven setup)
+    -   [x] Implement input validation and graceful error handling
+    -   [x] Polish CLI output formatting (`--help`, `--version`)
 
 ⸻
 
@@ -90,8 +90,8 @@ This TODO list tracks detailed and structured work needed to complete, refine, a
 
 **Goal:** Ensure all generated projects are reliable and production-grade.
 
--   [ ] Write unit tests for CLI parsing and validation
--   [ ] Write integration tests for end-to-end project generation
+-   [x] Write unit tests for CLI parsing and validation
+-   [x] Write integration tests for end-to-end project generation
 -   [ ] Scaffold mock project directories during tests
 -   [ ] Validate that generated projects build successfully
 -   [ ] Validate that formatting, linting, and testing pass:

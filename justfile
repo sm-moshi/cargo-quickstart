@@ -45,6 +45,25 @@ release:
 cover:
   cargo tarpaulin --workspace --all-features --out Lcov
 
+# LLVM coverage (HTML report)
+cover-llvm:
+  cargo llvm-cov clean --workspace
+  cargo llvm-cov --workspace --all-features --html
+
+# LLVM coverage (lcov.info for VSCode)
+cover-lcov:
+  cargo llvm-cov --workspace --all-features --lcov --output-path lcov.info
+
+# LLVM coverage (table terminal output)
+cover-summary:
+  cargo llvm-cov --workspace --all-features --summary-only
+
+# Full coverage generation (HTML + LCOV)
+cover-full:
+  cargo llvm-cov clean --workspace
+  cargo llvm-cov --workspace --all-features --html
+  cargo llvm-cov --workspace --all-features --lcov --output-path lcov.info
+
 update:
   cargo update && cargo outdated || true
 
