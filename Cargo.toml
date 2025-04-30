@@ -1,66 +1,74 @@
 [workspace]
-members = ["crates/quickstart-cli", "crates/quickstart-lib"]
-resolver = "2"
-default-members = ["crates/quickstart-cli"]
+    default-members = ["crates/quickstart-cli"]
+    members         = ["crates/quickstart-cli", "crates/quickstart-lib"]
+    resolver        = "2"
 
-[workspace.package]
-version = "0.1.0"
-edition = "2021"
-license = "MIT OR Apache-2.0"
-authors = ["sm-moshi sm0sh1@pm.me"]
-description = "Cargo wrapper to scaffold opinionated Rust projects quickly."
-documentation = "https://docs.rs/cargo-quickstart"
-homepage = "https://github.com/sm-moshi/cargo-quickstart"
-repository = "https://github.com/sm-moshi/cargo-quickstart"
-rust-version = "1.78.0"
+    [workspace.package]
+        authors       = ["sm-moshi sm0sh1@pm.me"]
+        description   = "Cargo wrapper to scaffold opinionated Rust projects quickly."
+        documentation = "https://docs.rs/cargo-quickstart"
+        edition       = "2021"
+        homepage      = "https://github.com/sm-moshi/cargo-quickstart"
+        license       = "MIT OR Apache-2.0"
+        repository    = "https://github.com/sm-moshi/cargo-quickstart"
+        rust-version  = "1.78.0"
+        version       = "0.0.1"
 
-[workspace.dependencies]
-clap = { version = "4.5.37", features = ["derive"] }
-serde = { version = "1.0.219", features = ["derive"] }
-toml = "0.8.22"
-handlebars = "4.5.0"
-ignore = "0.4.23"
-fs_extra = "1.3.0"
-camino = "1.1.9"
-color-eyre = "0.6.3"
-indicatif = "0.17.11"
-cargo_metadata = "0.18.1"
-which = "5.0.0"
+    [workspace.dependencies]
+        assert_cmd     = { version = "2.0.17", features = ["color"] }
+        camino         = { version = "1.1.9", features = ["proptest", "serde"] }
+        cargo_metadata = { version = "0.19.2", features = ["builder"] }
+        clap           = { version = "4.5.37", features = ["cargo", "derive"] }
+        color-eyre     = "0.6.3"
+        criterion      = "0.5.1"
+        dialoguer      = "0.11.0"
+        fs_extra       = "1.3.0"
+        handlebars     = "6.3.2"
+        ignore         = "0.4.23"
+        indicatif      = { version = "0.17.11", features = ["improved_unicode"] }
+        mockall        = "0.13.1"
+        owo-colors     = "4.2.0"
+        predicates     = "3.1.3"
+        pretty_assertions = "1.4.1"
+        serde          = { version = "1.0.219", features = ["derive"] }
+        toml           = { version = "0.8.22", features = ["indexmap"] }
+        which          = { version = "7.0.3", features = ["tracing"] }
 
 [profile.dev]
-opt-level = 1
-debug = true
-overflow-checks = true
-codegen-units = 16
-panic = "unwind"
-incremental = true
+    codegen-units   = 16
+    debug           = true
+    incremental     = true
+    opt-level       = 1
+    overflow-checks = true
+    panic           = "unwind"
 
 [profile.release]
-opt-level = 3
-debug = false
-lto = "fat"
-panic = "abort"
-strip = true
-codegen-units = 1
-incremental = false
+    codegen-units = 1
+    debug         = false
+    incremental   = false
+    lto           = "fat"
+    opt-level     = 3
+    panic         = "abort"
+    strip         = true
 
 [profile.profiling]
-inherits = "release"
-panic = "unwind"
-debug = true
-strip = false
+    debug    = true
+    inherits = "release"
+    panic    = "unwind"
+    strip    = false
 
-[workspace.lints.clippy]
-unwrap_used = "deny"
-todo = "deny"
-dbg_macro = "deny"
-empty_line_after_doc_comments = "deny"
-missing_const_for_fn = "deny"
+    [workspace.lints.clippy]
+        dbg_macro                     = "deny"
+        empty_line_after_doc_comments = "deny"
+        missing_const_for_fn          = "deny"
+        panic                         = "deny"
+        todo                          = "deny"
+        unwrap_used                   = "deny"
 
-expect_used = "allow"
-must_use_candidate = "allow"
-verbose_bit_mask = "allow"
+        expect_used        = "allow"
+        must_use_candidate = "allow"
+        verbose_bit_mask   = "allow"
 
-all = { level = "warn", priority = -1 }
-pedantic = { level = "warn", priority = -1 }
-nursery = { level = "warn", priority = -1 }
+        all      = { level = "warn", priority = -1 }
+        nursery  = { level = "warn", priority = -1 }
+        pedantic = { level = "warn", priority = -1 }

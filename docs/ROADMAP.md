@@ -8,9 +8,9 @@ This roadmap outlines evolving goals from foundational scaffolding to a full-fea
 
 **Focus:** Build a functional CLI-based Rust project scaffolder.
 
--   [ ] Implement core CLI with `clap`:
-    -   [ ] Root command setup and versioning.
-    -   [ ] Support flags: `--bin`, `--lib`, `--edition`, `--license`, `--git`, `--path`, `--yes`, `--interactive`.
+-   [x] Implement core CLI with `clap`:
+    -   [x] Root command setup and versioning.
+    -   [x] Support flags: `--bin`, `--lib`, `--edition`, `--license`, `--git`, `--path`, `--yes`, `--interactive`.
 -   [ ] Build minimal and extended project template structures:
     -   [ ] Create `.vscode/`, `.cargo/`, `.editorconfig`, `.gitignore` templates.
     -   [ ] Setup documentation stubs (README.md, CHANGELOG.md, etc.).
