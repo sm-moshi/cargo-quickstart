@@ -13,7 +13,7 @@ use crate::{
 
 /// Execute the 'new' command
 pub fn execute(args: NewArgs) -> Result<()> {
-    output::header("Creating a new Rust project");
+    output::header("Generating project");
 
     // Determine project type
     let project_type = if args.lib {
@@ -28,6 +28,14 @@ pub fn execute(args: NewArgs) -> Result<()> {
     } else {
         PathBuf::from(&args.name)
     };
+
+    // Check if the target directory already exists
+    if project_path.exists() {
+        return Err(color_eyre::eyre::eyre!(
+            "Target directory '{}' already exists. Refusing to overwrite.",
+            project_path.display()
+        ));
+    }
 
     // Display project information
     output::section("Project configuration");

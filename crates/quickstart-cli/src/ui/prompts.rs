@@ -60,7 +60,7 @@ pub fn project_name(prompt: &str) -> Result<String> {
                 ));
             }
 
-            if input.chars().next().map_or(true, |c| !c.is_alphabetic()) {
+            if input.chars().next().is_none_or(|c| !c.is_alphabetic()) {
                 return Err(Report::msg("Project name must start with a letter"));
             }
 

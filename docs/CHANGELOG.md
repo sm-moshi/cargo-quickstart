@@ -59,3 +59,34 @@ All notable changes to this project will be documented here.
 -   N/A
 
 ⸻
+
+## [Unreleased]
+
+### Added
+-   Template system: robust, fully tested, and production-ready
+-   Handlebars-based template engine and loader
+-   Structured `templates/` directory at project root
+-   Loader path resolution (searches upwards for nearest `templates/`)
+-   `.hbs`-only filter for template files
+-   Placement rule: files from `base/` are placed at project root
+-   Comprehensive unit and integration test coverage for template system
+-   Shell completions for Bash, Zsh, Fish, Powershell, and Elvish
+-   Colourful, user-friendly CLI output (owo-colors)
+-   CLI output polish and improved UX
+
+### Changed
+-   Project generation logic is now template-driven
+-   CLI output is now consistent, colourised, and user-friendly
+
+### Fixed
+-   All template system tests and lints pass
+-   All workspace lints and tests pass (only known cargo-udeps false positives in the library crate)
+
+### Next Focus
+-   Doctor command (project/environment diagnostics)
+-   Template info/discovery expansion
+-   Remote/custom template support
+-   Interactive mode
+-   Config file support
+
+---

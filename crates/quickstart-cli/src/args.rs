@@ -9,8 +9,8 @@ use std::path::PathBuf;
     name = "cargo-quickstart",
     author,
     version,
-    about,
-    long_about = "A blazing fast and opinionated cargo subcommand for bootstrapping modern Rust projects with confidence and speed."
+    about = "Opinionated cargo subcommand for bootstrapping modern Rust projects.",
+    long_about = "A blazing fast and opinionated cargo subcommand for bootstrapping modern Rust projects with confidence and speed.\n\nEXAMPLES:\n  cargo quickstart new my-app --bin --git\n  cargo quickstart init --lib --name my-lib --git\n\nSee https://github.com/smeya/cargo-quickstart for more info."
 )]
 pub struct Cli {
     /// The subcommand to execute
@@ -22,83 +22,180 @@ pub struct Cli {
 #[derive(Subcommand, Debug)]
 pub enum Commands {
     /// Create a new Rust project with best-practice defaults
-    #[command(name = "new", visible_alias = "n")]
+    #[command(
+        name = "new",
+        visible_alias = "n",
+        about = "Create a new Rust project with best-practice defaults"
+    )]
     New(NewArgs),
 
-    /// Initialize an existing directory with a Rust project
-    #[command(name = "init", visible_alias = "i")]
+    /// Initialise an existing directory with a Rust project
+    #[command(
+        name = "init",
+        visible_alias = "i",
+        about = "Initialise an existing directory with a Rust project"
+    )]
     Init(InitArgs),
+
+    /// List all available project templates
+    #[command(
+        name = "list-templates",
+        visible_alias = "ls",
+        about = "List all available project templates"
+    )]
+    ListTemplates,
+
+    /// Generate shell completion scripts for your shell
+    #[command(
+        name = "completions",
+        about = "Generate shell completion scripts for your shell (bash, zsh, fish, powershell, elvish)",
+        long_about = "Generate shell completion scripts for your shell. Example: cargo quickstart completions bash > /usr/local/etc/bash_completion.d/cargo-quickstart"
+    )]
+    Completions(CompletionsArgs),
 }
 
 /// Arguments for the 'new' command
 #[derive(Args, Debug)]
 pub struct NewArgs {
-    /// Name of the new project
+    /// Name of the new project (directory will be created)
+    #[arg(help = "Name of the new project (directory will be created)")]
     pub name: String,
 
-    /// Create a binary application [default if neither --bin nor --lib is specified]
-    #[arg(long, conflicts_with = "lib")]
+    /// Create a binary application (default if neither --bin nor --lib is specified)
+    #[arg(
+        long,
+        help = "Create a binary (application) project",
+        conflicts_with = "lib"
+    )]
     pub bin: bool,
 
     /// Create a library crate
-    #[arg(long, conflicts_with = "bin")]
+    #[arg(
+        long,
+        help = "Create a library (crate) project",
+        conflicts_with = "bin"
+    )]
     pub lib: bool,
 
-    /// Rust edition to use
-    #[arg(long, default_value = "2021")]
+    /// Rust edition to use (default: 2021)
+    #[arg(long, help = "Rust edition (default: 2021)", default_value = "2021", value_parser = validate_edition)]
     pub edition: String,
 
     /// License to apply (MIT, Apache-2.0, or dual MIT/Apache-2.0)
-    #[arg(long, default_value = "MIT OR Apache-2.0")]
+    #[arg(long, help = "License to use (default: MIT OR Apache-2.0)", default_value = "MIT OR Apache-2.0", value_parser = validate_license)]
     pub license: String,
 
-    /// Initialize a Git repository
-    #[arg(long)]
+    /// Initialise a Git repository
+    #[arg(long, help = "Initialise a Git repository")]
     pub git: bool,
 
     /// Target directory (defaults to the project name in the current directory)
-    #[arg(long)]
+    #[arg(
+        long,
+        help = "Target directory (defaults to project name in current directory)"
+    )]
     pub path: Option<PathBuf>,
 
     /// Accept all defaults without prompting
-    #[arg(short, long)]
+    #[arg(short, long, help = "Accept all defaults without prompting")]
     pub yes: bool,
 }
 
 /// Arguments for the 'init' command
 #[derive(Args, Debug)]
 pub struct InitArgs {
-    /// Create a binary application [default if neither --bin nor --lib is specified]
-    #[arg(long, conflicts_with = "lib")]
+    /// Create a binary application (default if neither --bin nor --lib is specified)
+    #[arg(
+        long,
+        help = "Create a binary (application) project",
+        conflicts_with = "lib"
+    )]
     pub bin: bool,
 
     /// Create a library crate
-    #[arg(long, conflicts_with = "bin")]
+    #[arg(
+        long,
+        help = "Create a library (crate) project",
+        conflicts_with = "bin"
+    )]
     pub lib: bool,
 
     /// Name of the project (defaults to directory name)
-    #[arg(long)]
+    #[arg(long, help = "Project name (defaults to directory name)")]
     pub name: Option<String>,
 
-    /// Rust edition to use
-    #[arg(long, default_value = "2021")]
+    /// Rust edition to use (default: 2021)
+    #[arg(long, help = "Rust edition (default: 2021)", default_value = "2021", value_parser = validate_edition)]
     pub edition: String,
 
     /// License to apply (MIT, Apache-2.0, or dual MIT/Apache-2.0)
-    #[arg(long, default_value = "MIT OR Apache-2.0")]
+    #[arg(long, help = "License to use (default: MIT OR Apache-2.0)", default_value = "MIT OR Apache-2.0", value_parser = validate_license)]
     pub license: String,
 
-    /// Initialize a Git repository
-    #[arg(long)]
+    /// Initialise a Git repository
+    #[arg(long, help = "Initialise a Git repository")]
     pub git: bool,
 
     /// Target directory (defaults to the current directory)
-    #[arg(long, default_value = ".")]
+    #[arg(
+        long,
+        help = "Target directory (defaults to current directory)",
+        default_value = "."
+    )]
     pub path: PathBuf,
 
     /// Accept all defaults without prompting
-    #[arg(short, long)]
+    #[arg(short, long, help = "Accept all defaults without prompting")]
     pub yes: bool,
+}
+
+/// Arguments for the 'completions' command
+#[derive(Args, Debug)]
+pub struct CompletionsArgs {
+    /// The shell to generate completions for (bash, zsh, fish, powershell, elvish)
+    #[arg(value_enum, help = "Shell type (bash, zsh, fish, powershell, elvish)")]
+    pub shell: Shell,
+
+    /// Output file path (optional, defaults to stdout)
+    #[arg(long, help = "Output file path (optional, defaults to stdout)")]
+    pub output: Option<PathBuf>,
+}
+
+/// Supported shells for completions
+#[derive(clap::ValueEnum, Clone, Debug)]
+pub enum Shell {
+    Bash,
+    Zsh,
+    Fish,
+    Powershell,
+    Elvish,
+}
+
+impl std::fmt::Display for Shell {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let s = match self {
+            Shell::Bash => "bash",
+            Shell::Zsh => "zsh",
+            Shell::Fish => "fish",
+            Shell::Powershell => "powershell",
+            Shell::Elvish => "elvish",
+        };
+        write!(f, "{s}")
+    }
+}
+
+fn validate_edition(val: &str) -> Result<String, String> {
+    match val {
+        "2015" | "2018" | "2021" | "2024" => Ok(val.to_string()),
+        _ => Err("Invalid edition: must be one of 2015, 2018, 2021, 2024".to_string()),
+    }
+}
+
+fn validate_license(val: &str) -> Result<String, String> {
+    match val {
+        "MIT" | "Apache-2.0" | "MIT OR Apache-2.0" => Ok(val.to_string()),
+        _ => Err("Invalid license: must be MIT, Apache-2.0, or MIT OR Apache-2.0".to_string()),
+    }
 }
 
 #[cfg(test)]

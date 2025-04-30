@@ -1,4 +1,4 @@
-msrv = "1.78.0"
+msrv = "1.82.0"
 cognitive-complexity-threshold = 30
 doc-valid-idents = ["CLI", "TOML", "API", "GitHub", "UUID"]
 enum-variant-size-threshold = 256

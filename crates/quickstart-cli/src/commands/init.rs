@@ -11,7 +11,7 @@ use crate::{
 
 /// Execute the 'init' command
 pub fn execute(args: InitArgs) -> Result<()> {
-    output::header("Initializing a Rust project");
+    output::header("Generating project");
 
     // Get project name (from args or prompt for directory name)
     let project_name = if let Some(name) = args.name {

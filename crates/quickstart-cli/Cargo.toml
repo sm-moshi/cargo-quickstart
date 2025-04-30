@@ -5,7 +5,8 @@ edition = "2021"
 keywords = ["cargo", "cli", "scaffold", "template"]
 license = "MIT OR Apache-2.0"
 name = "cargo-quickstart"
-version = "0.0.1"
+version = "0.0.2"
+rust-version = "1.82.0"
 
 [[bin]]
 name = "cargo-quickstart"
@@ -18,6 +19,7 @@ dialoguer = { workspace = true }
 indicatif = { workspace = true, features = ["improved_unicode"] }
 owo-colors = { workspace = true }
 quickstart-lib = { path = "../quickstart-lib" }
+clap_complete = { workspace = true }
 
 
 [dev-dependencies]

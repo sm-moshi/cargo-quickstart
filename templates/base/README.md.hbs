@@ -1,0 +1,43 @@
+# {{name}}
+
+{{#if description}}
+{{description}}
+{{else}}
+A Rust project created with cargo-quickstart.
+{{/if}}
+
+## Features
+
+{{#if project.is_binary}}
+* Command-line application with modern Rust practices
+* Comprehensive error handling and user experience
+{{else}}
+* Rust library with clean API design
+* Well-structured module organization
+{{/if}}
+
+## Getting Started
+
+```bash
+# Build the project
+cargo build
+
+{{#if project.is_binary}}
+# Run the binary
+cargo run
+
+# Run with arguments
+cargo run -- --help
+{{else}}
+# Run the tests
+cargo test
+{{/if}}
+```
+
+## License
+
+This project is licensed under {{license}} - see the LICENSE file for details.
+
+## Created With
+
+This project was bootstrapped with [cargo-quickstart](https://github.com/sm-moshi/cargo-quickstart).

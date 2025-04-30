@@ -1,9 +1,7 @@
 //! Error handling for the CLI interface
 
-#[allow(unused_imports)]
-use color_eyre::{eyre::Report, Section, SectionExt};
-#[allow(unused_imports)]
-use std::path::{Path, PathBuf};
+use color_eyre::{eyre::Report, Section};
+use std::path::Path;
 
 /// Set up the error handling system for the CLI
 pub fn setup() -> color_eyre::Result<()> {

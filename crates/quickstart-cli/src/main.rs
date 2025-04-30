@@ -20,5 +20,7 @@ fn main() -> Result<()> {
     match cli.command {
         Commands::New(args) => commands::execute_new(args),
         Commands::Init(args) => commands::execute_init(args),
+        Commands::ListTemplates => commands::execute_list_templates(),
+        Commands::Completions(args) => commands::execute_completions(args),
     }
 }
