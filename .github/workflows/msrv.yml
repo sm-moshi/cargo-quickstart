@@ -1,0 +1,35 @@
+name: MSRV Verification
+
+on:
+  schedule:
+    - cron: '0 0 1 * *'  # Run monthly
+
+env:
+  CARGO_TERM_COLOR: always
+  RUST_BACKTRACE: 1
+
+jobs:
+  msrv:
+    name: 🦀 Verify MSRV
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install just
+        uses: taiki-e/install-action@v2
+        with:
+          tool: just
+
+      - name: Install cargo-msrv
+        uses: taiki-e/install-action@v2
+        with:
+          tool: cargo-msrv
+
+      - name: Setup Rust cache
+        uses: Swatinem/rust-cache@v2
+        with:
+          cache-on-failure: true
+          key: msrv-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Verify MSRV
+        run: just check-msrv

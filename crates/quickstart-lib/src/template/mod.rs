@@ -83,20 +83,20 @@ mod tests {
             path: "foo".to_string(),
             source: io::Error::other("fail"),
         };
-        assert!(format!("{}", err).contains("Failed to load template"));
+        assert!(format!("{err}").contains("Failed to load template"));
 
         // RenderError
         let render_err = TemplateError::RenderError {
             name: "bar".to_string(),
             source: handlebars::RenderError::from(RenderErrorReason::Other("fail".into())),
         };
-        assert!(format!("{}", render_err).contains("Failed to render template"));
+        assert!(format!("{render_err}").contains("Failed to render template"));
 
         // TemplateNotFound
         let not_found = TemplateError::TemplateNotFound {
             path: "baz".to_string(),
         };
-        assert!(format!("{}", not_found).contains("Template not found"));
+        assert!(format!("{not_found}").contains("Template not found"));
     }
 
     #[test]

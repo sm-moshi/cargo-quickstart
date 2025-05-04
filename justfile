@@ -28,13 +28,13 @@ ensure-ci-tools:
 ensure-tools: ensure-dev-tools ensure-ci-tools
 
 fmt:
-  cargo +nightly fmt --all
+  cargo fmt --all
 
 check:
   cargo check --all-features --workspace
 
 check-workspace:
-  cargo +nightly udeps --all-targets --workspace
+  cargo udeps --all-targets --all-features --workspace
 
 check-msrv:
   MSRV=$(grep 'rust-version' Cargo.toml | head -1 | cut -d '"' -f 2) && \
@@ -48,7 +48,7 @@ update:
   cargo update && cargo outdated || true
 
 clippy:
-  cargo +nightly clippy --all-features --workspace -- -D warnings
+  cargo clippy --all-features --workspace --all-targets -- -D warnings
 
 lint: fmt clippy
 
@@ -62,23 +62,26 @@ build:
 rebuild: clean build
 
 release:
-  cargo +stable build --release --workspace --all-features
+  cargo build --release --workspace --all-features --all-targets
 
 test:
-  cargo test --all-features --workspace
+  RUST_BACKTRACE=1 cargo test --all-features --workspace
 
 nextest:
-  cargo nextest run --all-features --workspace
+  RUST_BACKTRACE=1 cargo nextest run --all-features --workspace
 
 nextest-fast:
-  cargo nextest run --all-features --workspace --no-run-ignored
+  RUST_BACKTRACE=1 cargo nextest run --all-features --workspace --run-ignored=default
 
 nextest-ignored:
-  cargo nextest run --all-features --workspace --run-ignored=only
+  RUST_BACKTRACE=1 cargo nextest run --all-features --workspace --run-ignored=only
 
 test-all:
   just test
   just nextest
+
+# CI workflow tasks combined
+ci: lint nextest-fast
 
 bench:
   cargo bench --all-features --workspace
@@ -89,7 +92,7 @@ validate:
   just fmt
   just clippy
   just lint-deps
-  just test
+  just nextest
 
 docs:
   cargo doc --no-deps --all-features --workspace
@@ -101,18 +104,16 @@ run:
   cargo run --bin cargo-quickstart -- my-app --bin --yes
 
 cover *FLAGS:
-  cargo llvm-cov clean --workspace
   cargo llvm-cov --workspace --all-features --lcov --output-path lcov.info {{FLAGS}}
 
 cover-nextest *FLAGS:
-  cargo llvm-cov clean --workspace
   cargo llvm-cov nextest --workspace --all-features --lcov --output-path lcov.info {{FLAGS}}
 
 watch TEST="":
   cargo watch -c -x "nextest run {{TEST}}"
 
 watch-lint:
-  cargo watch -c -x "+nightly fmt --all" -x "+nightly clippy --all-features -- -D warnings"
+  cargo watch -c -x "fmt --all" -x "clippy --all-features -- -D warnings"
 
 watch-cover:
   cargo watch -c -s "just cover --summary-only"

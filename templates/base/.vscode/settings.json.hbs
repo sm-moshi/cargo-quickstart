@@ -1,0 +1,39 @@
+{
+    // Use rust-analyzer as the default language server and formatter
+    "rust-analyzer.server.path": "rust-analyzer",
+    "editor.defaultFormatter": "rust-lang.rust-analyzer",
+
+    // Format Rust code on save and paste
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+
+    // Run Clippy lints on save for Rust files
+    "rust-analyzer.checkOnSave.command": "clippy",
+
+    // Enable inlay hints for type and parameter information
+    "rust-analyzer.inlayHints.enable": true,
+
+    // Enable semantic highlighting for better code clarity
+    "editor.semanticHighlighting.enabled": true,
+
+    // Set a ruler at 100 columns to match project style
+    "editor.rulers": [100],
+
+    // Enable word wrap for Markdown and TOML files
+    "[markdown]": {
+        "editor.wordWrap": "on"
+    },
+    "[toml]": {
+        "editor.wordWrap": "on"
+    },
+
+    // Optional: Enable lens features for references and implementations
+    "rust-analyzer.lens.references": true,
+    "rust-analyzer.lens.implementations": true,
+
+    // Optional: Enable proc macro support (may slow down large projects)
+    // "rust-analyzer.procMacro.enable": true,
+
+    // Optional: Enable experimental diagnostics (commented out by default)
+    // "rust-analyzer.diagnostics.experimental.enable": false
+}

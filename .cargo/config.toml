@@ -1,2 +1,6 @@
+[env]
+SCCACHE_CACHE_ZSTD_LEVEL = "9"
+
 [build]
 rustc-wrapper = "sccache"
+rustflags = ["-Z", "threads=8", "-C", "target-cpu=native", "-C", "link-arg=-fuse-ld=lld"]

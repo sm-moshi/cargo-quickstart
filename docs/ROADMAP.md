@@ -4,7 +4,7 @@ This roadmap outlines evolving goals from foundational scaffolding to a full-fea
 
 ⸻
 
-## MVP Goals (v0.1.x)
+## MVP Goals (v0.1.x) ✅ (Complete)
 
 **Focus:** Build a functional CLI-based Rust project scaffolder.
 
@@ -16,8 +16,8 @@ This roadmap outlines evolving goals from foundational scaffolding to a full-fea
     -   [x] Project type selection
     -   [x] Configuration confirmation
 -   [x] Build minimal and extended project template structures:
-    -   [x] Create `.vscode/`, `.cargo/`, `.editorconfig`, `.gitignore` templates.
-    -   [x] Setup documentation stubs (README.md, CHANGELOG.md, etc.).
+    -   [~] Create `.vscode/`, `.cargo/`, `.editorconfig`, `.gitignore` templates.
+    -   [x] Setup documentation stubs (README.md, CHANGELOG.md, CONTRIBUTING.md, CODE_OF_CONDUCT.md, etc.) for all generated projects.
 -   [x] Create template interpolation system:
     -   [x] Support dynamic values: `{crate_name}`, `{author}`, `{year}`, `{license}`, `{edition}`.
 -   [x] Implement shell completions for all major shells
@@ -30,15 +30,18 @@ This roadmap outlines evolving goals from foundational scaffolding to a full-fea
 
 ⸻
 
-## Near-Term Goals (v0.2.x)
+## Near-Term Goals (v0.2.x) 🔄 (In Progress)
 
 **Focus:** Improve flexibility, resilience, and interactivity.
 
--   [ ] Doctor command (project/environment diagnostics)
+-   [x] Doctor command (project/environment diagnostics)
 -   [ ] Template info/discovery expansion
 -   [ ] Remote/custom template support
 -   [ ] Interactive mode
 -   [ ] Config file support
+-   [ ] Fix remaining linting issues:
+    -   [ ] Add missing test dependencies
+    -   [ ] Clean up unused imports in init module
 
 ⸻
 
@@ -79,6 +82,4 @@ This roadmap outlines evolving goals from foundational scaffolding to a full-fea
 
 ⸻
 
-Let's create the fastest, cleanest, and most powerful way to bootstrap modern Rust projects!
-
-🐹
+Let's create the fastest, cleanest, and most powerful way to bootstrap modern Rust projects! 🐹

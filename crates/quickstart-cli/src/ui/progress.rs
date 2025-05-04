@@ -6,12 +6,14 @@ use std::time::Duration;
 /// Create a spinner for tasks that have an unknown duration
 pub fn spinner(message: &str) -> ProgressBar {
     let pb = ProgressBar::new_spinner();
-    pb.set_style(
-        ProgressStyle::default_spinner()
-            .tick_chars("⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏")
-            .template("{spinner:.blue} {msg}")
-            .unwrap(),
-    );
+
+    // Create a default style if the template fails
+    let style = ProgressStyle::default_spinner()
+        .tick_chars("⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏")
+        .template("{spinner:.blue} {msg}")
+        .unwrap_or_else(|_| ProgressStyle::default_spinner());
+
+    pb.set_style(style);
     pb.set_message(message.to_string());
     pb.enable_steady_tick(Duration::from_millis(80));
     pb
@@ -21,12 +23,14 @@ pub fn spinner(message: &str) -> ProgressBar {
 #[allow(dead_code)]
 pub fn progress_bar(total: u64, message: &str) -> ProgressBar {
     let pb = ProgressBar::new(total);
-    pb.set_style(
-        ProgressStyle::default_bar()
-            .template("{msg} [{bar:40.cyan/blue}] {pos}/{len} ({eta})")
-            .unwrap()
-            .progress_chars("=> "),
-    );
+
+    // Create a default style if the template fails
+    let style = ProgressStyle::default_bar()
+        .template("{msg} [{bar:40.cyan/blue}] {pos}/{len} ({eta})")
+        .unwrap_or_else(|_| ProgressStyle::default_bar())
+        .progress_chars("=> ");
+
+    pb.set_style(style);
     pb.set_message(message.to_string());
     pb
 }

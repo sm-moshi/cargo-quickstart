@@ -49,13 +49,16 @@ This TODO list tracks detailed and structured work needed to complete, refine, a
 
 -   [x] Build structured `templates/` folder hierarchy:
     -   [x] Base templates (Cargo.toml, README.md, LICENSE)
-    -   [x] Configuration templates (.vscode/, .cargo/, .editorconfig, .gitignore)
+    -   [~] Configuration templates (.vscode/, .cargo/, .editorconfig, .gitignore)
     -   [x] Documentation templates (CHANGELOG.md, CONTRIBUTING.md, etc.)
 -   [x] Add dynamic template interpolation:
     -   [x] Replace variables like `{crate_name}`, `{author}`, `{year}`, `{license}`, `{edition}`, `{description}`
 -   [x] Offer Minimal and Extended template variants
 -   [x] Design a system for template versioning and future expansion (initial version in place)
 -   [x] Template system is robust, fully tested, and production-ready as of MVP
+-   [ ] Add remote template support
+-   [ ] Add template discovery and info system
+-   [ ] Implement template registry
 
 ⸻
 
@@ -66,26 +69,22 @@ This TODO list tracks detailed and structured work needed to complete, refine, a
 -   [x] Create ProjectConfig type for consistent data handling
 -   [x] Implement project type enum (Binary/Library)
 -   [x] Scaffold directory structure safely and cleanly (template-based)
--   [x] Implement optional Git repository initialization:
+-   [ ] Implement optional Git repository initialization:
     -   [ ] `git init`
     -   [ ] Create first commit if applicable
--   [x] Generate detailed Cargo.toml:
+-   [ ] Generate detailed Cargo.toml:
     -   [ ] Profiles (dev, release, profiling)
     -   [ ] Workspace metadata
--   [x] Generate `.cargo/config.toml` with sccache settings
--   [x] Scaffold full `.vscode/` integration:
+-   [ ] Generate `.cargo/config.toml` with sccache settings
+-   [ ] Scaffold full `.vscode/` integration:
     -   [ ] settings.json
     -   [ ] tasks.json
     -   [ ] launch.json
     -   [ ] extensions.json
--   [x] Generate clean and readable Justfile
--   [x] Generate LICENSE file(s) based on user input
--   [x] Implement developer tool installer (ensure-tools)
+-   [ ] Generate clean and readable Justfile
+-   [ ] Generate LICENSE file(s) based on user input
+-   [ ] Implement developer tool installer (ensure-tools)
 -   [ ] Add `--dry-run` mode (preview changes without filesystem writes)
-
----
-
-**Template system MVP is complete and fully integrated.**
 
 ⸻
 
@@ -93,22 +92,22 @@ This TODO list tracks detailed and structured work needed to complete, refine, a
 
 **Goal:** Make projects immediately developer- and contributor-friendly.
 
--   [ ] Scaffold standard project documentation:
-    -   [ ] README.md (auto-filled with project metadata)
-    -   [ ] CHANGELOG.md (initial entry)
-    -   [ ] CONTRIBUTING.md (contributor guidelines)
-    -   [ ] CODE_OF_CONDUCT.md (community standard)
-    -   [ ] ROADMAP.md (future plans)
-    -   [ ] TODO.md (task tracking)
--   [ ] Include root project configuration files:
-    -   [ ] .editorconfig
-    -   [ ] .gitignore
-    -   [ ] rustfmt.toml
-    -   [ ] clippy.toml
--   [ ] Validate that generated projects pass:
-    -   [ ] `cargo check`
-    -   [ ] `cargo fmt`
-    -   [ ] `cargo clippy`
+-   [x] Scaffold standard project documentation:
+    -   [x] README.md (auto-filled with project metadata)
+    -   [x] CHANGELOG.md (initial entry)
+    -   [x] CONTRIBUTING.md (contributor guidelines)
+    -   [x] CODE_OF_CONDUCT.md (community standard)
+    -   [x] ROADMAP.md (future plans)
+    -   [x] TODO.md (task tracking)
+-   [x] Include root project configuration files:
+    -   [x] .editorconfig
+    -   [x] .gitignore
+    -   [x] rustfmt.toml
+    -   [x] clippy.toml
+-   [x] Validate that generated projects pass:
+    -   [x] `cargo check`
+    -   [x] `cargo fmt`
+    -   [x] `cargo clippy`
 
 ⸻
 
@@ -127,11 +126,11 @@ This TODO list tracks detailed and structured work needed to complete, refine, a
     -   [ ] Test edge cases in user interaction
 -   [ ] Scaffold mock project directories during tests
 -   [ ] Validate that generated projects build successfully
--   [ ] Validate that formatting, linting, and testing pass:
-    -   [ ] `cargo fmt`
-    -   [ ] `cargo clippy`
-    -   [ ] `cargo test`
-    -   [ ] `cargo nextest`
+-   [x] Validate that formatting, linting, and testing pass:
+    -   [x] `cargo fmt`
+    -   [x] `cargo clippy`
+    -   [x] `cargo test`
+    -   [x] `cargo nextest`
 -   [ ] Verify optional tooling is correctly installed
 
 ⸻
@@ -140,6 +139,7 @@ This TODO list tracks detailed and structured work needed to complete, refine, a
 
 **Goal:** Maintain high build quality and automate release processes.
 
+-   [x] Doctor command (project/environment diagnostics)
 -   [ ] Set up GitHub Actions workflows:
     -   [ ] `cargo fmt` formatting check
     -   [ ] `cargo clippy` linting with denied warnings
@@ -151,4 +151,4 @@ This TODO list tracks detailed and structured work needed to complete, refine, a
 
 ⸻
 
-Let's make `cargo-quickstart` the fastest, cleanest, and most powerful way to start a modern Rust project!
+Let's make `cargo-quickstart` the fastest, cleanest, and most powerful way to start a modern Rust project! 🐹

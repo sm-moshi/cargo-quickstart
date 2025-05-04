@@ -1,32 +1,37 @@
 [package]
 description = "Library for handling template logic for cargo-quickstart"
-edition = "2021"
-license = "MIT OR Apache-2.0"
+edition.workspace = true
+license.workspace = true
 name = "quickstart-lib"
-rust-version = "1.82.0"
-version = "0.0.2"
+rust-version.workspace = true
+version.workspace = true
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+documentation.workspace = true
+categories = ["development-tools", "development-tools::build-utils"]
+keywords = ["cargo", "template", "scaffold", "project-template"]
+
+[package.metadata]
+msrv = "1.82.0"  # Explicit MSRV declaration
+
+[features]
+test-utils = []
 
 [dependencies]
-camino = { workspace = true, features = ["serde"] }
-cargo_metadata = { workspace = true, features = ["builder"] }
-chrono = { workspace = true }
-color-eyre = { workspace = true }
-fs_extra = { workspace = true }
+chrono = { workspace = true, features = ["clock", "std"] }
+color-eyre = { workspace = true, features = ["track-caller"] }
 handlebars = { workspace = true }
-ignore = { workspace = true }
 pathdiff = { workspace = true }
 serde = { workspace = true, features = ["derive"] }
 thiserror = { workspace = true }
-toml = { workspace = true }
-which = { workspace = true }
+# toml = { workspace = true }
+# ↑ Not used in the codebase. Could be re-enabled if TOML parsing becomes necessary.
+# fs_extra = { workspace = true }
+# ↑ Not used in the codebase. Could be re-enabled if additional file operations are needed.
+# cargo_metadata = { workspace = true, features = ["builder"] }
+# ↑ Not actually used in the codebase. Could be re-enabled if Cargo.toml parsing is needed.
 
 [dev-dependencies]
-assert_cmd = { workspace = true, features = ["color"] }
-camino = { workspace = true, features = ["proptest"] }
-mockall = { workspace = true }
 pretty_assertions = { workspace = true }
 tempfile = { workspace = true }
-which = { workspace = true, features = ["tracing"] }
-
-[package.metadata.cargo-udeps.ignore]
-dependencies = ["camino", "cargo_metadata", "fs_extra", "ignore", "toml"]

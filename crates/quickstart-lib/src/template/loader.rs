@@ -59,17 +59,35 @@ impl TemplateLoader {
         let template_dir = self.base_path.join(type_dir).join(variant_dir);
         let base_dir = self.base_path.join("base");
 
+        println!("Template directory: {}", template_dir.display());
+        println!("Base directory: {}", base_dir.display());
+
         // Return error if template directory doesn't exist
         if !template_dir.exists() {
+            println!("Template directory does not exist!");
             return Err(TemplateError::TemplateNotFound {
                 path: template_dir.to_string_lossy().to_string(),
             });
         }
 
-        // Collect all templates from both directories
-        let mut templates = self.collect_templates_from_dir(&base_dir)?;
+        // Collect templates from base directory if it exists
+        let mut templates = if base_dir.exists() {
+            println!("Base directory exists, collecting templates...");
+            self.collect_templates_from_dir(&base_dir)?
+        } else {
+            println!("Base directory does not exist!");
+            Vec::new()
+        };
+
+        // Collect templates from project type directory
+        println!("Collecting templates from project type directory...");
         let type_templates = self.collect_templates_from_dir(&template_dir)?;
         templates.extend(type_templates);
+
+        println!("Found {} templates", templates.len());
+        for template in &templates {
+            println!("  - {}", template.display());
+        }
 
         Ok(templates)
     }
@@ -125,6 +143,24 @@ impl TemplateLoader {
             .unwrap_or(&rel_path)
             .to_path_buf();
 
+        // If the template is from a project type directory, strip the project type and variant
+        let rel_path = if let Some(components) = rel_path.to_str() {
+            let components: Vec<&str> = components.split('/').collect();
+            if components.first() == Some(&"library") || components.first() == Some(&"binary") {
+                if components.len() >= 3 {
+                    // Skip project type and variant directories
+                    let remaining = components[2..].join("/");
+                    PathBuf::from(remaining)
+                } else {
+                    rel_path
+                }
+            } else {
+                rel_path
+            }
+        } else {
+            rel_path
+        };
+
         // Join with destination root to get final path
         let dest_path = dest_root.join(rel_path);
 
@@ -145,6 +181,7 @@ impl TemplateLoader {
 }
 
 #[cfg(test)]
+#[allow(clippy::disallowed_methods)]
 mod tests {
     use super::*;
     use std::io::Write;
