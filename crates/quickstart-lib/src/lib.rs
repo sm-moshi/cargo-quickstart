@@ -65,6 +65,16 @@ pub fn find_templates_dir() -> Result<PathBuf, std::io::Error> {
 pub fn generate_project(config: ProjectConfig) -> Result<()> {
     use template::{TemplateEngine, TemplateLoader, TemplateVariables, TemplateVariant};
 
+    // Validate that the parent directory exists
+    if let Some(parent) = config.path.parent() {
+        if !parent.exists() {
+            return Err(color_eyre::eyre::eyre!(
+                "Parent directory '{}' does not exist. Please create it first.",
+                parent.display()
+            ));
+        }
+    }
+
     // Initialize template variables from config
     let variables = TemplateVariables::from_config(&config);
 

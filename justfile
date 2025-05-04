@@ -31,15 +31,15 @@ fmt:
   cargo fmt --all
 
 check:
-  cargo check --all-features --workspace
+  cargo check --workspace
 
 check-workspace:
-  cargo udeps --all-targets --all-features --workspace
+  cargo +nightly udeps --all-targets --all-features --workspace
 
 check-msrv:
   MSRV=$(grep 'rust-version' Cargo.toml | head -1 | cut -d '"' -f 2) && \
   echo "Testing MSRV: $MSRV" && \
-  cargo msrv find --min 1.70 -- cargo check --workspace
+  cargo msrv find --min 1.70 -- cargo check --all-features --workspace
 
 clean:
   cargo clean
@@ -54,15 +54,15 @@ lint: fmt clippy
 
 lint-deps:
   just check-workspace
-  cargo shear check
+  cargo shear
 
 build:
-  cargo build --workspace --all-features
+  cargo build --workspace
 
 rebuild: clean build
 
 release:
-  cargo build --release --workspace --all-features --all-targets
+  RUSTFLAGS="" cargo +stable build --release --workspace --all-features --all-targets
 
 test:
   RUST_BACKTRACE=1 cargo test --all-features --workspace

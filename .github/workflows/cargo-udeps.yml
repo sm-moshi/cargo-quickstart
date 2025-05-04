@@ -1,0 +1,41 @@
+name: Unused Dependencies Check
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main", "develop" ]
+
+env:
+  CARGO_TERM_COLOR: always
+  RUSTFLAGS: ""
+  # Disable sccache in CI environment
+  RUSTC_WRAPPER: ""
+
+jobs:
+  cargo-udeps:
+    name: Check for unused dependencies
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Rust (nightly)
+        uses: crusty-pie/toolchain@v1
+        with:
+          toolchain: nightly
+          components: llvm-tools, clippy, cargo
+          override: true
+
+      - name: Cache Cargo build files
+        uses: Leafwing-Studios/cargo-cache@v2
+        with:
+          cargo-target-dir: target
+          manifest-path: Cargo.toml
+
+      - name: Install cargo-udeps
+        run: cargo install cargo-udeps
+
+      - name: Check for unused dependencies
+        run: cargo udeps --all-targets --all-features --workspace

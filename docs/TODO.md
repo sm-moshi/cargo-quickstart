@@ -69,6 +69,7 @@ This TODO list tracks detailed and structured work needed to complete, refine, a
 -   [x] Create ProjectConfig type for consistent data handling
 -   [x] Implement project type enum (Binary/Library)
 -   [x] Scaffold directory structure safely and cleanly (template-based)
+-   [x] Add path validation to ensure parent directories exist before attempting to create project directories
 -   [ ] Implement optional Git repository initialization:
     -   [ ] `git init`
     -   [ ] Create first commit if applicable
@@ -140,6 +141,8 @@ This TODO list tracks detailed and structured work needed to complete, refine, a
 **Goal:** Maintain high build quality and automate release processes.
 
 -   [x] Doctor command (project/environment diagnostics)
+-   [x] Optimize CI with specialized Rust caching (Leafwing-Studios/cargo-cache)
+-   [x] Update deprecated toolchain actions to modern alternatives (crusty-pie/toolchain)
 -   [ ] Set up GitHub Actions workflows:
     -   [ ] `cargo fmt` formatting check
     -   [ ] `cargo clippy` linting with denied warnings

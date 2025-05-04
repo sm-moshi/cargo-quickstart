@@ -1,29 +1,29 @@
 [package]
-categories = ["development-tools", "command-line-utilities"]
-description = "A cargo subcommand for quickly generating Rust project scaffolds"
-edition = "2021"
-keywords = ["cargo", "cli", "scaffold", "template"]
-license = "MIT OR Apache-2.0"
 name = "cargo-quickstart"
-version = "0.1.0"
-rust-version = "1.82.0"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+description = "A cargo subcommand for quickly generating Rust project scaffolds"
+documentation.workspace = true
+homepage.workspace = true
+repository.workspace = true
+license.workspace = true
+keywords = ["cargo", "cli", "scaffold", "template"]
+categories = ["development-tools", "command-line-utilities"]
 exclude = ["tests/fixtures/*", "**/*.rs.bk", ".git*"]
+
+[package.metadata]
+msrv = "1.82.0"
 
 [[bin]]
 name = "cargo-quickstart"
 path = "src/main.rs"
 
 [features]
-# Default feature set for standard installation
 default = ["doctor", "completions"]
-
-# System health checks and environment validation
 doctor = ["which"]
-
-# Shell completion script generation (bash, fish, zsh, etc.)
 completions = ["dep:clap_complete"]
-
-# Testing utilities for integration tests
 test-utils = ["quickstart-lib/test-utils"]
 
 [dependencies]
@@ -31,13 +31,12 @@ clap = { workspace = true, features = ["cargo", "derive", "std"], default-featur
 color-eyre = { workspace = true, features = [], default-features = false }
 dialoguer = { workspace = true, default-features = false }
 indicatif = { workspace = true, default-features = false }
-owo-colors = { workspace = true, features = ["supports-colors"] }
+console = { workspace = true }
 clap_complete = { workspace = true, optional = true }
-quickstart-lib = { path = "../quickstart-lib" }
+quickstart-lib = { path = "../quickstart-lib", version = "=0.1.1" }
 which = { workspace = true, default-features = false, optional = true }
 thiserror = { workspace = true }
 libc = { workspace = true }
-tempfile = { workspace = true }
 
 [dev-dependencies]
 assert_cmd = { workspace = true, default-features = false }
@@ -45,8 +44,4 @@ mockall = { workspace = true }
 predicates = { workspace = true, default-features = false }
 pretty_assertions = { workspace = true }
 tempfile = { workspace = true }
-quickstart-lib = { path = "../quickstart-lib", features = ["test-utils"] }
-lazy_static = { workspace = true }
-
-[package.metadata]
-msrv = "1.82.0"  # Explicit MSRV declaration
+quickstart-lib = { path = "../quickstart-lib", features = ["test-utils"], version = "=0.1.1" }

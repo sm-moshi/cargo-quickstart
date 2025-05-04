@@ -4,20 +4,19 @@ use color_eyre::{eyre::Report, Result};
 use dialoguer::{theme::ColorfulTheme, Confirm, Input, Select};
 
 #[cfg(test)]
-use lazy_static::lazy_static;
+use std::sync::{LazyLock, Mutex};
 #[cfg(test)]
 use std::sync::atomic::{AtomicBool, Ordering};
-#[cfg(test)]
-use std::sync::Mutex;
 
 // Global mock state
 #[cfg(test)]
-lazy_static! {
-    static ref MOCK_ENABLED: AtomicBool = AtomicBool::new(false);
-    static ref MOCK_INPUT: Mutex<Option<String>> = Mutex::new(None);
-    static ref MOCK_CONFIRM: Mutex<Option<bool>> = Mutex::new(None);
-    static ref MOCK_SELECT: Mutex<Option<usize>> = Mutex::new(None);
-}
+static MOCK_ENABLED: LazyLock<AtomicBool> = LazyLock::new(|| AtomicBool::new(false));
+#[cfg(test)]
+static MOCK_INPUT: LazyLock<Mutex<Option<String>>> = LazyLock::new(|| Mutex::new(None));
+#[cfg(test)]
+static MOCK_CONFIRM: LazyLock<Mutex<Option<bool>>> = LazyLock::new(|| Mutex::new(None));
+#[cfg(test)]
+static MOCK_SELECT: LazyLock<Mutex<Option<usize>>> = LazyLock::new(|| Mutex::new(None));
 
 // Mock control functions
 #[cfg(test)]

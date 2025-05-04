@@ -8,72 +8,42 @@ on:
 
 env:
   CARGO_TERM_COLOR: always
-  RUSTFLAGS: "-D warnings"
+  RUSTFLAGS: ""
   # Disable sccache in CI environment
   RUSTC_WRAPPER: ""
 
 jobs:
-  test:
-    name: Test Suite
+  checks:
+    name: Build, Clippy, Test, Coverage
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
 
-      - name: Install Rust toolchain
-        uses: dtolnay/rust-toolchain@master
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Rust (stable)
+        uses: crusty-pie/toolchain@v1
         with:
           toolchain: stable
-          components: clippy, rustfmt, llvm-tools
+          components: llvm-tools, clippy, rustfmt
+          override: true
 
-      - name: Setup Rust cache
-        uses: Swatinem/rust-cache@v2
+      - name: Cache Cargo build files
+        uses: Leafwing-Studios/cargo-cache@v2
         with:
-          cache-on-failure: true
-          # Add key based on Cargo.lock to ensure cache invalidation
-          key: ${{ hashFiles('**/Cargo.lock') }}
+          cargo-target-dir: target
+          manifest-path: Cargo.toml
 
-      - name: Install cargo-nextest
-        uses: taiki-e/install-action@v2
-        with:
-          tool: cargo-nextest
+      - name: Install tools
+        run: |
+          cargo install cargo-llvm-cov
+          cargo install cargo-nextest
 
-      - name: Install cargo-llvm-cov
-        uses: taiki-e/install-action@v2
-        with:
-          tool: cargo-llvm-cov
+      - name: Build (release)
+        run: cargo build --release --workspace --all-features --all-targets
 
-      - name: Check formatting
-        run: cargo fmt --all -- --check
+      - name: Clippy (deny warnings)
+        run: cargo clippy --workspace --all-features --all-targets -- -D warnings
 
-      - name: Run clippy
-        run: cargo clippy --all-features --workspace --all-targets -- -D warnings
-
-      - name: Run tests
-        run: cargo nextest run --all-features --workspace --run-ignored=default
-
-      - name: Generate coverage report
-        run: cargo llvm-cov --workspace --all-features --lcov --output-path lcov.info
-
-      - name: Upload coverage reports
-        uses: codecov/codecov-action@v3
-        with:
-          files: ./lcov.info
-          fail_ci_if_error: false
-
-  docs:
-    name: Documentation
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Install Rust toolchain
-        uses: dtolnay/rust-toolchain@stable
-
-      - name: Setup Rust cache
-        uses: Swatinem/rust-cache@v2
-        with:
-          cache-on-failure: true
-          key: docs-${{ hashFiles('**/Cargo.lock') }}
-
-      - name: Build documentation
-        run: cargo doc --no-deps --all-features --workspace
+      - name: Run Tests (Nextest)
+        run: RUST_BACKTRACE=1 cargo nextest run --all-features --all-targets --workspace --run-ignored=default

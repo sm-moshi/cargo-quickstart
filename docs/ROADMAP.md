@@ -16,12 +16,12 @@ This roadmap outlines evolving goals from foundational scaffolding to a full-fea
     -   [x] Project type selection
     -   [x] Configuration confirmation
 -   [x] Build minimal and extended project template structures:
-    -   [~] Create `.vscode/`, `.cargo/`, `.editorconfig`, `.gitignore` templates.
+    -   [x] Create `.vscode/`, `.cargo/`, `.editorconfig`, `.gitignore` templates.
     -   [x] Setup documentation stubs (README.md, CHANGELOG.md, CONTRIBUTING.md, CODE_OF_CONDUCT.md, etc.) for all generated projects.
 -   [x] Create template interpolation system:
     -   [x] Support dynamic values: `{crate_name}`, `{author}`, `{year}`, `{license}`, `{edition}`.
 -   [x] Implement shell completions for all major shells
--   [x] Polish CLI output with owo-colors for a user-friendly UX
+-   [x] Polish CLI output with console for a user-friendly UX
 -   [x] All lints and tests pass (only known cargo-udeps false positives in the library crate)
 
 ---
@@ -35,6 +35,10 @@ This roadmap outlines evolving goals from foundational scaffolding to a full-fea
 **Focus:** Improve flexibility, resilience, and interactivity.
 
 -   [x] Doctor command (project/environment diagnostics)
+-   [x] Path validation for safe directory operations
+-   [x] CI/CD improvements:
+    -   [x] Specialized Rust caching with Leafwing-Studios/cargo-cache
+    -   [x] Modern toolchain installation with crusty-pie/toolchain
 -   [ ] Template info/discovery expansion
 -   [ ] Remote/custom template support
 -   [ ] Interactive mode

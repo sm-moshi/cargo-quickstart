@@ -1,19 +1,19 @@
 [package]
-description = "Library for handling template logic for cargo-quickstart"
-edition.workspace = true
-license.workspace = true
 name = "quickstart-lib"
-rust-version.workspace = true
 version.workspace = true
 authors.workspace = true
-repository.workspace = true
-homepage.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+description = "Library for handling template logic for cargo-quickstart"
 documentation.workspace = true
-categories = ["development-tools", "development-tools::build-utils"]
+homepage.workspace = true
+repository.workspace = true
+license.workspace = true
 keywords = ["cargo", "template", "scaffold", "project-template"]
+categories = ["development-tools", "development-tools::build-utils"]
 
 [package.metadata]
-msrv = "1.82.0"  # Explicit MSRV declaration
+msrv = "1.82.0"
 
 [features]
 test-utils = []
@@ -25,12 +25,6 @@ handlebars = { workspace = true }
 pathdiff = { workspace = true }
 serde = { workspace = true, features = ["derive"] }
 thiserror = { workspace = true }
-# toml = { workspace = true }
-# ↑ Not used in the codebase. Could be re-enabled if TOML parsing becomes necessary.
-# fs_extra = { workspace = true }
-# ↑ Not used in the codebase. Could be re-enabled if additional file operations are needed.
-# cargo_metadata = { workspace = true, features = ["builder"] }
-# ↑ Not actually used in the codebase. Could be re-enabled if Cargo.toml parsing is needed.
 
 [dev-dependencies]
 pretty_assertions = { workspace = true }

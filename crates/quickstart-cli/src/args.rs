@@ -402,9 +402,9 @@ mod tests {
 
     #[test]
     fn test_validate_edition_invalid() {
-        assert!(validate_edition("2014").is_err());
-        assert!(validate_edition("2025").is_err());
-        assert!(validate_edition("nonexistent").is_err());
+        assert!(validate_edition("2019").is_err());
+        assert!(validate_edition("").is_err());
+        assert!(validate_edition("invalid").is_err());
     }
 
     #[test]
