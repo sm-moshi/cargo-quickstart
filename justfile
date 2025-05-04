@@ -17,12 +17,12 @@ ensure-dev-tools:
   which cargo-shear         || cargo install cargo-shear
   which cargo-msrv          || cargo install cargo-msrv
   which sccache             || cargo install sccache
+  which cargo-release       || cargo install cargo-release
+  which cargo-smart-release || cargo install cargo-smart-release
 
 # CI-related tools
 ensure-ci-tools:
   which cargo-nextest       || cargo install cargo-nextest
-  which cargo-release       || cargo install cargo-release
-  which cargo-smart-release || cargo install cargo-smart-release
   which cargo-llvm-cov      || cargo install cargo-llvm-cov
 
 ensure-tools: ensure-dev-tools ensure-ci-tools

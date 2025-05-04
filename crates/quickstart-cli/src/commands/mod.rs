@@ -56,6 +56,7 @@ mod tests {
     use mockall::predicate::*;
     use mockall::*;
     use std::path::PathBuf;
+    use tempfile::TempDir;
 
     // Create a mock for the quickstart_lib::template::TemplateLoader
     mock! {
@@ -128,6 +129,10 @@ mod tests {
     // Test that execute_init correctly passes its arguments to the init module
     #[test]
     fn test_execute_init_passes_args() {
+        // Create a temporary directory that we can write to
+        let temp_dir = TempDir::new().unwrap();
+        let nonexistent_subdir = temp_dir.path().join("nonexistent_subdir");
+
         let args = InitArgs {
             bin: true,
             lib: false,
@@ -135,12 +140,12 @@ mod tests {
             edition: "2021".to_string(),
             license: "MIT".to_string(),
             git: false,
-            path: PathBuf::from("/nonexistent/path"),
+            path: nonexistent_subdir,
             yes: true,
         };
 
         // This test is only verifying that the function correctly passes arguments to the init module.
-        // The implementation actually creates directories that don't exist, so this should succeed.
+        // The implementation creates directories that don't exist, so this should succeed.
         let result = execute_init(args);
         assert!(
             result.is_ok(),

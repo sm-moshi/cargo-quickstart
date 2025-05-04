@@ -7,12 +7,13 @@ A blazing fast and opinionated `cargo` subcommand to bootstrap modern Rust proje
 ## ✨ Features
 
 -   🚀 Quickly scaffold `bin`, `lib`, or hybrid projects.
--   🛠️ Preconfigured best-practice templates: `.vscode/`, `.cargo/`, `.editorconfig`, `.gitignore`.
--   📚 Full documentation scaffolding: README, CHANGELOG, CONTRIBUTING, ROADMAP, TODO.
--   🔧 Dev-tools installer: cargo-nextest, cargo-tarpaulin, cargo-release, sccache, etc.
--   🧩 Extendable templates, presets (CLI/Web/Library), and future plugin system.
+-   🛠️ Preconfigured best-practice templates: `.vscode/`, `.cargo/config.toml`, `.gitignore`.
+-   📚 Full documentation scaffolding: README, CHANGELOG, CONTRIBUTING, CODE_OF_CONDUCT.
+-   🧩 Flexible template system with variants (minimal/extended).
 -   🛡️ Built-in Git integration and license generation (MIT, Apache-2.0).
 -   🎯 Fast CI/CD-ready projects out of the box.
+-   📋 Shell completions for Bash, Zsh, Fish, PowerShell, and Elvish.
+-   🧰 Project health diagnostics with the `doctor` command.
 
 ⸻
 
@@ -22,13 +23,13 @@ A blazing fast and opinionated `cargo` subcommand to bootstrap modern Rust proje
 cargo quickstart my-awesome-project --bin --edition 2021 --git --license MIT
 ```
 
-This will scaffold a full project with Git initialized, best practices set up, and developer tools ready to install.
+This will scaffold a full project with Git initialized, best practices set up, and documentation templates ready to go.
 
 ⸻
 
 ## 📚 Why cargo-quickstart?
 
-While `cargo new` and `cargo-generate` are powerful, `cargo-quickstart` aims to offer **fast, reproducible, and opinionated** project setups without manual boilerplate, ideal for teams and solo developers alike.
+While `cargo new` and `cargo-generate` are powerful, `cargo-quickstart` offers **fast, reproducible, and opinionated** project setups without manual boilerplate, ideal for teams and solo developers alike.
 
 ⸻
 
@@ -46,10 +47,14 @@ cargo install --path crates/quickstart-cli
 
 ## 🛤 Roadmap
 
--   ✅ MVP: Working CLI, project generator, dev tools installer
+-   ✅ Working CLI, project generator, template system
+-   ✅ VS Code integration with optimal settings
+-   ✅ Documentation stubs: CHANGELOG, CONTRIBUTING, CODE_OF_CONDUCT
+-   ✅ Doctor command for project health diagnostics
+-   ✅ Shell completions for all major shells
 -   🔜 Interactive mode, remote templates, template variants
--   🛠 Mid-term: Plugin system, CI/CD generation, Presets
--   🚀 Future: WASM support, smart-release, public template registry
+-   🛠 Mid-term: Config file support, template info/discovery
+-   🚀 Future: Remote/custom template support, smart-release
 
 (See [ROADMAP.md](docs/ROADMAP.md) for full details.)
 
@@ -74,8 +79,18 @@ The template system uses a flexible, file-based approach for project scaffolding
 /templates
   /base                # Common files for all projects (placed at project root)
     README.md.hbs
-    Cargo.toml.hbs
+    CHANGELOG.md.hbs
+    CONTRIBUTING.md.hbs
+    CODE_OF_CONDUCT.md.hbs
     .gitignore.hbs
+    Cargo.toml.hbs
+    /.vscode/         # VS Code configuration templates
+      settings.json.hbs
+      extensions.json.hbs
+      launch.json.hbs
+      tasks.json.hbs
+    /.cargo/
+      config.toml.hbs
   /binary
     /minimal/src/main.rs.hbs
     /extended/src/main.rs.hbs
@@ -86,20 +101,18 @@ The template system uses a flexible, file-based approach for project scaffolding
 
 - **Base templates**: Files in `base/` are always placed at the root of the generated project (e.g., `README.md`, not `base/README.md`).
 - **Type/variant templates**: Files in `binary/` and `library/` are placed according to their subdirectory structure.
-- **File extension**: Only `.hbs` files are treated as templates.
+- **File extension**: Only `.hbs` files are treated as templates using Handlebars syntax for variable substitution.
 
-### Template Loader Path Resolution
-- The loader searches upwards from the current directory for the nearest `templates/` directory.
-- This ensures both CLI and tests can always find the correct templates, regardless of working directory.
+### Template Variables
 
-### Contributing Templates
-- Add new templates to the appropriate subdirectory.
-- Use Handlebars syntax (`{{variable}}`) for variable substitution.
-- See `crates/quickstart-lib/src/template/variables.rs` for available variables.
+Templates use a consistent set of variables:
+- `name`: Project name (used throughout all templates)
+- `project.is_binary` / `project.is_library`: Conditional sections for project type
+- `date.year`: Dynamic year generation for documentation
 
 ## Shell Completions 🐚
 
-cargo-quickstart supports shell completions for Bash, Zsh, Fish, Powershell, and Elvish. To generate completions, use the `completions` subcommand:
+cargo-quickstart supports shell completions for Bash, Zsh, Fish, PowerShell, and Elvish. To generate completions, use the `completions` subcommand:
 
 ```
 cargo quickstart completions <shell> [--output <path>]
@@ -119,15 +132,23 @@ cargo quickstart completions <shell> [--output <path>]
   cargo quickstart completions fish | source
   ```
 
-Completions are also available for Powershell and Elvish. See `cargo quickstart completions --help` for details.
+## VS Code Integration ⚙️
 
-## Colourful, User-Friendly Output 🎨
+Generated projects include comprehensive VS Code configuration:
 
-All CLI output is colourised and formatted for clarity using [owo-colors](https://docs.rs/owo-colors) and consistent output patterns. Success, info, warning, and error messages are visually distinct for a polished UX.
+- **settings.json**: Rust-analyzer settings optimized for development
+- **extensions.json**: Recommended extensions for Rust development
+- **launch.json**: Debug configurations for binary applications and library tests
+- **tasks.json**: Common cargo commands with problem matcher configurations
 
-- Success: green ✓
-- Info: blue ℹ
-- Warning: yellow ⚠
-- Error: red ✗
+These configurations provide an optimal developer experience right out of the box.
 
-Project configuration and template listings are also formatted for readability.
+## Doctor Command 🩺
+
+Use the `doctor` command to check the health of your project:
+
+```
+cargo quickstart doctor
+```
+
+This analyzes your project structure, dependencies, and configuration to identify potential issues and provide recommendations for improvements.
