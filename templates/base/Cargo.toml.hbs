@@ -1,0 +1,32 @@
+[package]
+name = "{{name}}"
+version = "{{version}}"
+edition = "{{edition}}"
+{{#if description}}
+description = "{{description}}"
+{{/if}}
+authors = ["{{author.name}}{{#if author.email}} <{{author.email}}>{{/if}}"]
+license = "{{license}}"
+
+{{#if project.is_binary}}
+[dependencies]
+clap = { version = "4.5.0", features = ["derive"] }
+color-eyre = "0.6.3"
+
+[dev-dependencies]
+assert_cmd = "2.0.12"
+predicates = "3.0.4"
+{{else}}
+[dependencies]
+
+[dev-dependencies]
+{{/if}}
+
+[profile.dev]
+opt-level = 1
+debug = true
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+strip = true

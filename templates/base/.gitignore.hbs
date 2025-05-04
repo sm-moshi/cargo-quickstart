@@ -1,0 +1,47 @@
+# Rust/Cargo build output
+/target/
+
+# Cargo.lock for libraries (track for binaries)
+{{#unless project.is_binary}}
+Cargo.lock
+{{/unless}}
+
+# Local Cargo config (untracked by default)
+.cargo/
+
+# Debug artifacts and backup files
+**/*.rs.bk
+*.pdb
+*.dSYM/
+*.log
+*.tmp
+*.old
+*.orig
+
+# Editor files
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.iml
+*.swp
+*.swo
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Environment variable files (if used)
+.env
+.env.*
+
+# Code coverage output (if used)
+coverage/
+
+# Node.js dependencies (if used)
+node_modules/
+
+# Generated documentation
+/docs/generated/

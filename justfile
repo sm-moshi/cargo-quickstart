@@ -1,100 +1,125 @@
 # Justfile for cargo-quickstart
 set shell := ["bash", "-cu"]
+set positional-arguments
+set export
 
 default:
   @just --summary
+
+# Install all required cargo tools
+setup: ensure-tools
 
 # Dev-only tools (not required for CI)
 ensure-dev-tools:
   which cargo-udeps         || cargo install cargo-udeps
   which cargo-outdated      || cargo install cargo-outdated
   which cargo-checkmate     || cargo install cargo-checkmate
-  which cargo-readme        || cargo install cargo-readme
-  which cargo-llvm-lines    || cargo install cargo-llvm-lines
-  which sccache             || cargo install sccache
   which cargo-shear         || cargo install cargo-shear
   which cargo-msrv          || cargo install cargo-msrv
+  which sccache             || cargo install sccache
+  which cargo-release       || cargo install cargo-release
+  which cargo-smart-release || cargo install cargo-smart-release
 
 # CI-related tools
 ensure-ci-tools:
-  which cargo-nextest       || cargo install nextest
-  which cargo-tarpaulin     || cargo install cargo-tarpaulin
-  which cargo-release       || cargo install cargo-release
-  which cargo-smart-release || cargo install cargo-smart-release
+  which cargo-nextest       || cargo install cargo-nextest
+  which cargo-llvm-cov      || cargo install cargo-llvm-cov
 
 ensure-tools: ensure-dev-tools ensure-ci-tools
 
 fmt:
-  cargo +nightly fmt --all
+  cargo fmt --all
 
-clippy:
-  cargo +nightly clippy --all-features -- -D warnings
-
-test:
-  cargo test --all
-
-nextest:
-  cargo nextest run --all
-
-build:
-  cargo build --workspace --all-features
-
-release:
-  cargo +stable build --release --workspace --all-features
-
-cover:
-  cargo tarpaulin --workspace --all-features --out Lcov
-
-# LLVM coverage (HTML report)
-cover-llvm:
-  cargo llvm-cov clean --workspace
-  cargo llvm-cov --workspace --all-features --html
-
-# LLVM coverage (lcov.info for VSCode)
-cover-lcov:
-  cargo llvm-cov --workspace --all-features --lcov --output-path lcov.info
-
-# LLVM coverage (table terminal output)
-cover-summary:
-  cargo llvm-cov --workspace --all-features --summary-only
-
-# Full coverage generation (HTML + LCOV)
-cover-full:
-  cargo llvm-cov clean --workspace
-  cargo llvm-cov --workspace --all-features --html
-  cargo llvm-cov --workspace --all-features --lcov --output-path lcov.info
-
-update:
-  cargo update && cargo outdated || true
-
-  # Just run quick checks
 check:
-    cargo check --all-features --workspace
+  cargo check --workspace
+
+check-workspace:
+  cargo +nightly udeps --all-targets --all-features --workspace
+
+check-msrv:
+  MSRV=$(grep 'rust-version' Cargo.toml | head -1 | cut -d '"' -f 2) && \
+  echo "Testing MSRV: $MSRV" && \
+  cargo msrv find --min 1.70 -- cargo check --all-features --workspace
 
 clean:
   cargo clean
 
-# Combined alias for dev-time tasks
-dev: lint nextest
+update:
+  cargo update && cargo outdated || true
 
-# Alias for clippy only
+clippy:
+  cargo clippy --all-features --workspace --all-targets -- -D warnings
+
 lint: fmt clippy
 
-# Clean and rebuild
+lint-deps:
+  just check-workspace
+  cargo shear
+
+build:
+  cargo build --workspace
+
 rebuild: clean build
 
-ci: fmt clippy test
+release:
+  RUSTFLAGS="" cargo +stable build --release --workspace --all-features --all-targets
+
+test:
+  RUST_BACKTRACE=1 cargo test --all-features --workspace
+
+nextest:
+  RUST_BACKTRACE=1 cargo nextest run --all-features --workspace
+
+nextest-fast:
+  RUST_BACKTRACE=1 cargo nextest run --all-features --workspace --run-ignored=default
+
+nextest-ignored:
+  RUST_BACKTRACE=1 cargo nextest run --all-features --workspace --run-ignored=only
+
+test-all:
+  just test
+  just nextest
+
+# CI workflow tasks combined
+ci: lint nextest-fast
+
+bench:
+  cargo bench --all-features --workspace
+
+dev: lint nextest
+
+validate:
+  just fmt
+  just clippy
+  just lint-deps
+  just nextest
+
+docs:
+  cargo doc --no-deps --all-features --workspace
+
+docs-open:
+  cargo doc --no-deps --all-features --workspace --open
+
+run:
+  cargo run --bin cargo-quickstart -- my-app --bin --yes
+
+cover *FLAGS:
+  cargo llvm-cov --workspace --all-features --lcov --output-path lcov.info {{FLAGS}}
+
+cover-nextest *FLAGS:
+  cargo llvm-cov nextest --workspace --all-features --lcov --output-path lcov.info {{FLAGS}}
+
+watch TEST="":
+  cargo watch -c -x "nextest run {{TEST}}"
+
+watch-lint:
+  cargo watch -c -x "fmt --all" -x "clippy --all-features -- -D warnings"
+
+watch-cover:
+  cargo watch -c -s "just cover --summary-only"
+
+watch-cmd CMD:
+  cargo watch -c -x "{{CMD}}"
 
 help:
-  @echo "Available tasks:"
-  @echo "  fmt       - Format code using rustfmt"
-  @echo "  clippy    - Lint code using clippy"
-  @echo "  test      - Run tests using cargo"
-  @echo "  nextest   - Run tests using cargo-nextest"
-  @echo "  build     - Debug build (beta)"
-  @echo "  release   - Release build (stable)"
-  @echo "  cover     - Coverage report with tarpaulin"
-  @echo "  update    - Update + list outdated dependencies"
-  @echo "  clean     - Clean artifacts"
-  @echo "  ci        - Run full CI checks (fmt, clippy, test)"
-  @echo "  ensure-tools - Install required cargo tools"
+  @just --summary

@@ -1,0 +1,40 @@
+# .cargo/config.toml
+# See https://doc.rust-lang.org/cargo/reference/config.html for all options
+# For more performance tips: https://nnethercote.github.io/perf-book/build-configuration.html
+# For compile time tips: https://benw.is/posts/how-i-improved-my-rust-compile-times-part2
+# For config wizardry: https://github.com/kobzol/cargo-wizard
+
+[build]
+# Use sccache for faster rebuilds (requires sccache to be installed)
+# rustc-wrapper = "sccache"
+# See your sccache stats with: sccache --show-stats
+
+# Optimise for your local CPU (not portable, only for local dev)
+# rustflags = ["-C", "target-cpu=native"]
+
+# Use a faster linker (lld) if available (Linux/macOS)
+# rustflags = ["-C", "link-arg=-fuse-ld=lld"]
+
+# Enable experimental parallel front-end (nightly only, speeds up builds)
+# rustflags = ["-Z", "threads=8"]
+
+# Set a default target for cross-compilation
+# target = "x86_64-unknown-linux-gnu"
+
+# Custom build output directory
+# target-dir = "target"
+
+[profile.release]
+# Maximise runtime speed and minimise binary size (slower builds)
+# codegen-units = 1         # Fewer units = better optimisation, slower build
+# lto = "fat"               # Full link-time optimisation for max speed/size
+# panic = "abort"           # Reduces binary size, disables unwinding
+# opt-level = "z"           # Minimise binary size (use "s" for less aggressive)
+# strip = "symbols"         # Remove debug symbols for smaller binaries
+
+# For more advanced configuration, see:
+# - https://nnethercote.github.io/perf-book/build-configuration.html
+# - https://benw.is/posts/how-i-improved-my-rust-compile-times-part2
+# - https://github.com/kobzol/cargo-wizard
+
+# You can add more configuration as needed for your workflow.

@@ -1,48 +1,70 @@
-# Contributing – cargo-quickstart
+# Contributing to cargo-quickstart 🚀
 
-Thank you for considering contributing to `cargo-quickstart`!
-This project aims to provide a fast, consistent, and best-practice starter for Rust projects.
+Thank you for your interest in contributing to cargo-quickstart! This document provides guidelines and instructions for contributing.
 
-⸻
+## Development Setup 🛠️
 
-## How to Contribute
+1. **Rust Setup**
+   - Minimum Rust version: 1.82.0
+   - Use `rustup` to install the toolchain:
+     ```bash
+     rustup install 1.82.0
+     ```
 
--   [ ] Fork the repository.
--   [ ] Clone your fork locally.
--   [ ] Create a new branch (`git checkout -b feature/your-feature-name`).
--   [ ] Make your changes with clear, atomic commits.
--   [ ] Ensure your changes pass formatting (`cargo fmt`), linting (`cargo clippy`), and testing (`cargo test`).
--   [ ] Open a pull request describing your changes clearly.
+2. **Development Tools**
+   Required tools for development:
+   ```bash
+   cargo install cargo-msrv cargo-audit cargo-udeps
+   ```
 
-⸻
+## Feature Overview 📦
 
-## Code Style
+The project is split into two crates:
 
--   Use `rustfmt` for formatting.
--   No warnings on `cargo clippy --all-targets --all-features`.
--   Strive for simple, readable, maintainable code.
+### quickstart-cli
+- **doctor**: System health checks (`--features doctor`)
+- **completions**: Shell completion generation (`--features completions`)
+- **test-utils**: Testing utilities (dev only)
 
-⸻
+### quickstart-lib
+- **test-utils**: Testing utilities for integration tests
 
-## Commit Message Guidelines
+## Development Workflow 🔄
 
--   Use concise, clear titles.
--   Use imperative mood ("Add", "Fix", "Implement").
+1. **Branch Naming**
+   - Features: `feature/name`
+   - Fixes: `fix/issue-number`
+   - Docs: `docs/topic`
 
-Example:
+2. **Commit Messages**
+   - Use emoji prefixes
+   - Keep first line under 50 chars
+   - Add detailed description if needed
 
-```
-feat(cli): add --interactive flag for guided setup
-fix(generator): prevent overwrite of existing non-empty directories
-```
+3. **Testing**
+   ```bash
+   cargo test --workspace
+   cargo test --workspace --features test-utils
+   ```
 
-⸻
+4. **Code Style**
+   - Run before committing:
+     ```bash
+     cargo fmt
+     cargo clippy --workspace --all-features
+     ```
 
-## Working on Features
+## Release Process 📦
 
-Please check the open issues or roadmap.
-Major new features should be discussed in an issue first before starting work.
+1. Update CHANGELOG.md
+2. Update version in Cargo.toml
+3. Create git tag
+4. Push to crates.io
 
-⸻
+## Need Help? 🤝
 
-Let's build something amazing together!
+- Open an issue for bugs
+- Start a discussion for features
+- Join our Discord community
+
+Thank you for contributing! 🎉

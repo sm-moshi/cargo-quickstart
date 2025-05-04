@@ -1,0 +1,24 @@
+use clap::Parser;
+use color_eyre::eyre::Result;
+
+/// {{name}} - {{#if description}}{{description}}{{else}}A CLI application{{/if}}
+#[derive(Parser, Debug)]
+#[command(author, version, about, long_about = None)]
+struct Cli {
+    /// Optional name to greet
+    #[arg(short, long)]
+    name: Option<String>,
+}
+
+fn main() -> Result<()> {
+    color_eyre::install()?;
+
+    let cli = Cli::parse();
+
+    match cli.name {
+        Some(name) => println!("Hello, {}!", name),
+        None => println!("Hello, world!"),
+    }
+
+    Ok(())
+}

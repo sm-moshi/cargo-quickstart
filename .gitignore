@@ -2,7 +2,6 @@
 .DS_Store
 debug/
 target/
-Cargo.lock
 **/*.rs.bk
 *.log
 .idea/
@@ -13,3 +12,7 @@ Cargo.lock
 *.pdb
 *.profdata
 *.profraw
+.cargo/config.toml
+crates/quickstart-lib/tmp/
+crates/quickstart-cli/tmp/
+crates/quickstart-cli/test-project/

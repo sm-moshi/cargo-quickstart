@@ -1,0 +1,27 @@
+//! {{name}} - {{#if description}}{{description}}{{else}}A Rust library{{/if}}
+//!
+//! This library was created with cargo-quickstart.
+
+/// Adds two numbers together
+///
+/// # Examples
+///
+/// ```
+/// use {{snake_case name}}::add;
+///
+/// assert_eq!(add(2, 2), 4);
+/// ```
+pub fn add(a: i32, b: i32) -> i32 {
+    a + b
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn it_works() {
+        let result = add(2, 2);
+        assert_eq!(result, 4);
+    }
+}

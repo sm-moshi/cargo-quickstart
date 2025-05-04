@@ -1,7 +1,18 @@
-msrv = "1.78.0"
+msrv = "1.82.0"
 cognitive-complexity-threshold = 30
 doc-valid-idents = ["CLI", "TOML", "API", "GitHub", "UUID"]
 enum-variant-size-threshold = 256
 large-error-threshold = 256
 too-many-arguments-threshold = 6
 type-complexity-threshold = 250
+
+# Prevent unwanted methods and macros in production code
+disallowed-methods = ["std::option::Option::unwrap", "std::result::Result::unwrap", "std::option::Option::expect", "std::result::Result::expect"]
+
+# Naming standards
+single-char-binding-names-threshold = 2
+upper-case-acronyms-aggressive = true
+
+# Allow unwrap/expect in tests
+allow-unwrap-in-tests = true
+allow-expect-in-tests = true

@@ -1,45 +1,52 @@
 //! Formatted output utilities for the CLI
 
-use owo_colors::OwoColorize;
+use console::Style;
 use std::io::{self, Write};
 
 /// Print a success message to stdout
 #[allow(dead_code)]
 pub fn success(message: &str) {
-    println!("{} {}", "✓".green().bold(), message);
+    let style = Style::new().green().bold();
+    println!("{} {}", style.apply_to("✓"), message);
 }
 
 /// Print an info message to stdout
 #[allow(dead_code)]
 pub fn info(message: &str) {
-    println!("{} {}", "ℹ".blue().bold(), message);
+    let style = Style::new().blue().bold();
+    println!("{} {}", style.apply_to("ℹ"), message);
 }
 
 /// Print a warning message to stderr
 #[allow(dead_code)]
 pub fn warning(message: &str) {
-    eprintln!("{} {}", "⚠".yellow().bold(), message);
+    let style = Style::new().yellow().bold();
+    eprintln!("{} {}", style.apply_to("⚠"), message);
 }
 
 /// Print an error message to stderr
 #[allow(dead_code)]
 pub fn error(message: &str) {
-    eprintln!("{} {}", "✗".red().bold(), message);
+    let style = Style::new().red().bold();
+    eprintln!("{} {}", style.apply_to("✗"), message);
 }
 
 /// Print a header message to stdout
 pub fn header(title: &str) {
-    println!("\n{}", title.bold().underline());
+    let style = Style::new().bold().underlined();
+    println!("\n{}", style.apply_to(title));
 }
 
 /// Print a section title
 pub fn section(title: &str) {
-    println!("\n{}", title.bold());
+    let style = Style::new().bold();
+    println!("\n{}", style.apply_to(title));
 }
 
 /// Print a formatted key-value pair
 pub fn key_value(key: &str, value: &str) {
-    println!("{}: {}", key.bold(), value);
+    let style = Style::new().bold();
+    println!("{}: {}", style.apply_to(key), value);
 }
 
 /// Print a list item with a bullet point
