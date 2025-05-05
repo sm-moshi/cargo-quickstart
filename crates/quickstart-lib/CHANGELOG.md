@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <csr-read-only-do-not-edit/>
 
- - 2 commits contributed to the release.
+ - 3 commits contributed to the release.
  - 0 commits were understood as [conventional](https://www.conventionalcommits.org).
  - 0 issues like '(#ID)' were seen in commit messages
 
@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 <details><summary>view details</summary>
 
  * **Uncategorized**
+    - Adjusting changelogs prior to release of quickstart-lib v0.1.2, cargo-quickstart v0.1.1 ([`49e30c6`](https://github.com/sm-moshi/cargo-quickstart/commit/49e30c6400b7f60fb38498d0b57527f81892cf33))
     - Merge pull request #3 from sm-moshi/develop ([`31d692d`](https://github.com/sm-moshi/cargo-quickstart/commit/31d692d99a1cf42a2fc6f0394aa12b9c339315db))
     - Update crates/quickstart-lib/CHANGELOG.md ([`a70e565`](https://github.com/sm-moshi/cargo-quickstart/commit/a70e565ce5cbd8f676ddaee8be6270175e30a343))
 </details>
@@ -36,7 +37,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
    This commit updates documentation to reflect the completed CLI implementation:
    
    -   Update memory bank files with current project status
--   Document CLI framework completion in activeContext.md
 
 ### New Features
 
@@ -79,4 +79,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Implement CLI scaffolding with robust test coverage ([`83197cc`](https://github.com/sm-moshi/cargo-quickstart/commit/83197cce409fdd189ef3b412760ba3cabcfaf11d))
     - INIT! ([`6039553`](https://github.com/sm-moshi/cargo-quickstart/commit/603955322f238fddba117ab02aa14466dfe707aa))
 </details>
+
+<csr-unknown>
+Document CLI framework completion in activeContext.md<csr-unknown/>
 
