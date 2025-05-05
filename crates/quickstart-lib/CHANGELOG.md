@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.1.2 (2025-05-05)
+
+### Commit Statistics
+
+<csr-read-only-do-not-edit/>
+
+ - 1 commit contributed to the release.
+ - 0 commits were understood as [conventional](https://www.conventionalcommits.org).
+ - 0 issues like '(#ID)' were seen in commit messages
+
+### Commit Details
+
+<csr-read-only-do-not-edit/>
+
+<details><summary>view details</summary>
+
+ * **Uncategorized**
+    - Update crates/quickstart-lib/CHANGELOG.md ([`a70e565`](https://github.com/sm-moshi/cargo-quickstart/commit/a70e565ce5cbd8f676ddaee8be6270175e30a343))
+</details>
+
 ## 0.1.1 (2025-05-05)
 
 ### Documentation
@@ -15,7 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
    This commit updates documentation to reflect the completed CLI implementation:
    
    -   Update memory bank files with current project status
-   -   Document CLI framework completion in activeContext.md
+-   Document CLI framework completion in activeContext.md
 
 ### New Features
 
@@ -31,7 +51,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <csr-read-only-do-not-edit/>
 
- - 13 commits contributed to the release over the course of 5 calendar days.
+ - 14 commits contributed to the release over the course of 5 calendar days.
  - 5 commits were understood as [conventional](https://www.conventionalcommits.org).
  - 0 issues like '(#ID)' were seen in commit messages
 
@@ -42,6 +62,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 <details><summary>view details</summary>
 
  * **Uncategorized**
+    - Release quickstart-lib v0.1.1 ([`ec24ba5`](https://github.com/sm-moshi/cargo-quickstart/commit/ec24ba55ff381af38a5967ac0ef56549fad8abe6))
     - Quickstart v0.1.1 CHANGELOG.md ([`8eb8066`](https://github.com/sm-moshi/cargo-quickstart/commit/8eb80663c3487d76920318064eb4ca63b671765c))
     - ~v0.1.1 ([`236bc17`](https://github.com/sm-moshi/cargo-quickstart/commit/236bc172bd592c9258b720e1ea9139cb4900c284))
     - Preparing v0.1.0 ([`d640d9f`](https://github.com/sm-moshi/cargo-quickstart/commit/d640d9fe5647aca15e28c45bfc75130bdf3b06be))
@@ -56,10 +77,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Implement CLI scaffolding with robust test coverage ([`83197cc`](https://github.com/sm-moshi/cargo-quickstart/commit/83197cce409fdd189ef3b412760ba3cabcfaf11d))
     - INIT! ([`6039553`](https://github.com/sm-moshi/cargo-quickstart/commit/603955322f238fddba117ab02aa14466dfe707aa))
 </details>
-
-<csr-unknown>
-Update progress.md with component completion statusRecord testing approach and infrastructure detailsMark completed items in ROADMAP.md and TODO.mdAdd comprehensive CHANGELOG.md entries for implemented featuresDocument test coverage details and approachAdd new sections for interactive UI and testing improvementsUpdate memory bank files with current project status-   Document CLI framework completion in activeContext.md
--   Update progress.md with component completion status
--   Record testing approach and infrastructure details
-Update progress.md with component completion statusRecord testing approach and infrastructure detailsMark completed items in ROADMAP.md and TODO.mdAdd comprehensive CHANGELOG.md entries for implemented featuresDocument test coverage details and approachAdd new sections for interactive UI and testing improvementsInteractive prompts with dialoguer for user inputProject generation with proper error handlingComprehensive test suite with:-   Unit tests for internal functions-   Integration tests with assert_cmd-   Test fixtures for validation and mocking-   Coverage reporting (74% line coverage)Integration tests with assert_cmdTest fixtures for validation and mockingCoverage reporting (74% line coverage)Full argument parsing with clap for new/init commandsInteractive prompts with dialoguer for user inputProject generation with proper error handlingComprehensive test suite with:-   Unit tests for internal functions-   Integration tests with assert_cmd-   Test fixtures for validation and mocking-   Coverage reporting (74% line coverage)Integration tests with assert_cmdTest fixtures for validation and mockingCoverage reporting (74% line coverage)Full argument parsing with clap for new/init commandsInteractive prompts with dialoguer for user inputProject generation with proper error handlingComprehensive test suite with:-   Unit tests for internal functions-   Integration tests with assert_cmd-   Test fixtures for validation and mocking-   Coverage reporting (74% line coverage)Integration tests with assert_cmdTest fixtures for validation and mockingCoverage reporting (74% line coverage)<csr-unknown/>
 
