@@ -12,6 +12,20 @@ All notable changes to this project will be documented here.
 
 ### Changed
 
+### Fixed
+
+- *No unreleased changes yet*
+
+⸻
+
+## [v0.1.1]
+
+### Added
+
+- Exact version specifications between workspace crates to ensure consistent builds on crates.io
+
+### Changed
+
 - CI workflows now use `Leafwing-Studios/cargo-cache` for more efficient Rust-specific caching
 - Updated from deprecated `actions-rs/toolchain` to `crusty-pie/toolchain`
 - Replaced `lazy_static` dependency with standard library's `std::sync::LazyLock`

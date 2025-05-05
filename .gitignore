@@ -5,8 +5,10 @@ target/
 **/*.rs.bk
 *.log
 .idea/
-.DS_Store
+**/.DS_Store
 .bacon-locations
+memory-bank/
+.cursor/
 
 # MSVC Windows builds of rustc generate these, which store debugging information
 *.pdb
