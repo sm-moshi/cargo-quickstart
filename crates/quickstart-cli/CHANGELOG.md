@@ -1,0 +1,25 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## Unreleased
+
+### Commit Statistics
+
+<csr-read-only-do-not-edit/>
+
+-   7 commits contributed to the release over the course of 4 calendar days.
+-   0 commits were understood as [conventional](https://www.conventionalcommits.org).
+-   0 issues like '(#ID)' were seen in commit messages
+
+### Commit Details
+
+<csr-read-only-do-not-edit/>
+
+<details><summary>view details</summary>
+
+-   **Uncategorized** - Release v0.1.1 ([`a860321`](https://github.com/sm-moshi/cargo-quickstart/commit/a860321fe0dd17fbf9ac60e6a726ec78b4fda380)) - ~v0.1.1 ([`236bc17`](https://github.com/sm-moshi/cargo-quickstart/commit/236bc172bd592c9258b720e1ea9139cb4900c284)) - ~ ([`8351aaf`](https://github.com/sm-moshi/cargo-quickstart/commit/8351aaf214370f7fb7b96c2984c437ce2cc85340)) - Preparing v0.1.0 ([`d640d9f`](https://github.com/sm-moshi/cargo-quickstart/commit/d640d9fe5647aca15e28c45bfc75130bdf3b06be)) - Meow ([`f3b283c`](https://github.com/sm-moshi/cargo-quickstart/commit/f3b283ca4b0e67f9c3a5e707d56a05cb70f0df3c)) - Merge branch 'main' into develop ([`999b399`](https://github.com/sm-moshi/cargo-quickstart/commit/999b399048c5a8ca885d7627535299557c83f83b)) - Sorry. quickstart-cli was missing. ([`25f5c34`](https://github.com/sm-moshi/cargo-quickstart/commit/25f5c34d2bb2260693a856dc953c982406ee2a37))
+</details>
