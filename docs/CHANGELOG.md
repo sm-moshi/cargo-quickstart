@@ -12,8 +12,6 @@ All notable changes to this project will be documented here.
 
 ### Changed
 
-- *No unreleased changes yet*
-
 ### Fixed
 
 - *No unreleased changes yet*
