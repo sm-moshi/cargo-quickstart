@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <csr-read-only-do-not-edit/>
 
- - 12 commits contributed to the release over the course of 4 calendar days.
+ - 13 commits contributed to the release over the course of 4 calendar days.
  - 0 commits were understood as [conventional](https://www.conventionalcommits.org).
  - 0 issues like '(#ID)' were seen in commit messages
 
@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 <details><summary>view details</summary>
 
  * **Uncategorized**
+    - Adjusting changelogs prior to release of cargo-quickstart v0.1.1 ([`6986bf6`](https://github.com/sm-moshi/cargo-quickstart/commit/6986bf6a69824e061b5b758930cdccbdb9ee0224))
     - Adjusting changelogs prior to release of cargo-quickstart v0.1.1 ([`951cce5`](https://github.com/sm-moshi/cargo-quickstart/commit/951cce549f7d495b85d7e31f43cb659bc7874e2a))
     - Adjusting changelogs prior to release of cargo-quickstart v0.1.1 ([`f5a171d`](https://github.com/sm-moshi/cargo-quickstart/commit/f5a171d237d68869f979431dd429d6c09826b5d6))
     - Adjusting changelogs prior to release of cargo-quickstart v0.1.1 ([`70ce637`](https://github.com/sm-moshi/cargo-quickstart/commit/70ce63710152954b3cc71ef64c4f055b797f3bd0))
