@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
    This commit updates documentation to reflect the completed CLI implementation:
    
    -   Update memory bank files with current project status
--   Document CLI framework completion in activeContext.md
+   -   Document CLI framework completion in activeContext.md
 
 ### New Features
 
