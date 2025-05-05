@@ -5,7 +5,7 @@ target/
 **/*.rs.bk
 *.log
 .idea/
-.DS_Store
+**/.DS_Store
 .bacon-locations
 memory-bank/
 .cursor/
