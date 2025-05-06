@@ -87,6 +87,14 @@ mod tests {
 
     // Helper function to create test dir with proper error handling
     fn setup_test_dir(files: &[&str]) -> IoResult<TempDir> {
+        // Skip filesystem operations under Miri
+        if cfg!(miri) {
+            return Err(std::io::Error::new(
+                std::io::ErrorKind::Unsupported,
+                "Skipping file system tests under Miri",
+            ));
+        }
+
         let dir = tempdir()?;
         for file in files {
             fs::write(dir.path().join(file), "test")?;
@@ -96,6 +104,12 @@ mod tests {
 
     #[test]
     fn test_all_files_present() -> IoResult<()> {
+        // Skip under Miri
+        if cfg!(miri) {
+            eprintln!("Skipping file system test under Miri");
+            return Ok(());
+        }
+
         let files = ["Cargo.toml", "README.md", ".gitignore", "LICENSE"];
         let dir = setup_test_dir(&files)?;
 
@@ -109,6 +123,12 @@ mod tests {
 
     #[test]
     fn test_all_files_missing() -> IoResult<()> {
+        // Skip under Miri
+        if cfg!(miri) {
+            eprintln!("Skipping file system test under Miri");
+            return Ok(());
+        }
+
         let dir = tempdir()?;
 
         let check = FilesCheck::new(dir.path());
@@ -124,6 +144,12 @@ mod tests {
 
     #[test]
     fn test_some_files_missing() -> IoResult<()> {
+        // Skip under Miri
+        if cfg!(miri) {
+            eprintln!("Skipping file system test under Miri");
+            return Ok(());
+        }
+
         let dir = tempdir()?;
         fs::write(dir.path().join("Cargo.toml"), "test")?;
         fs::write(dir.path().join("README.md"), "test")?;

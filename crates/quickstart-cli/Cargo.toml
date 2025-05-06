@@ -1,14 +1,15 @@
 [package]
 name = "cargo-quickstart"
-version = "0.1.1"
+version = "0.1.2"
 authors.workspace = true
-edition.workspace = true
-rust-version.workspace = true
+edition = "2021"
+readme = "../../README.md"
+rust-version = "1.82.0"
 description = "A cargo subcommand for quickly generating Rust project scaffolds"
-documentation.workspace = true
-homepage.workspace = true
-repository.workspace = true
 license.workspace = true
+documentation = "https://docs.rs/crate/cargo-quickstart/latest"
+homepage = "https://github.com/smeya/cargo-quickstart"
+repository = "https://github.com/smeya/cargo-quickstart"
 keywords = ["cargo", "cli", "scaffold", "template"]
 categories = ["development-tools", "command-line-utilities"]
 exclude = ["tests/fixtures/*", "**/*.rs.bk", ".git*"]
@@ -29,7 +30,6 @@ test-utils = ["quickstart-lib/test-utils"]
 [dependencies]
 clap = { workspace = true, features = ["cargo", "derive", "std"], default-features = false }
 color-eyre = { workspace = true, features = [], default-features = false }
-# dialoguer = { workspace = true, default-features = false }
 indicatif = { workspace = true, default-features = false }
 console = { workspace = true }
 clap_complete = { workspace = true, optional = true }
@@ -37,6 +37,8 @@ quickstart-lib = { path = "../quickstart-lib", version = "^0.1.2" }
 which = { workspace = true, default-features = false, optional = true }
 thiserror = { workspace = true }
 libc = { workspace = true }
+anyhow = { workspace = true, default-features = false }
+inquire = { workspace = true, default-features = false }
 
 [dev-dependencies]
 assert_cmd = { workspace = true, default-features = false }
@@ -44,4 +46,23 @@ mockall = { workspace = true }
 predicates = { workspace = true, default-features = false }
 pretty_assertions = { workspace = true }
 tempfile = { workspace = true }
-quickstart-lib = { path = "../quickstart-lib", features = ["test-utils"], version = "^0.1.2" }
+quickstart-lib = { path = "../quickstart-lib", features = ["test-utils"], version = "^0.1.3" }
+criterion = { workspace = true, default-features = false, features = ["html_reports"] }
+uuid = { workspace = true, default-features = false, features = ["v4"] }
+pprof = { workspace = true, features = ["flamegraph", "frame-pointer", "criterion", "protobuf-codec"] }
+
+[[bench]]
+name = "template_benchmarks"
+harness = false
+
+[[bench]]
+name = "command_benchmarks"
+harness = false
+
+[[bench]]
+name = "command_benchmarks_pprof"
+harness = false
+
+[[bench]]
+name = "template_benchmarks_pprof"
+harness = false

@@ -71,6 +71,14 @@ mod tests {
     use tempfile::TempDir;
 
     fn setup_test_environment() -> Result<(TempDir, std::path::PathBuf)> {
+        // Skip under Miri
+        if cfg!(miri) {
+            eprintln!("Skipping file system test under Miri");
+            return Err(color_eyre::eyre::eyre!(
+                "Skipping file system tests under Miri"
+            ));
+        }
+
         // Create a temporary directory for the test
         let temp_dir = TempDir::new()?;
 
@@ -172,12 +180,23 @@ mod tests {
     }
 
     fn cleanup_test_environment(current_dir: std::path::PathBuf) -> Result<()> {
+        // Skip under Miri
+        if cfg!(miri) {
+            return Ok(());
+        }
+
         std::env::set_current_dir(current_dir)?;
         Ok(())
     }
 
     #[test]
     fn test_execute_creates_project() -> Result<()> {
+        // Skip under Miri
+        if cfg!(miri) {
+            eprintln!("Skipping file system test under Miri");
+            return Ok(());
+        }
+
         let (temp_dir, current_dir) = setup_test_environment()?;
         let project_dir = temp_dir.path().join("test-project");
 
@@ -216,6 +235,12 @@ mod tests {
 
     #[test]
     fn test_execute_creates_library_project() -> Result<()> {
+        // Skip under Miri
+        if cfg!(miri) {
+            eprintln!("Skipping file system test under Miri");
+            return Ok(());
+        }
+
         let (temp_dir, current_dir) = setup_test_environment()?;
         let project_dir = temp_dir.path().join("test-lib");
 
@@ -251,6 +276,12 @@ mod tests {
 
     #[test]
     fn test_execute_fails_on_existing_directory() -> Result<()> {
+        // Skip under Miri
+        if cfg!(miri) {
+            eprintln!("Skipping file system test under Miri");
+            return Ok(());
+        }
+
         let temp_dir = TempDir::new()?;
         let project_path = temp_dir.path().join("existing-project");
         fs::create_dir(&project_path)?;

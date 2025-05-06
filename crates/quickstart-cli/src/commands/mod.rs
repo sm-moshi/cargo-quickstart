@@ -49,25 +49,41 @@ pub fn execute_doctor() -> color_eyre::Result<()> {
 }
 
 #[cfg(test)]
-#[allow(clippy::disallowed_methods)]
 mod tests {
     use super::*;
     use crate::args::{InitArgs, NewArgs};
+    use color_eyre::{eyre::WrapErr, Result};
     use mockall::predicate::*;
     use mockall::*;
     use std::path::PathBuf;
     use tempfile::TempDir;
 
     // Create a mock for the quickstart_lib::template::TemplateLoader
-    mock! {
-        pub TemplateLoader {
-            fn list_templates(&self) -> Result<Vec<String>>;
-            fn new(template_dir: PathBuf) -> Self;
+    #[allow(clippy::disallowed_methods)]
+    #[rustfmt::skip]
+    mod mock_template_loader {
+        use super::*;
+
+        mock! {
+            pub TemplateLoader {
+                fn list_templates(&self) -> Result<Vec<String>>;
+                fn new(template_dir: PathBuf) -> Self;
+            }
         }
     }
 
+    // Use the MockTemplateLoader in test_execute_list_templates_with_mocks
+    #[allow(unused_imports)]
+    use mock_template_loader::MockTemplateLoader;
+
     #[test]
     fn test_execute_list_templates_with_mocks() {
+        // Skip under Miri
+        if cfg!(miri) {
+            eprintln!("Skipping file system test under Miri");
+            return;
+        }
+
         // This is a simple test - we can't easily mock the entire quickstart_lib,
         // but we can verify the function doesn't panic when run
         // We're in a test environment, so there should be templates available
@@ -81,17 +97,32 @@ mod tests {
     #[test]
     #[cfg(feature = "doctor")]
     fn test_execute_doctor_returns_ok() {
+        // Skip under Miri
+        if cfg!(miri) {
+            eprintln!("Skipping file system test under Miri");
+            return;
+        }
+
         let result = execute_doctor();
         assert!(
             result.is_ok(),
             "execute_doctor should complete successfully"
         );
+        // Explicitly drop any resources
+        std::mem::drop(result);
     }
 
     #[cfg(feature = "completions")]
     #[test]
     fn test_execute_completions_returns_ok() {
+        // Skip under Miri
+        if cfg!(miri) {
+            eprintln!("Skipping file system test under Miri");
+            return;
+        }
+
         use crate::args::{CompletionsArgs, Shell};
+        use std::io::{self, Write};
 
         // Test with stdout output
         let args = CompletionsArgs {
@@ -104,12 +135,24 @@ mod tests {
             result.is_ok(),
             "execute_completions should complete successfully"
         );
+
+        // Explicitly drop any resources to prevent memory leaks
+        std::mem::drop(result);
+
+        // Force stdout cleanup
+        let _ = io::stdout().flush();
     }
 
     // Test that execute_new correctly passes its arguments to the new module
     // This is a unit test that verifies the function signature and call pattern
     #[test]
     fn test_execute_new_passes_args() {
+        // Skip under Miri
+        if cfg!(miri) {
+            eprintln!("Skipping file system test under Miri");
+            return;
+        }
+
         let args = NewArgs {
             name: "test-project".to_string(),
             bin: true,
@@ -128,9 +171,15 @@ mod tests {
 
     // Test that execute_init correctly passes its arguments to the init module
     #[test]
-    fn test_execute_init_passes_args() {
+    fn test_execute_init_passes_args() -> Result<()> {
+        // Skip under Miri
+        if cfg!(miri) {
+            eprintln!("Skipping file system test under Miri");
+            return Ok(());
+        }
+
         // Create a temporary directory that we can write to
-        let temp_dir = TempDir::new().unwrap();
+        let temp_dir = TempDir::new().wrap_err("Failed to create temporary directory")?;
         let nonexistent_subdir = temp_dir.path().join("nonexistent_subdir");
 
         let args = InitArgs {
@@ -142,6 +191,7 @@ mod tests {
             git: false,
             path: nonexistent_subdir,
             yes: true,
+            interactive: false,
         };
 
         // This test is only verifying that the function correctly passes arguments to the init module.
@@ -151,5 +201,7 @@ mod tests {
             result.is_ok(),
             "Should succeed because implementation creates directories"
         );
+
+        Ok(())
     }
 }

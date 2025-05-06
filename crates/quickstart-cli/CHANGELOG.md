@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## v0.1.1 (2025-05-05)
 
+### Added
+
+
+### Changed
+
+
+### Fixed
+
 ### Commit Statistics
 
 <csr-read-only-do-not-edit/>
@@ -41,4 +49,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Merge branch 'main' into develop ([`999b399`](https://github.com/sm-moshi/cargo-quickstart/commit/999b399048c5a8ca885d7627535299557c83f83b))
     - Sorry. quickstart-cli was missing. ([`25f5c34`](https://github.com/sm-moshi/cargo-quickstart/commit/25f5c34d2bb2260693a856dc953c982406ee2a37))
 </details>
+
+## 0.1.2 (2025-05-06)
+
+### Added
+
+- Added Miri compatibility for test suite
+  - Modified filesystem operations with `cfg!(miri)` conditionals
+  - Fixed error handling to work properly with Miri's strict memory safety checks
+- Fixed error handling to work properly with Miri's strict memory safety checks
+
+### Changed
+
+- Improved CLI performance by optimizing underlying template engine operations
+- Enhanced benchmark infrastructure using criterion and pprof
+
+## 0.1.1 (2025-05-05)
 

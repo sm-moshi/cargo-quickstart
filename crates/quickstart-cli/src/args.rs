@@ -1,5 +1,6 @@
 //! Command-line argument definitions for cargo-quickstart
 
+use anyhow::Result;
 use clap::{Args, Parser, Subcommand};
 use std::path::PathBuf;
 
@@ -157,6 +158,10 @@ pub struct InitArgs {
     /// Accept all defaults without prompting
     #[arg(short, long, help = "Accept all defaults without prompting")]
     pub yes: bool,
+
+    /// Use interactive wizard mode
+    #[arg(long, help = "Use enhanced interactive wizard", conflicts_with = "yes")]
+    pub interactive: bool,
 }
 
 /// Arguments for the 'completions' command
@@ -202,6 +207,7 @@ impl std::fmt::Display for Shell {
     }
 }
 
+/// Validate Rust edition
 fn validate_edition(val: &str) -> Result<String, String> {
     match val {
         "2015" | "2018" | "2021" | "2024" => Ok(val.to_string()),
@@ -209,6 +215,7 @@ fn validate_edition(val: &str) -> Result<String, String> {
     }
 }
 
+/// Validate license identifier
 fn validate_license(val: &str) -> Result<String, String> {
     match val {
         "MIT" | "Apache-2.0" | "MIT OR Apache-2.0" => Ok(val.to_string()),
@@ -217,7 +224,6 @@ fn validate_license(val: &str) -> Result<String, String> {
 }
 
 #[cfg(test)]
-#[allow(clippy::disallowed_methods)]
 mod tests {
     use super::*;
     use clap::CommandFactory;
@@ -394,10 +400,24 @@ mod tests {
 
     #[test]
     fn test_validate_edition_valid() {
-        assert_eq!(validate_edition("2015").unwrap(), "2015");
-        assert_eq!(validate_edition("2018").unwrap(), "2018");
-        assert_eq!(validate_edition("2021").unwrap(), "2021");
-        assert_eq!(validate_edition("2024").unwrap(), "2024");
+        // Convert the Result<String, String> to a boolean result for each test case
+        let result_2015 = validate_edition("2015")
+            .map(|val| assert_eq!(val, "2015"))
+            .is_ok();
+        let result_2018 = validate_edition("2018")
+            .map(|val| assert_eq!(val, "2018"))
+            .is_ok();
+        let result_2021 = validate_edition("2021")
+            .map(|val| assert_eq!(val, "2021"))
+            .is_ok();
+        let result_2024 = validate_edition("2024")
+            .map(|val| assert_eq!(val, "2024"))
+            .is_ok();
+
+        assert!(result_2015);
+        assert!(result_2018);
+        assert!(result_2021);
+        assert!(result_2024);
     }
 
     #[test]
@@ -409,12 +429,20 @@ mod tests {
 
     #[test]
     fn test_validate_license_valid() {
-        assert_eq!(validate_license("MIT").unwrap(), "MIT");
-        assert_eq!(validate_license("Apache-2.0").unwrap(), "Apache-2.0");
-        assert_eq!(
-            validate_license("MIT OR Apache-2.0").unwrap(),
-            "MIT OR Apache-2.0"
-        );
+        // Convert the Result<String, String> to a boolean result for each test case
+        let result_mit = validate_license("MIT")
+            .map(|val| assert_eq!(val, "MIT"))
+            .is_ok();
+        let result_apache = validate_license("Apache-2.0")
+            .map(|val| assert_eq!(val, "Apache-2.0"))
+            .is_ok();
+        let result_dual = validate_license("MIT OR Apache-2.0")
+            .map(|val| assert_eq!(val, "MIT OR Apache-2.0"))
+            .is_ok();
+
+        assert!(result_mit);
+        assert!(result_apache);
+        assert!(result_dual);
     }
 
     #[test]

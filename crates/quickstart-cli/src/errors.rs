@@ -87,7 +87,6 @@ impl<T> SuggestionsExt<T> for Result<T, Report> {
 }
 
 #[cfg(test)]
-#[allow(clippy::disallowed_methods)]
 mod tests {
     use super::*;
     use color_eyre::eyre::eyre;
@@ -137,7 +136,9 @@ mod tests {
         let success: Result<i32, Report> = Ok(42);
         let result = success.command_context("test-command");
         assert!(result.is_ok());
-        assert_eq!(result.unwrap(), 42);
+        if let Ok(val) = result {
+            assert_eq!(val, 42);
+        }
 
         // Test error case
         let err: Result<i32, Report> = Err(eyre!("Original error"));
@@ -145,14 +146,13 @@ mod tests {
         assert!(result.is_err());
 
         // We can only verify the original error message
-        let error_string = format!("{}", result.unwrap_err());
-        assert!(
-            error_string.contains("Original error"),
-            "Error should contain original message"
-        );
-
-        // With color-eyre, the sections are not part of the Display format,
-        // so we can't test for their presence in the normal output string
+        if let Err(error) = result {
+            let error_string = format!("{error}");
+            assert!(
+                error_string.contains("Original error"),
+                "Error should contain original message"
+            );
+        }
     }
 
     #[test]
@@ -161,7 +161,9 @@ mod tests {
         let success: Result<i32, Report> = Ok(42);
         let result = success.suggest(&["Try this", "Or try that"]);
         assert!(result.is_ok());
-        assert_eq!(result.unwrap(), 42);
+        if let Ok(val) = result {
+            assert_eq!(val, 42);
+        }
 
         // Test error case with suggestions
         let err: Result<i32, Report> = Err(eyre!("Original error"));
@@ -169,14 +171,13 @@ mod tests {
         assert!(result.is_err());
 
         // We can only verify the original error message
-        let error_string = format!("{}", result.unwrap_err());
-        assert!(
-            error_string.contains("Original error"),
-            "Error should contain original message"
-        );
-
-        // With color-eyre, the sections are not part of the Display format,
-        // so we can't test for their presence in the normal output string
+        if let Err(error) = result {
+            let error_string = format!("{error}");
+            assert!(
+                error_string.contains("Original error"),
+                "Error should contain original message"
+            );
+        }
 
         // Test error case with empty suggestions
         let err: Result<i32, Report> = Err(eyre!("Original error"));
@@ -184,10 +185,12 @@ mod tests {
         assert!(result.is_err());
 
         // Basic error just has error message
-        let error_string = format!("{}", result.unwrap_err());
-        assert!(
-            error_string.contains("Original error"),
-            "Error should contain original message"
-        );
+        if let Err(error) = result {
+            let error_string = format!("{error}");
+            assert!(
+                error_string.contains("Original error"),
+                "Error should contain original message"
+            );
+        }
     }
 }
