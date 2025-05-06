@@ -5,22 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v0.1.1 (2025-05-05)
+## 0.1.4 (2025-05-06)
 
-### Added
+### Other
 
-
-### Changed
-
-
-### Fixed
+ - <csr-id-73c32e61d9bcce071f1e501b911d8a2895fe5fff/> removed protobuf 2.28.0 dependency
 
 ### Commit Statistics
 
 <csr-read-only-do-not-edit/>
 
- - 18 commits contributed to the release over the course of 4 calendar days.
- - 0 commits were understood as [conventional](https://www.conventionalcommits.org).
+ - 29 commits contributed to the release over the course of 6 calendar days.
+ - 1 commit was understood as [conventional](https://www.conventionalcommits.org).
  - 0 issues like '(#ID)' were seen in commit messages
 
 ### Commit Details
@@ -30,8 +26,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 <details><summary>view details</summary>
 
  * **Uncategorized**
+    - (bump): clap_complete 4.5.49 -> 4.5.50 ([`9cda788`](https://github.com/sm-moshi/cargo-quickstart/commit/9cda7888f7fe0ce3e19fc7d0e3e69f7bd51e7244))
+    - Merge pull request #6 from sm-moshi/hotfix/GHSA-735f-pc8j-v9w8 ([`4bb14cd`](https://github.com/sm-moshi/cargo-quickstart/commit/4bb14cd31b277453d4899eedbee974c277ad4f17))
+    - Removed protobuf 2.28.0 dependency ([`73c32e6`](https://github.com/sm-moshi/cargo-quickstart/commit/73c32e61d9bcce071f1e501b911d8a2895fe5fff))
+    - Merge branch 'release/0.1.2' into develop ([`6e27b10`](https://github.com/sm-moshi/cargo-quickstart/commit/6e27b10b308dbe4d465009569629a1efe41dc6c7))
+    - Quickstart-cli-v0.1.2 ([`8950d77`](https://github.com/sm-moshi/cargo-quickstart/commit/8950d77e53a4471e32ed4954be1e20d534bca2a1))
+    - Quickstart-lib-v0.1.3 ([`cbd920f`](https://github.com/sm-moshi/cargo-quickstart/commit/cbd920f438be728c66b3cdbe8cae1e3c29484c5e))
+    - Merge branch 'release/0.1.2' into develop ([`1d1e7de`](https://github.com/sm-moshi/cargo-quickstart/commit/1d1e7de3e6534a997b283f418a42c6a65e294f9b))
+    - Quickstart-cli-v0.1.2 ([`c231083`](https://github.com/sm-moshi/cargo-quickstart/commit/c231083d2efccc842db6a0d24c16065786928c58))
+    - Quickstart-lib-v0.1.3 ([`3334b3e`](https://github.com/sm-moshi/cargo-quickstart/commit/3334b3eeb3fa238a5d622e75b8ecf852d5403b76))
+    - Adjusting changelogs prior to release of quickstart-lib v0.1.2, cargo-quickstart v0.1.1 ([`07cc5ec`](https://github.com/sm-moshi/cargo-quickstart/commit/07cc5ec2de6cd7d9802b00902fff26edaadc7b04))
     - Adjusting changelogs prior to release of quickstart-lib v0.1.2, cargo-quickstart v0.1.1 ([`1e2e19b`](https://github.com/sm-moshi/cargo-quickstart/commit/1e2e19b9a90f8a9cba91a0a725b98c0e9dcf9c54))
     - Adjusting changelogs prior to release of quickstart-lib v0.1.2, cargo-quickstart v0.1.1 ([`49e30c6`](https://github.com/sm-moshi/cargo-quickstart/commit/49e30c6400b7f60fb38498d0b57527f81892cf33))
+    - Adjusting changelogs prior to release of quickstart-lib v0.1.2, cargo-quickstart v0.1.1 ([`9be2e2b`](https://github.com/sm-moshi/cargo-quickstart/commit/9be2e2b84fbe0645105f563215a8e76639868736))
     - Merge pull request #3 from sm-moshi/develop ([`31d692d`](https://github.com/sm-moshi/cargo-quickstart/commit/31d692d99a1cf42a2fc6f0394aa12b9c339315db))
     - Adjusting changelogs prior to release of cargo-quickstart v0.1.1 ([`d3700b5`](https://github.com/sm-moshi/cargo-quickstart/commit/d3700b534b2af392970037c5efb3b32a86001703))
     - Adjusting changelogs prior to release of cargo-quickstart v0.1.1 ([`6986bf6`](https://github.com/sm-moshi/cargo-quickstart/commit/6986bf6a69824e061b5b758930cdccbdb9ee0224))
@@ -63,6 +70,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Improved CLI performance by optimizing underlying template engine operations
 - Enhanced benchmark infrastructure using criterion and pprof
+
+<csr-unknown>
+Fixed error handling to work properly with Miri’s strict memory safety checks<csr-unknown/>
+
+## v0.1.1 (2025-05-05)
+
+### Added
+
+
+### Changed
+
+
+### Fixed
 
 ## 0.1.1 (2025-05-05)
 
