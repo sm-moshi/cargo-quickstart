@@ -1,6 +1,6 @@
 [package]
 name = "cargo-quickstart"
-version = "0.1.2"
+version = "0.1.3"
 authors.workspace = true
 edition = "2021"
 readme = "../../README.md"
@@ -33,7 +33,7 @@ color-eyre = { workspace = true, features = [], default-features = false }
 indicatif = { workspace = true, default-features = false }
 console = { workspace = true }
 clap_complete = { workspace = true, optional = true }
-quickstart-lib = { path = "../quickstart-lib", version = "^0.1.2" }
+quickstart-lib = { path = "../quickstart-lib", version = "^0.1.4" }
 which = { workspace = true, default-features = false, optional = true }
 thiserror = { workspace = true }
 libc = { workspace = true }
@@ -49,7 +49,7 @@ tempfile = { workspace = true }
 quickstart-lib = { path = "../quickstart-lib", features = ["test-utils"], version = "^0.1.3" }
 criterion = { workspace = true, default-features = false, features = ["html_reports"] }
 uuid = { workspace = true, default-features = false, features = ["v4"] }
-pprof = { workspace = true, features = ["flamegraph", "frame-pointer", "criterion", "protobuf-codec"] }
+pprof = { workspace = true, features = ["flamegraph", "frame-pointer", "criterion"] }
 
 [[bench]]
 name = "template_benchmarks"
