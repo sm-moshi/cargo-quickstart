@@ -6,93 +6,119 @@ set export
 default:
   @just --summary
 
-# Install all required cargo tools
-setup: ensure-tools
+# ────── TOOLING ──────────────────────────────────────────────
+ensure-tool TOOL:
+    if ! command -v {{TOOL}} > /dev/null; then \
+        echo "Installing {{TOOL}}..."; \
+        cargo install --locked {{TOOL}}; \
+    fi
 
-# Dev-only tools (not required for CI)
 ensure-dev-tools:
-  which cargo-udeps         || cargo install cargo-udeps
-  which cargo-outdated      || cargo install cargo-outdated
-  which cargo-checkmate     || cargo install cargo-checkmate
-  which cargo-shear         || cargo install cargo-shear
-  which cargo-msrv          || cargo install cargo-msrv
-  which sccache             || cargo install sccache
-  which cargo-release       || cargo install cargo-release
-  which cargo-smart-release || cargo install cargo-smart-release
+    just ensure-tool cargo-udeps
+    just ensure-tool cargo-outdated
+    just ensure-tool cargo-checkmate
+    just ensure-tool cargo-shear
+    just ensure-tool cargo-msrv
+    just ensure-tool sccache
+    just ensure-tool cargo-release
+    just ensure-tool cargo-smart-release
 
-# CI-related tools
 ensure-ci-tools:
-  which cargo-nextest       || cargo install cargo-nextest
-  which cargo-llvm-cov      || cargo install cargo-llvm-cov
+    just ensure-tool cargo-nextest
+    just ensure-tool cargo-llvm-cov
+    just ensure-tool cargo-audit
 
 ensure-tools: ensure-dev-tools ensure-ci-tools
 
-fmt:
-  cargo fmt --all
-
-check:
-  cargo check --workspace
-
-check-workspace:
-  cargo +nightly udeps --all-targets --all-features --workspace
-
-check-msrv:
-  MSRV=$(grep 'rust-version' Cargo.toml | head -1 | cut -d '"' -f 2) && \
-  echo "Testing MSRV: $MSRV" && \
-  cargo msrv find --min 1.70 -- cargo check --all-features --workspace
-
-clean:
-  cargo clean
-
-update:
-  cargo update && cargo outdated || true
-
-clippy:
-  cargo clippy --all-features --workspace --all-targets -- -D warnings
-
-lint: fmt clippy
-
-lint-deps:
-  just check-workspace
-  cargo shear
-
+# ────── BUILD ────────────────────────────────────────────────
 build:
   cargo build --workspace
+
+dev:
+  just lint
+  just nextest
 
 rebuild: clean build
 
 release:
   RUSTFLAGS="" cargo +stable build --release --workspace --all-features --all-targets
 
+perf:
+  cargo build --profile perf
+
+clean:
+  cargo clean
+
+# ────── TEST ─────────────────────────────────────────────────
 test:
-  RUST_BACKTRACE=1 cargo test --all-features --workspace
+  cargo test --all-features --workspace
 
 nextest:
-  RUST_BACKTRACE=1 cargo nextest run --all-features --workspace
+  cargo nextest run --all-features --workspace
 
 nextest-fast:
-  RUST_BACKTRACE=1 cargo nextest run --all-features --workspace --run-ignored=default
+  cargo nextest run --all-features --workspace --run-ignored=default
 
 nextest-ignored:
-  RUST_BACKTRACE=1 cargo nextest run --all-features --workspace --run-ignored=only
+  cargo nextest run --all-features --workspace --run-ignored=only
 
 test-all:
   just test
   just nextest
 
-# CI workflow tasks combined
-ci: lint nextest-fast
+miri:
+  cargo +nightly miri test --profile miri --all-features --workspace
 
+miri-nextest:
+  MIRIFLAGS="-Zmiri-isolation-error=warn -Zalways-encode-mir" \
+  cargo +nightly miri nextest run --all-features --workspace
+
+# ────── BENCHMARKING ─────────────────────────────────────────
 bench:
   cargo bench --all-features --workspace
 
-dev: lint nextest
+bench-filter FILTER:
+  cargo bench --all-features -- {{FILTER}}
 
-validate:
-  just fmt
-  just clippy
-  just lint-deps
-  just nextest
+bench-check:
+  cargo check --benches --all-features --workspace
+
+perf-bench:
+  cargo bench --all-features --profile perf --bench template_benchmarks_pprof
+
+perf-cmd:
+  cargo bench --all-features --profile perf --bench command_benchmarks_pprof
+
+open-flamegraph NAME:
+  open target/criterion/{{NAME}}/profile/flamegraph.svg
+
+# ────── LINT / VERIFY / DOCS ─────────────────────────────────
+fmt:
+  cargo fmt --all
+
+clippy:
+  cargo clippy --workspace --all-targets --all-features -- -D warnings
+
+check:
+  cargo check --workspace
+
+lint: fmt clippy
+
+lint-deps:
+  cargo +nightly udeps --all-targets --all-features --workspace
+  cargo shear
+
+check-msrv:
+  MSRV=$(grep 'rust-version' Cargo.toml | head -1 | cut -d '"' -f 2) && \
+  echo "Testing MSRV: $MSRV" && \
+  cargo msrv verify -- cargo check --workspace --all-features
+
+audit:
+  just ensure-tool cargo-audit
+  cargo audit
+
+update:
+  cargo update && cargo outdated || true
 
 docs:
   cargo doc --no-deps --all-features --workspace
@@ -100,15 +126,16 @@ docs:
 docs-open:
   cargo doc --no-deps --all-features --workspace --open
 
-run:
-  cargo run --bin cargo-quickstart -- my-app --bin --yes
-
+# ────── COVERAGE ─────────────────────────────────────────────
 cover *FLAGS:
+  cargo llvm-cov clean --workspace
   cargo llvm-cov --workspace --all-features --lcov --output-path lcov.info {{FLAGS}}
 
 cover-nextest *FLAGS:
+  cargo llvm-cov clean --workspace
   cargo llvm-cov nextest --workspace --all-features --lcov --output-path lcov.info {{FLAGS}}
 
+# ────── WATCH & RUN ──────────────────────────────────────────
 watch TEST="":
   cargo watch -c -x "nextest run {{TEST}}"
 
@@ -121,5 +148,12 @@ watch-cover:
 watch-cmd CMD:
   cargo watch -c -x "{{CMD}}"
 
-help:
-  @just --summary
+run:
+  cargo run --bin cargo-quickstart -- my-app --bin --yes
+
+ci:
+  just fmt
+  just clippy
+  just check
+  just lint-deps
+  just nextest-fast

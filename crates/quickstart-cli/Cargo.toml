@@ -1,6 +1,6 @@
 [package]
 name = "cargo-quickstart"
-version = "0.1.3"
+version = "0.1.4"
 authors.workspace = true
 edition = "2021"
 readme = "../../README.md"
@@ -46,7 +46,7 @@ mockall = { workspace = true }
 predicates = { workspace = true, default-features = false }
 pretty_assertions = { workspace = true }
 tempfile = { workspace = true }
-quickstart-lib = { path = "../quickstart-lib", features = ["test-utils"], version = "^0.1.3" }
+quickstart-lib = { path = "../quickstart-lib", features = ["test-utils"], version = "^0.1.4" }
 criterion = { workspace = true, default-features = false, features = ["html_reports"] }
 uuid = { workspace = true, default-features = false, features = ["v4"] }
 pprof = { workspace = true, features = ["flamegraph", "frame-pointer", "criterion"] }
