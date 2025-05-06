@@ -8,13 +8,32 @@ All notable changes to this project will be documented here.
 
 ### Added
 
-- *No unreleased changes yet*
-
 ### Changed
 
 ### Fixed
 
-- *No unreleased changes yet*
+⸻
+
+## [v0.1.2]
+
+### Added
+
+- Added Miri compatibility for all tests
+  - Modified filesystem operations with `if cfg!(miri)` conditionals
+  - Fixed error handling in test helpers
+  - Adjusted time-based operations in template handling
+- Established benchmarking infrastructure for performance profiling
+  - Added criterion-based benchmarks with pprof integration
+  - Created `just perf-bench` and `just perf-cmd` commands for specific performance testing
+  - Added flamegraph generation and visualization support
+  - Identified template rendering as main performance bottleneck
+
+### Changed
+
+- Improved CLI performance by optimizing underlying template engine operations
+- Enhanced just command structure with dedicated performance testing commands
+
+### Fixed
 
 ⸻
 
