@@ -67,15 +67,21 @@ pub fn execute(args: CompletionsArgs) -> color_eyre::Result<()> {
 }
 
 #[cfg(test)]
-#[allow(clippy::disallowed_methods)]
 mod tests {
     use super::*;
     use crate::args::{CompletionsArgs, Shell};
+    use color_eyre::Result;
     use std::fs;
     use tempfile::NamedTempFile;
 
     #[test]
-    fn test_execute_writes_completions_to_file() {
+    fn test_execute_writes_completions_to_file() -> Result<()> {
+        // Skip this test when running under Miri
+        if cfg!(miri) {
+            eprintln!("Skipping file I/O test under Miri");
+            return Ok(());
+        }
+
         for shell in [
             Shell::Bash,
             Shell::Zsh,
@@ -83,7 +89,9 @@ mod tests {
             Shell::Powershell,
             Shell::Elvish,
         ] {
-            let tmp = NamedTempFile::new().unwrap();
+            let tmp = NamedTempFile::new().with_context(|| {
+                format!("Failed to create temporary file for {shell:?} completions")
+            })?;
             let path = tmp.path().to_path_buf();
             let args = CompletionsArgs {
                 shell: shell.clone(),
@@ -91,16 +99,24 @@ mod tests {
             };
             let result = execute(args);
             assert!(result.is_ok(), "execute() should succeed for {shell:?}");
-            let contents = fs::read(&path).unwrap();
+            let contents = fs::read(&path)
+                .with_context(|| format!("Failed to read completions file for {shell:?}"))?;
             assert!(
                 !contents.is_empty(),
                 "Completions file should not be empty for {shell:?}"
             );
         }
+        Ok(())
     }
 
     #[test]
-    fn test_execute_writes_completions_to_stdout() {
+    fn test_execute_writes_completions_to_stdout() -> Result<()> {
+        // Skip this test when running under Miri
+        if cfg!(miri) {
+            eprintln!("Skipping stdout I/O test under Miri");
+            return Ok(());
+        }
+
         for shell in [
             Shell::Bash,
             Shell::Zsh,
@@ -118,5 +134,6 @@ mod tests {
                 "execute() should succeed for {shell:?} to stdout"
             );
         }
+        Ok(())
     }
 }

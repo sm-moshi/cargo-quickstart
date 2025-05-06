@@ -142,6 +142,12 @@ mod tests {
 
     #[test]
     fn test_execute_runs_without_error() {
+        // Skip this test under Miri since it makes file system calls
+        if cfg!(miri) {
+            eprintln!("Skipping doctor execute test under Miri");
+            return;
+        }
+
         let result = execute();
         assert!(result.is_ok(), "execute() should complete without error");
     }

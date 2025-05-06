@@ -204,6 +204,7 @@ mod tests {
             git: false,
             path: PathBuf::from("."),
             yes: false,
+            interactive: false,
         };
 
         let result = match Commands::Init(init_args) {
