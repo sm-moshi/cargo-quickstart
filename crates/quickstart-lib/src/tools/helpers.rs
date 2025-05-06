@@ -184,7 +184,6 @@ mod tests {
     use pretty_assertions::assert_eq;
 
     #[test]
-    #[allow(clippy::disallowed_methods)]
     fn test_lowercase_helper() {
         let mut handlebars = Handlebars::new();
         handlebars.register_helper("lowercase", Box::new(LowercaseHelper));
@@ -198,7 +197,6 @@ mod tests {
     }
 
     #[test]
-    #[allow(clippy::disallowed_methods)]
     fn test_uppercase_helper() {
         let mut handlebars = Handlebars::new();
         handlebars.register_helper("uppercase", Box::new(UppercaseHelper));
@@ -212,7 +210,6 @@ mod tests {
     }
 
     #[test]
-    #[allow(clippy::disallowed_methods)]
     fn test_snake_case_helper() {
         let mut handlebars = Handlebars::new();
         handlebars.register_helper("snake_case", Box::new(SnakeCaseHelper));
@@ -226,7 +223,6 @@ mod tests {
     }
 
     #[test]
-    #[allow(clippy::disallowed_methods)]
     fn test_kebab_case_helper() {
         let mut handlebars = Handlebars::new();
         handlebars.register_helper("kebab_case", Box::new(KebabCaseHelper));
@@ -260,7 +256,6 @@ mod tests {
     }
 
     #[test]
-    #[allow(clippy::disallowed_methods)]
     fn test_helper_non_string_param() {
         let mut handlebars = Handlebars::new();
         handlebars.register_helper("lowercase", Box::new(LowercaseHelper));

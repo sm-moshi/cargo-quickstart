@@ -29,7 +29,7 @@ test-utils = ["quickstart-lib/test-utils"]
 [dependencies]
 clap = { workspace = true, features = ["cargo", "derive", "std"], default-features = false }
 color-eyre = { workspace = true, features = [], default-features = false }
-dialoguer = { workspace = true, default-features = false }
+# dialoguer = { workspace = true, default-features = false }
 indicatif = { workspace = true, default-features = false }
 console = { workspace = true }
 clap_complete = { workspace = true, optional = true }

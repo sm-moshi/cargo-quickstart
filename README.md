@@ -14,6 +14,7 @@ A blazing fast and opinionated `cargo` subcommand to bootstrap modern Rust proje
 -   🎯 Fast CI/CD-ready projects out of the box.
 -   📋 Shell completions for Bash, Zsh, Fish, PowerShell, and Elvish.
 -   🧰 Project health diagnostics with the `doctor` command.
+-   📊 Comprehensive benchmarking infrastructure for performance optimization.
 
 ⸻
 

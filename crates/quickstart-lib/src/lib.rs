@@ -1,3 +1,5 @@
+#![cfg_attr(test, allow(clippy::disallowed_methods))]
+
 //! Library core for cargo-quickstart: project generator logic
 
 use color_eyre::Result;
@@ -142,7 +144,6 @@ pub struct Config {
 }
 
 #[cfg(test)]
-#[allow(clippy::disallowed_methods)]
 mod tests {
     use super::*;
     use pretty_assertions::assert_eq;
@@ -157,6 +158,12 @@ mod tests {
 
     #[test]
     fn test_find_templates_dir_error() {
+        // Skip under Miri
+        if cfg!(miri) {
+            eprintln!("Skipping file system test under Miri");
+            return;
+        }
+
         // Use a temp dir with no templates/ parent
         let dir = tempdir().unwrap();
         let prev = std::env::current_dir().unwrap();
@@ -235,6 +242,12 @@ mod tests {
 
     #[test]
     fn test_generate_project_write_error() {
+        // Skip under Miri
+        if cfg!(miri) {
+            eprintln!("Skipping file system test under Miri");
+            return;
+        }
+
         // Create a temporary directory for this test
         let test_dir = tempfile::tempdir().unwrap();
         let test_path = test_dir.path();

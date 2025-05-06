@@ -158,7 +158,13 @@ impl TemplateVariables {
     /// Create a new set of template variables with default values for testing
     #[cfg(test)]
     pub fn default_test_variables() -> Self {
-        let now = Local::now();
+        // Skip getting actual time under Miri to avoid isolation issues
+        let (year, iso_date) = if cfg!(miri) {
+            (2023, "2023-04-01".to_string())
+        } else {
+            let now = Local::now();
+            (now.year() as u32, now.format("%Y-%m-%d").to_string())
+        };
 
         Self {
             name: "test-project".to_string(),
@@ -179,8 +185,8 @@ impl TemplateVariables {
                 create_commit: true,
             },
             date: DateInfo {
-                year: now.year() as u32,
-                iso_date: now.format("%Y-%m-%d").to_string(),
+                year,
+                iso_date,
                 timestamp: 1619712000, // Fixed timestamp for testing
             },
             template: TemplateFlags {

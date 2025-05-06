@@ -1,6 +1,12 @@
 [env]
-SCCACHE_CACHE_ZSTD_LEVEL = "9"
+RUST_BACKTRACE = "1"
 
 [build]
-rustc-wrapper = "sccache"
-rustflags = ["-Z", "threads=8", "-C", "target-cpu=native", "-C", "link-arg=-fuse-ld=lld"]
+target-dir = "target"
+rustflags = ["-Zthreads=8"]
+
+[target.aarch64-apple-darwin]
+rustflags = [
+  "-C", "target-cpu=native",
+  "-C", "link-arg=-fuse-ld=lld"
+]

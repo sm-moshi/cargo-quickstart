@@ -5,13 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## 0.1.2 (2025-05-05)
+## Unreleased
+
+### Added
+
+
+### Changed
+
+
+### Fixed
 
 ### Commit Statistics
 
 <csr-read-only-do-not-edit/>
 
- - 1 commit contributed to the release.
+ - 3 commits contributed to the release over the course of 1 calendar day.
+ - 1 day passed between releases.
  - 0 commits were understood as [conventional](https://www.conventionalcommits.org).
  - 0 issues like '(#ID)' were seen in commit messages
 
@@ -22,8 +31,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 <details><summary>view details</summary>
 
  * **Uncategorized**
+    - Quickstart-lib-v0.1.3 ([`cd39bf3`](https://github.com/sm-moshi/cargo-quickstart/commit/cd39bf3382461cb00c67b98180214e88b8e70bbb))
+    - Adjusting changelogs prior to release of quickstart-lib v0.1.2, cargo-quickstart v0.1.1 ([`9be2e2b`](https://github.com/sm-moshi/cargo-quickstart/commit/9be2e2b84fbe0645105f563215a8e76639868736))
     - Update crates/quickstart-lib/CHANGELOG.md ([`a70e565`](https://github.com/sm-moshi/cargo-quickstart/commit/a70e565ce5cbd8f676ddaee8be6270175e30a343))
 </details>
+
+## 0.1.3 (2025-05-06)
+
+### Added
+
+- Added Miri compatibility for test suite
+  - Modified filesystem operations with `cfg!(miri)` conditionals
+  - Fixed error handling in test helpers
+  - Adjusted time-based operations in template handling
+- Fixed error handling in test helpers
+- Adjusted time-based operations in template handling
+
+### Changed
+
+- Improved template engine performance
+  - Identified bottlenecks through benchmarking infrastructure
+  - Optimized template rendering operations
+- Optimized template rendering operations
 
 ## 0.1.1 (2025-05-05)
 
@@ -35,7 +64,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
    This commit updates documentation to reflect the completed CLI implementation:
    
    -   Update memory bank files with current project status
--   Document CLI framework completion in activeContext.md
 
 ### New Features
 
@@ -77,4 +105,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Implement CLI scaffolding with robust test coverage ([`83197cc`](https://github.com/sm-moshi/cargo-quickstart/commit/83197cce409fdd189ef3b412760ba3cabcfaf11d))
     - INIT! ([`6039553`](https://github.com/sm-moshi/cargo-quickstart/commit/603955322f238fddba117ab02aa14466dfe707aa))
 </details>
+
+<csr-unknown>
+Document CLI framework completion in activeContext.md<csr-unknown/>
 

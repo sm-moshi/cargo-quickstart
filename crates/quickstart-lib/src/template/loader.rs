@@ -181,13 +181,17 @@ impl TemplateLoader {
 }
 
 #[cfg(test)]
-#[allow(clippy::disallowed_methods)]
 mod tests {
     use super::*;
     use std::io::Write;
     use tempfile::TempDir;
 
     fn create_test_template_dir() -> TempDir {
+        // Skip under Miri
+        if cfg!(miri) {
+            panic!("Skipping file system test under Miri");
+        }
+
         let temp_dir = tempfile::tempdir().unwrap();
 
         // Create base directory
@@ -227,6 +231,12 @@ mod tests {
 
     #[test]
     fn test_load_template() {
+        // Skip under Miri
+        if cfg!(miri) {
+            eprintln!("Skipping file system test under Miri");
+            return;
+        }
+
         let temp_dir = create_test_template_dir();
         let loader = TemplateLoader::new(temp_dir.path());
 
@@ -236,6 +246,12 @@ mod tests {
 
     #[test]
     fn test_template_exists() {
+        // Skip under Miri
+        if cfg!(miri) {
+            eprintln!("Skipping file system test under Miri");
+            return;
+        }
+
         let temp_dir = create_test_template_dir();
         let loader = TemplateLoader::new(temp_dir.path());
 
@@ -245,6 +261,12 @@ mod tests {
 
     #[test]
     fn test_list_templates() {
+        // Skip under Miri
+        if cfg!(miri) {
+            eprintln!("Skipping file system test under Miri");
+            return;
+        }
+
         let temp_dir = create_test_template_dir();
         let loader = TemplateLoader::new(temp_dir.path());
 
@@ -269,6 +291,12 @@ mod tests {
 
     #[test]
     fn test_get_destination_path() {
+        // Skip under Miri
+        if cfg!(miri) {
+            eprintln!("Skipping file system test under Miri");
+            return;
+        }
+
         let temp_dir = create_test_template_dir();
         let loader = TemplateLoader::new(temp_dir.path());
 
