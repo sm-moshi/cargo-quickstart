@@ -101,9 +101,9 @@ impl Check for LintsCheck {
 }
 
 #[cfg(test)]
-#[allow(clippy::disallowed_methods)]
 mod tests {
     use super::*;
+    use pretty_assertions::assert_eq;
     use std::io::{Error, ErrorKind};
     use std::os::unix::process::ExitStatusExt;
     use std::process::ExitStatus;
@@ -177,11 +177,13 @@ mod tests {
         assert!(diagnostics[0]
             .message
             .contains("Clippy found linting issues"));
-        assert!(diagnostics[0]
-            .suggestion
-            .as_ref()
-            .unwrap()
-            .contains("Run 'cargo clippy'"));
+
+        // Check if suggestion exists and contains expected text
+        if let Some(suggestion) = &diagnostics[0].suggestion {
+            assert!(suggestion.contains("Run 'cargo clippy'"));
+        } else {
+            panic!("Expected suggestion to be present");
+        }
     }
 
     #[test]
@@ -198,11 +200,13 @@ mod tests {
         assert!(diagnostics[0]
             .message
             .contains("Failed to run cargo clippy"));
-        assert!(diagnostics[0]
-            .suggestion
-            .as_ref()
-            .unwrap()
-            .contains("Make sure clippy is installed"));
+
+        // Check if suggestion exists and contains expected text
+        if let Some(suggestion) = &diagnostics[0].suggestion {
+            assert!(suggestion.contains("Make sure clippy is installed"));
+        } else {
+            panic!("Expected suggestion to be present");
+        }
     }
 
     #[test]

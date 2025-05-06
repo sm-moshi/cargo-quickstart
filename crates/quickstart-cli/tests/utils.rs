@@ -1,18 +1,27 @@
-#![allow(clippy::disallowed_methods)]
 //! Test utilities for CLI integration tests
 
+use anyhow::{Context, Result};
 use assert_cmd::Command;
 use std::path::Path;
 
-#[allow(clippy::disallowed_methods)]
 /// Create a new command instance for testing
-pub fn create_test_command() -> Command {
-    Command::cargo_bin("cargo-quickstart").unwrap()
+pub fn create_test_command() -> Result<Command> {
+    // Skip under Miri
+    if cfg!(miri) {
+        return Err(anyhow::anyhow!("Skipping command tests under Miri"));
+    }
+
+    Command::cargo_bin("cargo-quickstart").context("Failed to find cargo-quickstart binary")
 }
 
 /// Helper to create a temporary project for testing
-pub fn create_temp_project() -> tempfile::TempDir {
-    tempfile::tempdir().unwrap()
+pub fn create_temp_project() -> Result<tempfile::TempDir> {
+    // Skip under Miri
+    if cfg!(miri) {
+        return Err(anyhow::anyhow!("Skipping file system tests under Miri"));
+    }
+
+    tempfile::tempdir().context("Failed to create temporary directory")
 }
 
 /// Helper to assert command success with expected output

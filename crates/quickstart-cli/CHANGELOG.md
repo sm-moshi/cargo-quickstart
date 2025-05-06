@@ -5,13 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## 0.1.1 (2025-05-05)
+## Unreleased
+
+### Added
+
+
+### Changed
+
+
+### Fixed
 
 ### Commit Statistics
 
 <csr-read-only-do-not-edit/>
 
- - 14 commits contributed to the release over the course of 4 calendar days.
+ - 17 commits contributed to the release over the course of 6 calendar days.
  - 0 commits were understood as [conventional](https://www.conventionalcommits.org).
  - 0 issues like '(#ID)' were seen in commit messages
 
@@ -22,6 +30,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 <details><summary>view details</summary>
 
  * **Uncategorized**
+    - Quickstart-cli-v0.1.2 ([`7d659a2`](https://github.com/sm-moshi/cargo-quickstart/commit/7d659a2bca7fb8d71ae5cc6237d58db4d163ed04))
+    - Quickstart-lib-v0.1.3 ([`3334b3e`](https://github.com/sm-moshi/cargo-quickstart/commit/3334b3eeb3fa238a5d622e75b8ecf852d5403b76))
+    - Adjusting changelogs prior to release of quickstart-lib v0.1.2, cargo-quickstart v0.1.1 ([`9be2e2b`](https://github.com/sm-moshi/cargo-quickstart/commit/9be2e2b84fbe0645105f563215a8e76639868736))
     - Adjusting changelogs prior to release of cargo-quickstart v0.1.1 ([`d3700b5`](https://github.com/sm-moshi/cargo-quickstart/commit/d3700b534b2af392970037c5efb3b32a86001703))
     - Adjusting changelogs prior to release of cargo-quickstart v0.1.1 ([`6986bf6`](https://github.com/sm-moshi/cargo-quickstart/commit/6986bf6a69824e061b5b758930cdccbdb9ee0224))
     - Adjusting changelogs prior to release of cargo-quickstart v0.1.1 ([`951cce5`](https://github.com/sm-moshi/cargo-quickstart/commit/951cce549f7d495b85d7e31f43cb659bc7874e2a))
@@ -37,4 +48,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Merge branch 'main' into develop ([`999b399`](https://github.com/sm-moshi/cargo-quickstart/commit/999b399048c5a8ca885d7627535299557c83f83b))
     - Sorry. quickstart-cli was missing. ([`25f5c34`](https://github.com/sm-moshi/cargo-quickstart/commit/25f5c34d2bb2260693a856dc953c982406ee2a37))
 </details>
+
+## 0.1.2 (2025-05-06)
+
+### Added
+
+- Added Miri compatibility for test suite
+  - Modified filesystem operations with `cfg!(miri)` conditionals
+  - Fixed error handling to work properly with Miri's strict memory safety checks
+- Fixed error handling to work properly with Miri's strict memory safety checks
+
+### Changed
+
+- Improved CLI performance by optimizing underlying template engine operations
+- Enhanced benchmark infrastructure using criterion and pprof
+
+## 0.1.1 (2025-05-05)
 

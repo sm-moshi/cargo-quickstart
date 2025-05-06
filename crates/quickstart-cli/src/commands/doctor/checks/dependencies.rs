@@ -14,8 +14,8 @@ const CARGO_OUTDATED_RECOMMENDATION: &str = "Install cargo-outdated: cargo insta
 const CARGO_UDEPS_RECOMMENDATION: &str = "Install cargo-udeps: cargo install cargo-udeps";
 
 /// Trait for executing cargo commands, allowing for easier mocking in tests
-#[cfg_attr(test, mockall::automock)]
 #[cfg_attr(test, allow(clippy::disallowed_methods))]
+#[cfg_attr(test, mockall::automock)]
 pub trait CommandExecutor: Send + Sync {
     fn execute_outdated(&self) -> std::io::Result<Output>;
     fn execute_udeps(&self) -> std::io::Result<Output>;

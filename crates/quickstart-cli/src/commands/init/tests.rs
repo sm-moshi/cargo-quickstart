@@ -1,10 +1,10 @@
 //! Tests for the init command
 
 #[cfg(test)]
-#[allow(clippy::disallowed_methods)]
 mod test {
     use crate::commands::init::{config, executor::execute};
     use crate::{args::InitArgs, ui::prompts};
+    use color_eyre::eyre::Context;
     use color_eyre::Result;
     use pretty_assertions::assert_eq;
     use quickstart_lib::ProjectType;
@@ -12,6 +12,13 @@ mod test {
     use tempfile::TempDir;
 
     fn setup_test_environment() -> Result<(TempDir, std::path::PathBuf)> {
+        // Skip under Miri
+        if cfg!(miri) {
+            return Err(color_eyre::eyre::eyre!(
+                "Skipping file system tests under Miri"
+            ));
+        }
+
         // Create a temporary directory for the test
         let temp_dir = TempDir::new()?;
 
@@ -113,12 +120,21 @@ mod tests {
     }
 
     fn cleanup_test_environment(current_dir: std::path::PathBuf) -> Result<()> {
+        if cfg!(miri) {
+            return Ok(());
+        }
         std::env::set_current_dir(current_dir)?;
         Ok(())
     }
 
     #[test]
     fn test_execute_with_confirmation() -> Result<()> {
+        // Skip under Miri
+        if cfg!(miri) {
+            eprintln!("Skipping file system test under Miri");
+            return Ok(());
+        }
+
         let (temp_dir, current_dir) = setup_test_environment()?;
 
         let args = InitArgs {
@@ -130,6 +146,7 @@ mod tests {
             path: temp_dir.path().to_path_buf(),
             git: false,
             yes: false,
+            interactive: false,
         };
 
         // Enable mocking for prompts
@@ -150,6 +167,12 @@ mod tests {
 
     #[test]
     fn test_execute_user_cancellation() -> Result<()> {
+        // Skip under Miri
+        if cfg!(miri) {
+            eprintln!("Skipping file system test under Miri");
+            return Ok(());
+        }
+
         let (temp_dir, current_dir) = setup_test_environment()?;
 
         let args = InitArgs {
@@ -161,6 +184,7 @@ mod tests {
             path: temp_dir.path().to_path_buf(),
             git: false,
             yes: false,
+            interactive: false,
         };
 
         // Enable mocking and set confirmation to false
@@ -176,16 +200,26 @@ mod tests {
         prompts::disable_mocking();
 
         assert!(result.is_err(), "execute() should fail when user cancels");
-        assert_eq!(
-            result.unwrap_err().to_string(),
-            "Project initialization cancelled by user"
-        );
+
+        if let Err(e) = result {
+            assert_eq!(
+                e.to_string(),
+                "Project initialization cancelled by user",
+                "Unexpected error message"
+            );
+        }
 
         Ok(())
     }
 
     #[test]
     fn test_execute_nonexistent_directory() -> Result<()> {
+        // Skip under Miri
+        if cfg!(miri) {
+            eprintln!("Skipping file system test under Miri");
+            return Ok(());
+        }
+
         let (temp_dir, current_dir) = setup_test_environment()?;
         let nonexistent_dir = temp_dir.path().join("nonexistent");
 
@@ -198,6 +232,7 @@ mod tests {
             path: nonexistent_dir.clone(),
             git: false,
             yes: true,
+            interactive: false,
         };
 
         let result = execute(args);
@@ -216,7 +251,7 @@ mod tests {
 
     // Keep existing unit tests for config functions
     #[test]
-    fn test_explicit_project_name() {
+    fn test_explicit_project_name() -> color_eyre::Result<()> {
         let args = InitArgs {
             name: Some("explicit-name".to_string()),
             bin: true,
@@ -226,14 +261,17 @@ mod tests {
             path: PathBuf::from("."),
             git: false,
             yes: false,
+            interactive: false,
         };
 
-        let project_name = config::get_project_name(&args).unwrap();
+        let project_name =
+            config::get_project_name(&args).wrap_err("Failed to get project name")?;
         assert_eq!(project_name, "explicit-name");
+        Ok(())
     }
 
     #[test]
-    fn test_prompted_name() {
+    fn test_prompted_name() -> color_eyre::Result<()> {
         let args = InitArgs {
             name: None,
             bin: true,
@@ -243,19 +281,22 @@ mod tests {
             path: PathBuf::from("."),
             git: false,
             yes: false,
+            interactive: false,
         };
 
         prompts::enable_mocking();
         prompts::set_mock_input(Some("prompted-name".to_string()));
 
-        let project_name = config::get_project_name(&args).unwrap();
+        let project_name =
+            config::get_project_name(&args).wrap_err("Failed to get prompted project name")?;
         assert_eq!(project_name, "prompted-name");
 
         prompts::disable_mocking();
+        Ok(())
     }
 
     #[test]
-    fn test_lib_project_type() {
+    fn test_lib_project_type() -> color_eyre::Result<()> {
         let args = InitArgs {
             name: None,
             bin: false,
@@ -265,14 +306,17 @@ mod tests {
             path: PathBuf::from("."),
             git: false,
             yes: false,
+            interactive: false,
         };
 
-        let project_type = config::determine_project_type(&args).unwrap();
+        let project_type =
+            config::determine_project_type(&args).wrap_err("Failed to determine project type")?;
         assert_eq!(project_type, ProjectType::Library);
+        Ok(())
     }
 
     #[test]
-    fn test_bin_project_type() {
+    fn test_bin_project_type() -> color_eyre::Result<()> {
         let args = InitArgs {
             name: None,
             bin: true,
@@ -282,14 +326,17 @@ mod tests {
             path: PathBuf::from("."),
             git: false,
             yes: false,
+            interactive: false,
         };
 
-        let project_type = config::determine_project_type(&args).unwrap();
+        let project_type =
+            config::determine_project_type(&args).wrap_err("Failed to determine project type")?;
         assert_eq!(project_type, ProjectType::Binary);
+        Ok(())
     }
 
     #[test]
-    fn test_prompted_project_type() {
+    fn test_prompted_project_type() -> color_eyre::Result<()> {
         let args = InitArgs {
             name: None,
             bin: false,
@@ -299,19 +346,22 @@ mod tests {
             path: PathBuf::from("."),
             git: false,
             yes: false,
+            interactive: false,
         };
 
         prompts::enable_mocking();
         prompts::set_mock_select(Some(1)); // Select Library
 
-        let project_type = config::determine_project_type(&args).unwrap();
+        let project_type = config::determine_project_type(&args)
+            .wrap_err("Failed to determine prompted project type")?;
         assert_eq!(project_type, ProjectType::Library);
 
         prompts::disable_mocking();
+        Ok(())
     }
 
     #[test]
-    fn test_fallback_project_type() {
+    fn test_fallback_project_type() -> color_eyre::Result<()> {
         let args = InitArgs {
             name: None,
             bin: false,
@@ -321,14 +371,17 @@ mod tests {
             path: PathBuf::from("."),
             git: false,
             yes: false,
+            interactive: false,
         };
 
         prompts::enable_mocking();
         prompts::set_mock_select(Some(99)); // Invalid selection
 
-        let project_type = config::determine_project_type(&args).unwrap();
+        let project_type = config::determine_project_type(&args)
+            .wrap_err("Failed to determine fallback project type")?;
         assert_eq!(project_type, ProjectType::Binary); // Should fallback to Binary
 
         prompts::disable_mocking();
+        Ok(())
     }
 }

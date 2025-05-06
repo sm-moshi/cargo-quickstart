@@ -68,6 +68,12 @@ mod tests {
 
     #[test]
     fn test_collect_templates_empty() -> Result<()> {
+        // Skip under Miri
+        if cfg!(miri) {
+            eprintln!("Skipping file system test under Miri");
+            return Ok(());
+        }
+
         let temp_dir = tempfile::TempDir::new()?;
         let loader = quickstart_lib::template::TemplateLoader::new(temp_dir.path());
         let templates = collect_templates(&loader)?;
@@ -77,6 +83,12 @@ mod tests {
 
     #[test]
     fn test_collect_templates_with_content() -> Result<()> {
+        // Skip under Miri
+        if cfg!(miri) {
+            eprintln!("Skipping file system test under Miri");
+            return Ok(());
+        }
+
         let temp_dir = tempfile::TempDir::new()?;
         let binary_dir = temp_dir.path().join("binary").join("minimal");
         std::fs::create_dir_all(&binary_dir)?;
