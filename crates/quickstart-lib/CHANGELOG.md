@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## v0.1.2 (2025-05-06)
 
+### Added
+
+
+### Changed
+
+
+### Fixed
+
 ### Commit Statistics
 
 <csr-read-only-do-not-edit/>
@@ -139,4 +147,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Implement CLI scaffolding with robust test coverage ([`83197cc`](https://github.com/sm-moshi/cargo-quickstart/commit/83197cce409fdd189ef3b412760ba3cabcfaf11d))
     - INIT! ([`6039553`](https://github.com/sm-moshi/cargo-quickstart/commit/603955322f238fddba117ab02aa14466dfe707aa))
 </details>
+
+<csr-unknown>
+Document CLI framework completion in activeContext.md<csr-unknown/>
 

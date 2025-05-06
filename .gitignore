@@ -18,3 +18,10 @@ memory-bank/
 crates/quickstart-lib/tmp/
 crates/quickstart-cli/tmp/
 crates/quickstart-cli/test-project/
+
+docs/**/*.md
+!docs/CHANGELOG.md
+!docs/TODO.md
+!docs/ROADMAP.md
+!docs/CODE_OF_CONDUCT.md
+!docs/CONTRIBUTING.md
