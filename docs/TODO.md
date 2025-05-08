@@ -108,7 +108,7 @@ This TODO list tracks detailed and structured work needed to complete, refine, a
 
 **Goal:** Automate high-quality project generation end-to-end.
 
--   [x] Create ProjectConfig type for consistent data handling
+-   [x] Create QuickstartConfig type for consistent, extensible data handling (ProjectConfig fully removed as of 2025-05-08)
 -   [x] Implement project type enum (Binary/Library)
 -   [x] Scaffold directory structure safely and cleanly (template-based)
 -   [x] Add path validation to ensure parent directories exist before attempting to create project directories
