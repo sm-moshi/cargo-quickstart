@@ -1,7 +1,8 @@
 //! Implementation of the 'new' command for creating a new project
 
 use color_eyre::Result;
-use quickstart_lib::{generate_project, ProjectConfig, ProjectType};
+use quickstart_lib::config::QuickstartConfig;
+use quickstart_lib::{generate_project, ProjectType};
 use std::path::PathBuf;
 
 use crate::{
@@ -46,7 +47,7 @@ pub fn execute(args: NewArgs) -> Result<()> {
     output::key_value("Git", &args.git.to_string());
 
     // Build configuration
-    let config = ProjectConfig {
+    let config = QuickstartConfig {
         name: args.name,
         project_type,
         edition: args.edition,
@@ -54,6 +55,12 @@ pub fn execute(args: NewArgs) -> Result<()> {
         path: project_path,
         git: args.git,
         yes: args.yes,
+        description: None,
+        author: None,
+        features: None,
+        plugins: None,
+        dry_run: false,
+        template_variant: None,
     };
 
     // Generate project with a progress spinner

@@ -12,8 +12,9 @@
 
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
 use quickstart_lib::{
+    config::QuickstartConfig,
     template::{TemplateLoader, TemplateVariant},
-    ProjectConfig, ProjectType,
+    ProjectType,
 };
 use std::{env, path::PathBuf};
 
@@ -66,15 +67,21 @@ fn benchmark_template_listing(c: &mut Criterion) {
 }
 
 /// Set up a project config for template use
-fn setup_project_config() -> ProjectConfig {
-    ProjectConfig {
-        name: "benchmark-project".to_string(),
+fn setup_project_config() -> QuickstartConfig {
+    QuickstartConfig {
+        name: "bench-project".to_string(),
         project_type: ProjectType::Binary,
         edition: "2021".to_string(),
         license: "MIT".to_string(),
         git: false,
-        path: PathBuf::from("/tmp/bench"),
+        path: std::path::PathBuf::from("/tmp/bench-project"),
         yes: true,
+        description: None,
+        author: None,
+        features: None,
+        plugins: None,
+        dry_run: false,
+        template_variant: None,
     }
 }
 

@@ -7,7 +7,7 @@ use chrono::{Datelike, Local};
 use serde::Serialize;
 use std::time::{SystemTime, UNIX_EPOCH};
 
-use crate::ProjectConfig;
+use crate::config::QuickstartConfig;
 use crate::ProjectType;
 
 /// Variables available for template substitution
@@ -101,7 +101,7 @@ pub struct TemplateFlags {
 
 impl TemplateVariables {
     /// Create a new set of template variables from project configuration
-    pub fn from_config(config: &ProjectConfig) -> Self {
+    pub fn from_config(config: &QuickstartConfig) -> Self {
         // Get current year and date information
         let now = Local::now();
         let year = now.year() as u32;

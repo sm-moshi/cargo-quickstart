@@ -4,19 +4,23 @@ use std::path::PathBuf;
 
 use color_eyre::eyre::Report;
 use color_eyre::Result;
-use quickstart_lib::{ProjectConfig, ProjectType};
+use quickstart_lib::config::QuickstartConfig;
+use quickstart_lib::ProjectType;
 
 use crate::commands::init::inquire_api::{InquireApi, RealInquire};
 
 /// Run the interactive setup wizard
-pub fn run_wizard(path: PathBuf) -> Result<ProjectConfig> {
+pub fn run_wizard(path: PathBuf) -> Result<QuickstartConfig> {
     let inquire_api = RealInquire;
     run_wizard_with_api(&inquire_api, path)
 }
 
 /// Run the interactive setup wizard with dependency injection
 /// This function allows for testing with a mock implementation
-pub fn run_wizard_with_api<T: InquireApi>(inquire_api: &T, path: PathBuf) -> Result<ProjectConfig> {
+pub fn run_wizard_with_api<T: InquireApi>(
+    inquire_api: &T,
+    path: PathBuf,
+) -> Result<QuickstartConfig> {
     // Check if directory exists and create it if needed
     if !path.exists() {
         let dir_str = path.display().to_string();
@@ -52,7 +56,7 @@ pub fn run_wizard_with_api<T: InquireApi>(inquire_api: &T, path: PathBuf) -> Res
     let features = get_optional_features_with_api(inquire_api)?;
 
     // Create project config
-    let config = ProjectConfig {
+    let config = QuickstartConfig {
         name,
         project_type,
         edition,
@@ -60,6 +64,12 @@ pub fn run_wizard_with_api<T: InquireApi>(inquire_api: &T, path: PathBuf) -> Res
         git,
         path: path.clone(),
         yes: false,
+        description: None,
+        author: None,
+        features: Some(features),
+        plugins: None,
+        dry_run: false,
+        template_variant: None,
     };
 
     // Show summary and confirmation
@@ -73,9 +83,9 @@ pub fn run_wizard_with_api<T: InquireApi>(inquire_api: &T, path: PathBuf) -> Res
         if config.git { "Yes" } else { "No" }
     ));
 
-    if !features.is_empty() {
+    if let Some(ref features) = config.features {
         summary.push_str("Additional features:\n");
-        for feature in &features {
+        for feature in features {
             summary.push_str(&format!("  - {feature}\n"));
         }
     }

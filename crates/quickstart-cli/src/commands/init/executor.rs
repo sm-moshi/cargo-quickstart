@@ -1,7 +1,8 @@
 //! Main execution logic for the init command
 
 use color_eyre::{eyre::Report, Result};
-use quickstart_lib::{generate_project, ProjectConfig};
+use quickstart_lib::config::QuickstartConfig;
+use quickstart_lib::generate_project;
 
 use crate::{
     args::InitArgs,
@@ -31,7 +32,7 @@ pub fn execute(args: InitArgs) -> Result<()> {
     }
 
     // Build configuration
-    let config = ProjectConfig {
+    let config = QuickstartConfig {
         name: project_name,
         project_type,
         edition: args.edition,
@@ -39,6 +40,12 @@ pub fn execute(args: InitArgs) -> Result<()> {
         path: args.path,
         git: args.git,
         yes: args.yes,
+        description: None,
+        author: None,
+        features: None,
+        plugins: None,
+        dry_run: false,
+        template_variant: None,
     };
 
     // Generate project with a progress spinner

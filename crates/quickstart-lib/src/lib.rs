@@ -2,14 +2,17 @@
 
 //! Library core for cargo-quickstart: project generator logic
 
+use crate::config::QuickstartConfig;
 use color_eyre::Result;
+use serde::{Deserialize, Serialize};
 use std::{fmt, path::PathBuf};
 
+pub mod config;
 pub mod template;
 pub mod tools;
 
 /// Project type (binary or library)
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
 pub enum ProjectType {
     /// A binary application
     Binary,
@@ -24,25 +27,6 @@ impl fmt::Display for ProjectType {
             ProjectType::Library => write!(f, "Library crate"),
         }
     }
-}
-
-/// Configuration for scaffolding a new project
-#[derive(Debug)]
-pub struct ProjectConfig {
-    /// Project name
-    pub name: String,
-    /// Project type (binary or library)
-    pub project_type: ProjectType,
-    /// Rust edition
-    pub edition: String,
-    /// License
-    pub license: String,
-    /// Initialize git repository
-    pub git: bool,
-    /// Target path
-    pub path: PathBuf,
-    /// Accept all defaults without prompting
-    pub yes: bool,
 }
 
 /// Find the nearest `templates/` directory by walking up from the current directory.
@@ -64,9 +48,10 @@ pub fn find_templates_dir() -> Result<PathBuf, std::io::Error> {
 }
 
 /// Generate a new project based on the provided configuration
-pub fn generate_project(config: ProjectConfig) -> Result<()> {
+pub fn generate_project<C: Into<QuickstartConfig>>(config: C) -> Result<()> {
     use template::{TemplateEngine, TemplateLoader, TemplateVariables, TemplateVariant};
 
+    let config: QuickstartConfig = config.into();
     // Validate that the parent directory exists
     if let Some(parent) = config.path.parent() {
         if !parent.exists() {
@@ -190,57 +175,6 @@ mod tests {
     }
 
     #[test]
-    fn test_project_config_edge_cases() {
-        let config = ProjectConfig {
-            name: "".to_string(),
-            project_type: ProjectType::Library,
-            edition: "2015".to_string(),
-            license: "GPL-3.0".to_string(),
-            git: false,
-            path: PathBuf::from("/tmp/empty"),
-            yes: true,
-        };
-        assert_eq!(config.name, "");
-        match config.project_type {
-            ProjectType::Library => {}
-            _ => panic!("Expected Library variant"),
-        }
-        assert_eq!(config.edition, "2015");
-        assert_eq!(config.license, "GPL-3.0");
-        assert!(!config.git);
-        assert!(config.yes);
-    }
-
-    #[test]
-    fn test_generate_project_template_error() {
-        // Instead of relying on directory structure, we'll directly test the error case
-        // by creating a nonexistent path
-        let _nonexistent_path = PathBuf::from("/path/that/definitely/does/not/exist/templates");
-
-        // Create a result that mimics what find_templates_dir would return if no templates dir exists
-        let template_error = std::io::Error::new(
-            std::io::ErrorKind::NotFound,
-            "Could not find a 'templates/' directory in this or any parent directory.",
-        );
-        let result: Result<(), template::TemplateError> = Err(template::TemplateError::LoadError {
-            path: "templates".to_string(),
-            source: template_error,
-        });
-
-        // Verify the result is an error
-        assert!(result.is_err(), "Should error if templates/ dir is missing");
-
-        // Verify the error message is the one we expect
-        if let Err(e) = result {
-            assert!(
-                e.to_string()
-                    .contains("Could not find a 'templates/' directory"),
-                "Error should mention missing templates directory, got: {e}"
-            );
-        }
-    }
-
-    #[test]
     fn test_generate_project_write_error() {
         // Skip under Miri
         if cfg!(miri) {
@@ -318,7 +252,7 @@ mod tests {
         std::env::set_current_dir(test_path).unwrap();
 
         // Create config pointing to the file (not directory) as output path
-        let config = ProjectConfig {
+        let config = QuickstartConfig {
             name: "test-project".to_string(),
             project_type: ProjectType::Binary,
             edition: "2021".to_string(),
@@ -326,6 +260,12 @@ mod tests {
             git: false,
             path: output_file,
             yes: true,
+            description: None,
+            author: None,
+            features: None,
+            plugins: None,
+            dry_run: false,
+            template_variant: None,
         };
 
         // This should fail because the output path is a file, not a directory
