@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Migration Notes
 - If you were using ProjectConfig directly, migrate to QuickstartConfig. See documentation for field mapping and extensibility options.
+- All crate versions (CLI and lib) are now synchronised to 0.2.0 after rebase/version correction. Workspace and all crates are version-aligned.
 
 ⸻
 

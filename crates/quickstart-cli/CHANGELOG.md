@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Migration Notes
 - No user action required unless using the library API directly; see quickstart-lib/CHANGELOG.md for migration details.
+- All crate versions (CLI and lib) are now synchronised to 0.2.0 after rebase/version correction. Workspace and all crates are version-aligned.
 
 ⸻
 

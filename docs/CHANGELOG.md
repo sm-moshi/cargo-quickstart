@@ -28,6 +28,7 @@ All notable changes to this project will be documented here.
 ### Migration Notes
 
 -   No user action required unless using the library API directly; see crate changelogs for details
+-   All crate versions (CLI and lib) are now synchronised to 0.2.0 after rebase/version correction. Workspace and all crates are version-aligned.
 
 ⸻
 
