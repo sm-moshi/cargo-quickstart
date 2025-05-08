@@ -72,7 +72,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Enhanced benchmark infrastructure using criterion and pprof
 
 <csr-unknown>
-Fixed error handling to work properly with Miri’s strict memory safety checks<csr-unknown/>
+Fixed error handling to work properly with Miri's strict memory safety checks<csr-unknown/>
 
 ## v0.1.1 (2025-05-05)
 
@@ -86,3 +86,17 @@ Fixed error handling to work properly with Miri’s strict memory safety checks<
 
 ## 0.1.1 (2025-05-05)
 
+
+## [Unreleased]
+
+### Added
+- Scaffolded mode modules: wizard, manual, tui (stubs)
+- Created config.rs and errors.rs stubs in quickstart-lib
+- Updated project structure for multi-mode UX and future TUI integration
+
+### Changed
+- Refactored CLI and library structure to support new UX model
+- Updated documentation and cross-references for v0.2.x milestone
+
+### Fixed
+- N/A

@@ -7,10 +7,16 @@ All notable changes to this project will be documented here.
 ## [Unreleased]
 
 ### Added
+- Scaffolded mode modules: wizard, manual, tui (stubs)
+- Created config.rs and errors.rs stubs in quickstart-lib
+- Updated project structure for multi-mode UX and future TUI integration
 
 ### Changed
+- Refactored CLI and library structure to support new UX model
+- Updated documentation and cross-references for v0.2.x milestone
 
 ### Fixed
+- N/A
 
 ⸻
 

@@ -21,11 +21,11 @@ This TODO list tracks detailed and structured work needed to complete, refine, a
         -   [x] `--interactive` (prompt-driven setup)
     -   [x] Implement input validation and graceful error handling
     -   [x] Polish CLI output formatting (`--help`, `--version`)
--   [ ] Add CLI mode handling:
-    -   [ ] `--manual` → Manual mode
-    -   [ ] `--interactive` → TUI mode
-    -   [ ] Default = Wizard mode
--   [ ] Implement mode dispatcher in `main.rs`
+-   [x] Add CLI mode handling:
+    -   [x] `--manual` → Manual mode (stubbed)
+    -   [x] `--interactive` → TUI mode (stubbed)
+    -   [x] Default = Wizard mode (stubbed)
+-   [x] Implement mode dispatcher in `main.rs` (stubbed)
 -   [ ] Add template preset support:
     -   [ ] `--preset cli` for command-line tools
     -   [ ] `--preset lib` for API/library crates
@@ -49,8 +49,8 @@ This TODO list tracks detailed and structured work needed to complete, refine, a
     -   [ ] Create a complete wizard-style interface
 -   [ ] Add error recovery suggestions in interactive mode
 -   [ ] Implement accessibility considerations for terminal UI
--   [ ] UX enhancements:
-    -   [ ] Create shared `QuickstartConfig` struct used across all modes
+-   [x] UX enhancements:
+    -   [x] Create shared `QuickstartConfig` struct used across all modes (stubbed)
     -   [ ] Allow dry-run output preview
     -   [ ] Show post-run summary with generated paths
 
@@ -254,4 +254,32 @@ This TODO list tracks detailed and structured work needed to complete, refine, a
 
 ⸻
 
+## TUI Mode (`quickstart-tui`)
+
+**Goal:** Implement a clean, modular, and minimal TUI system for `cargo-quickstart` using `ratatui` and `crossterm`.
+
+-   [ ] Create new crate `quickstart-tui`:
+    -   [ ] Add to workspace and link with `quickstart-lib`
+    -   [ ] Declare `ratatui` and `crossterm` with `default-features = false`
+    -   [ ] Enable optional `with-color-eyre` diagnostics feature
+-   [ ] Expose clean public entrypoint: `launch_tui()`
+-   [ ] Add `--interactive` mode support in `quickstart-cli`:
+    -   [ ] Feature-gate via `with-tui`
+    -   [ ] Dispatch to `quickstart_tui::launch_tui()` when enabled
+-   [ ] Implement TUI layout system using `ratatui`:
+    -   [ ] Modular screen rendering
+    -   [ ] Header/footer components
+    -   [ ] Keybinding-driven navigation
+-   [ ] Handle terminal event loop with `crossterm`:
+    -   [ ] Resize, input, and quit handling
+    -   [ ] Add cleanup logic on exit
+-   [ ] Optimize for small build size:
+    -   [ ] Minimize feature usage across TUI dependencies
+    -   [ ] Only compile when `--features tui` is used
+-   [ ] Write integration test stub for TUI mode (no-op check OK)
+
+⸻
+
 Let's make `cargo-quickstart` the fastest, cleanest, and most powerful way to start a modern Rust project! 🐹
+
+> **Current Status:** Mode modules and config groundwork are now committed. Next: implement full mode logic and TUI integration.

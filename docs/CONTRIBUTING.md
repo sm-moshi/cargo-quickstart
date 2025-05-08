@@ -67,4 +67,11 @@ The project is split into two crates:
 - Start a discussion for features
 - Join our Discord community
 
+## Documentation and Cross-Referencing Policy
+
+- The memory bank files provide concise summaries and always point to the canonical, detailed documentation in the `docs/` folder.
+- Milestone plans are found in [docs/v0.2.x.md](v0.2.x.md), [docs/v0.3.x.md](v0.3.x.md), and [docs/v0.4.x.md](v0.4.x.md).
+- The canonical project status and task list are in [docs/ROADMAP.md](ROADMAP.md) and [docs/TODO.md](TODO.md).
+- When updating features, tasks, or technical plans, always update both the memory bank and the relevant canonical doc, and ensure all cross-references are correct and up to date.
+
 Thank you for contributing! 🎉

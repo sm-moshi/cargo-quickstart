@@ -46,11 +46,11 @@ This roadmap outlines the phased evolution of `cargo-quickstart` from a foundati
 
 **Directory: `crates/quickstart-cli/src/mode/`**
 
-- [ ] Add `wizard.rs` for prompt-based UX (default mode, uses `inquire`)
-- [ ] Add `manual.rs` to parse all configuration via CLI args (`--manual`)
-- [ ] Add `tui.rs` for fullscreen interactive mode (`--interactive`, uses `ratatui`)
+- [x] Add `crates/quickstart-cli/src/mode/wizard.rs` for prompt-based UX (default mode, uses `inquire`) (stubbed)
+- [x] Add `crates/quickstart-cli/src/mode/manual.rs` to parse all configuration via CLI args (`--manual`) (stubbed)
+- [x] Use `crates/quickstart-tui/src/lib.rs` for fullscreen interactive mode (`--interactive`, uses `ratatui`) (stubbed)
 
-**CLI Command Routing: `main.rs`**
+**CLI Command Routing: `crates/quickstart-cli/src/main.rs`**
 
 ```rust
 match args {
@@ -62,13 +62,13 @@ match args {
 
 ### 🧠 Shared Configuration Model
 
-- Create `QuickstartConfig` struct in `crates/quickstart-lib/src/config.rs`
-- Used by all UX modes to drive scaffolding
-- Enables switching between wizard/manual/TUI without logic duplication
+- [x] Create `QuickstartConfig` struct in `crates/quickstart-lib/src/config.rs` (stubbed)
+- [x] Used by all UX modes to drive scaffolding (planned)
+- [x] Enables switching between wizard/manual/TUI without logic duplication (planned)
 
 ### 🧩 Feature Flag Support
 
-**Cargo.toml (root-level):**
+**crates/quickstart-cli/`Cargo.toml` at project root:**
 
 ```toml
 [features]
@@ -85,7 +85,7 @@ with-test-utils = ["mockall", "assert_cmd", "tempfile"]
 with-benchmarks = ["criterion", "pprof"]
 ```
 
-- Use `#[cfg(feature = "...")]` inside `ui.rs`, `main.rs`, and `mode/*.rs`
+- Use `#[cfg(feature = "...")]` inside `ui.rs`, `crates/quickstart-cli/src/main.rs`, and `mode/*.rs`
 
 ### 🧰 Macros
 
@@ -114,12 +114,51 @@ with-benchmarks = ["criterion", "pprof"]
 
 ### Currently in Progress
 
--   [ ] Template engine optimizations (caching, helpers, etc.)
--   [ ] Filesystem operations optimization for better efficiency
--   [ ] Template info/discovery expansion
--   [ ] Remote/custom template support
+- [ ] Template engine optimizations (caching, helpers, etc.)
+- [ ] Filesystem operations optimization for better efficiency
+- [ ] Template info/discovery expansion
+- [ ] Remote/custom template support
+- [ ] Implement full logic for wizard/manual/TUI modes
 
-⸻
+> **Current Status:** Mode modules and config groundwork are now committed. Next: implement full mode logic and TUI integration.
+
+### 🖥️ TUI Mode (ratatui + crossterm)
+
+- Create new crate: `crates/quickstart-tui`
+    - [ ] Type: Library crate with `crates/quickstart-tui/src/lib.rs`
+    - [ ] Controlled via `with-tui` feature flag in `quickstart-cli`
+    - [ ] Uses `ratatui` and `crossterm` with `default-features = false`
+    - [ ] Depends on `quickstart-lib`
+    - [ ] Added to `[workspace.members]` in `Cargo.toml` at project root
+
+- Expose public entrypoint:
+    - [ ] `pub fn launch_tui(args: &Args) -> Result<()>` in `crates/quickstart-tui/src/lib.rs`
+    - [ ] Called directly from `crates/quickstart-cli/src/main.rs` if compiled with `--features tui` and `--interactive` is passed
+
+- Internal file structure:
+    - [ ] `crates/quickstart-tui/src/layout.rs` — UI rendering and layout components
+    - [ ] `crates/quickstart-tui/src/events.rs` — Terminal input, event loop, exit signals
+    - [ ] `crates/quickstart-tui/src/app_state.rs` — State machine for user choices and configuration
+    - [ ] `crates/quickstart-tui/src/lib.rs` — Public entrypoint and coordination
+
+- CLI integration (in `crates/quickstart-cli/src/main.rs`):
+    - [ ] Add feature-gated conditional:
+        ```rust
+        #[cfg(feature = "tui")]
+        Args { interactive: true, .. } => quickstart_tui::launch_tui(&args),
+        ```
+    - [ ] No `crates/quickstart-cli/src/mode/tui.rs` required — all logic is delegated
+
+- Compilation strategy:
+    - [ ] Compile only with `--features tui`
+    - [ ] Prevent unnecessary dependencies in CLI crate
+    - [ ] Maintain fast compile times and minimal runtime cost
+
+- Future expansion plans:
+    - [ ] Expand layout to include dynamic project preview
+    - [ ] Integrate plugin selector (optional)
+    - [ ] Add keyboard shortcuts and contextual help tooltips
+
 
 ## 🏗 Mid-Term Goals (v0.3.x) — Architecture Refinement
 
@@ -133,7 +172,7 @@ with-benchmarks = ["criterion", "pprof"]
 
 ### 🔌 Plugin System
 
-- Define trait `QuickstartPlugin` in `quickstart-lib/src/plugin/plugin.rs` or `quickstart-lib/src/plugin/mod.rs`
+- Define trait `QuickstartPlugin` in `quickstart-lib/src/plugin/plugin.rs` or `quickstart-lib/src/plugin/crates/quickstart-cli/src/mode/mod.rs`
 - Allow user-defined plugins to extend config generation or post-processing
 - Add feature flags to register built-in plugin types (e.g., `rustfmt`, `prettier`, etc.)
 
@@ -164,7 +203,7 @@ Criterion::default().with_profiler(PProfProfiler::new(100, Output::Flamegraph))
     - [ ] GitHub Actions workflows for formatting, linting, testing
     - [ ] GitLab CI support
 - [ ] Generate dynamic VSCode tasks and launch files based on scaffolded project
-- [ ] Automatically detect MSRV and populate `Cargo.toml` accordingly
+- [ ] Automatically detect MSRV and populate `crates/quickstart-cli/Cargo.toml` accordingly
 
 ⸻
 
@@ -186,7 +225,7 @@ Criterion::default().with_profiler(PProfProfiler::new(100, Output::Flamegraph))
 ### 🔌 Plugin System Finalization
 
 - Support dynamic plugins via JSON manifest or Rust trait implementations
-- Expose `register_plugin()` function in `lib.rs`
+- Expose `register_plugin()` function in `crates/quickstart-tui/src/lib.rs`
 
 ### 📈 Optional Telemetry
 
