@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+⸻
+
+## v0.2.0 (2025-05-08)
+
+### Added
+- QuickstartConfig is now the canonical, extensible configuration struct for all UX modes (CLI, TUI, manual)
+- Unified configuration logic, tests, and documentation on QuickstartConfig
+
+### Changed
+- All code, tests, and documentation now use QuickstartConfig
+- ProjectConfig and all migration code fully removed
+
+### Migration Notes
+- No user action required unless using the library API directly; see quickstart-lib/CHANGELOG.md for migration details.
+
+⸻
+
 ## 0.1.4 (2025-05-06)
 
 ### Other
@@ -57,6 +74,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Sorry. quickstart-cli was missing. ([`25f5c34`](https://github.com/sm-moshi/cargo-quickstart/commit/25f5c34d2bb2260693a856dc953c982406ee2a37))
 </details>
 
+⸻
+
 ## 0.1.2 (2025-05-06)
 
 ### Added
@@ -100,3 +119,16 @@ Fixed error handling to work properly with Miri's strict memory safety checks<cs
 
 ### Fixed
 - N/A
+
+## v0.2.0 (2025-05-08)
+
+### Added
+- QuickstartConfig is now the canonical, extensible configuration struct for all UX modes (CLI, TUI, manual)
+- Unified configuration logic, tests, and documentation on QuickstartConfig
+
+### Changed
+- All code, tests, and documentation now use QuickstartConfig
+- ProjectConfig and all migration code fully removed
+
+### Migration Notes
+- No user action required unless using the library API directly; see quickstart-lib/CHANGELOG.md for migration details.

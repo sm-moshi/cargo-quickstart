@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+⸻
+
+## v0.2.0 (2025-05-08)
+
+### Added
+- QuickstartConfig is now the canonical, extensible configuration struct for all UX modes (CLI, TUI, manual)
+- Unified configuration logic, tests, and documentation on QuickstartConfig
+
+### Changed
+- All code, tests, and documentation now use QuickstartConfig
+- ProjectConfig and all migration code fully removed
+
+### Migration Notes
+- If you were using ProjectConfig directly, migrate to QuickstartConfig. See documentation for field mapping and extensibility options.
+
+⸻
+
 ## v0.1.4 (2025-05-06)
 
 ### Other
@@ -34,6 +51,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Merge branch 'release/0.1.2' into develop ([`1d1e7de`](https://github.com/sm-moshi/cargo-quickstart/commit/1d1e7de3e6534a997b283f418a42c6a65e294f9b))
 </details>
 
+⸻
+
 ## v0.1.3 (2025-05-06)
 
 ### Commit Statistics
@@ -61,13 +80,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Update crates/quickstart-lib/CHANGELOG.md ([`a70e565`](https://github.com/sm-moshi/cargo-quickstart/commit/a70e565ce5cbd8f676ddaee8be6270175e30a343))
 </details>
 
+⸻
+
 ## v0.1.2 (2025-05-06)
 
 ### Added
 
-
 ### Changed
-
 
 ### Fixed
 
@@ -162,16 +181,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 <csr-unknown>
 The documentation now accurately reflects the project's ~74% test coverageand completed CLI framework with interactive components. update project documentation and memory bankThis commit updates documentation to reflect the completed CLI implementation:Enhance documentation filesThe documentation now accurately reflects the project's ~74% test coverageand completed CLI framework with interactive components.The implementation includes proper error propagation, separation of concerns between UI and logic, and follows idiomatic Rust patterns.All tests pass with appropriate use of mocking for code that requires user interaction. implement CLI scaffolding with robust test coverageThis commit implements the complete CLI functionality including:The implementation includes proper error propagation, separation of concerns between UI and logic, and follows idiomatic Rust patterns.All tests pass with appropriate use of mocking for code that requires user interaction. implement CLI scaffolding with robust test coverageThis commit implements the complete CLI functionality including:The implementation includes proper error propagation, separation of concerns between UI and logic, and follows idiomatic Rust patterns.All tests pass with appropriate use of mocking for code that requires user interaction.<csr-unknown/>
 
-## [Unreleased]
-
-### Added
-- Scaffolded mode modules: wizard, manual, tui (stubs)
-- Created config.rs and errors.rs stubs in quickstart-lib
-- Updated project structure for multi-mode UX and future TUI integration
-
-### Changed
-- Refactored CLI and library structure to support new UX model
-- Updated documentation and cross-references for v0.2.x milestone
-
-### Fixed
-- N/A
+⸻

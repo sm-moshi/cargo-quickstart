@@ -25,5 +25,5 @@ crates/quickstart-cli/test-project/
 !docs/ROADMAP.md
 !docs/CODE_OF_CONDUCT.md
 !docs/CONTRIBUTING.md
-
+.repomix/
 repomix-output.txt

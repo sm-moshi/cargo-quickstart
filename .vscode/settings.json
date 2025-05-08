@@ -23,5 +23,6 @@
 	"rust-analyzer.lens.implementations.enable": true,
 	"rust-analyzer.diagnostics.styleLints.enable": true,
 	"rust-analyzer.diagnostics.disabled": ["unresolved-proc-macro"],
-	"rust-analyzer.imports.granularity.group": "module"
+	"rust-analyzer.imports.granularity.group": "module",
+	"repomix.runner.useBundleNameAsOutputName": false
 }

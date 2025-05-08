@@ -4,19 +4,30 @@ All notable changes to this project will be documented here.
 
 ⸻
 
-## [Unreleased]
+## [v0.2.0] – 2025-05-08
 
 ### Added
-- Scaffolded mode modules: wizard, manual, tui (stubs)
-- Created config.rs and errors.rs stubs in quickstart-lib
-- Updated project structure for multi-mode UX and future TUI integration
+
+-   Scaffolded mode modules: wizard, manual, tui (stubs)
+-   Created config.rs and errors.rs stubs in quickstart-lib
+-   Updated project structure for multi-mode UX and future TUI integration
+-   QuickstartConfig is now the canonical, extensible configuration struct for all UX modes (CLI, TUI, manual)
+-   Unified configuration logic, tests, and documentation on QuickstartConfig
 
 ### Changed
-- Refactored CLI and library structure to support new UX model
-- Updated documentation and cross-references for v0.2.x milestone
+
+-   Refactored CLI and library structure to support new UX model
+-   Updated documentation and cross-references for v0.2.x milestone
+-   All code, tests, and documentation now use QuickstartConfig
+-   ProjectConfig and all migration code fully removed
 
 ### Fixed
-- N/A
+
+-   N/A
+
+### Migration Notes
+
+-   No user action required unless using the library API directly; see crate changelogs for details
 
 ⸻
 
@@ -24,22 +35,24 @@ All notable changes to this project will be documented here.
 
 ### Added
 
-- Added Miri compatibility for all tests
-  - Modified filesystem operations with `if cfg!(miri)` conditionals
-  - Fixed error handling in test helpers
-  - Adjusted time-based operations in template handling
-- Established benchmarking infrastructure for performance profiling
-  - Added criterion-based benchmarks with pprof integration
-  - Created `just perf-bench` and `just perf-cmd` commands for specific performance testing
-  - Added flamegraph generation and visualization support
-  - Identified template rendering as main performance bottleneck
+-   Added Miri compatibility for all tests
+    -   Modified filesystem operations with `if cfg!(miri)` conditionals
+    -   Fixed error handling in test helpers
+    -   Adjusted time-based operations in template handling
+-   Established benchmarking infrastructure for performance profiling
+    -   Added criterion-based benchmarks with pprof integration
+    -   Created `just perf-bench` and `just perf-cmd` commands for specific performance testing
+    -   Added flamegraph generation and visualization support
+    -   Identified template rendering as main performance bottleneck
 
 ### Changed
 
-- Improved CLI performance by optimizing underlying template engine operations
-- Enhanced just command structure with dedicated performance testing commands
+-   Improved CLI performance by optimizing underlying template engine operations
+-   Enhanced just command structure with dedicated performance testing commands
 
 ### Fixed
+
+-   N/A
 
 ⸻
 
@@ -47,24 +60,25 @@ All notable changes to this project will be documented here.
 
 ### Added
 
-- Exact version specifications between workspace crates to ensure consistent builds on crates.io
+-   Exact version specifications between workspace crates to ensure consistent builds on crates.io
 
 ### Changed
 
-- CI workflows now use `Leafwing-Studios/cargo-cache` for more efficient Rust-specific caching
-- Updated from deprecated `actions-rs/toolchain` to `crusty-pie/toolchain`
-- Replaced `lazy_static` dependency with standard library's `std::sync::LazyLock`
+-   CI workflows now use `Leafwing-Studios/cargo-cache` for more efficient Rust-specific caching
+-   Updated from deprecated `actions-rs/toolchain` to `crusty-pie/toolchain`
+-   Replaced `lazy_static` dependency with standard library's `std::sync::LazyLock`
 
 ### Fixed
 
-- Path validation now properly checks if parent directories exist before attempting to create project directories
-- Added clear error messages for invalid paths to improve user experience
+-   Path validation now properly checks if parent directories exist before attempting to create project directories
+-   Added clear error messages for invalid paths to improve user experience
 
 ⸻
 
 ## [v0.1.0]
 
 ### Added
+
 -   VS Code configuration templates for all generated projects:
     -   `.vscode/settings.json` with best-practice Rust editor settings
     -   `.vscode/extensions.json` with recommended extensions for Rust development
@@ -91,6 +105,7 @@ All notable changes to this project will be documented here.
 -   Added documentation stub templates (CHANGELOG.md, CONTRIBUTING.md, CODE_OF_CONDUCT.md) to all generated projects for improved onboarding and compliance with best practices.
 
 ### Changed
+
 -   Project generation logic is now template-driven
 -   Template variables unified to consistently use `name` (replacing `project.name` and `crate_name`)
 -   Dynamic year generation in CHANGELOG.md using `date.year` variable
