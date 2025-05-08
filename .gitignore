@@ -1,5 +1,5 @@
 # General
-.DS_Store
+**/.DS_Store
 debug/
 target/
 **/*.rs.bk
@@ -19,9 +19,11 @@ crates/quickstart-lib/tmp/
 crates/quickstart-cli/tmp/
 crates/quickstart-cli/test-project/
 
-docs/**/*.md
+# docs/**/*.md
 !docs/CHANGELOG.md
 !docs/TODO.md
 !docs/ROADMAP.md
 !docs/CODE_OF_CONDUCT.md
 !docs/CONTRIBUTING.md
+
+repomix-output.txt

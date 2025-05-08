@@ -13,7 +13,7 @@ homepage = "https://github.com/sm-moshi/cargo-quickstart"
 license = "MIT OR Apache-2.0"
 repository = "https://github.com/sm-moshi/cargo-quickstart"
 rust-version = "1.82.0"
-version = "0.1.3"
+version = "0.2.0"
 
 [workspace.metadata]
 msrv = "1.82.0"

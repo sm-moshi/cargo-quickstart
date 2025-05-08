@@ -153,3 +153,16 @@ cargo quickstart doctor
 ```
 
 This analyzes your project structure, dependencies, and configuration to identify potential issues and provide recommendations for improvements.
+
+
+---
+
+## 🖥️ TUI Mode (Optional)
+
+To use the fullscreen interactive mode, enable the `tui` feature:
+
+```sh
+cargo quickstart new-project --interactive --features tui
+```
+
+The UI is powered by `crates/quickstart-tui` using `ratatui` and `crossterm`, and does not compile unless explicitly enabled.
