@@ -1,2 +1,7 @@
 !memory-bank/
-!docs/
+!memory-bank/**
+!memory-bank/**/*
+!memory-bank/**/*/*
+!memory-bank/**/*/*/*
+!memory-bank/**/*/*/*/*
+!memory-bank/**/*/*/*/*/*

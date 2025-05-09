@@ -8,29 +8,29 @@ This roadmap outlines the phased evolution of `cargo-quickstart` from a foundati
 
 **Focus:** Build the foundation of the CLI-based scaffolding tool.
 
--   [x] Implement core CLI with `clap`:
-    -   [x] Root command setup and versioning.
-    -   [x] Support flags: `--bin`, `--lib`, `--edition`, `--license`, `--git`, `--path`, `--yes`, `--interactive`.
--   [x] Implement interactive prompts with `dialoguer`/`inquire`:
-    -   [x] Project name prompt with validation
-    -   [x] Project type selection
-    -   [x] Configuration confirmation
--   [x] Build minimal and extended project template structures:
-    -   [x] Create `.vscode/`, `.cargo/`, `.editorconfig`, `.gitignore` templates.
-    -   [x] Setup documentation stubs (README.md, CHANGELOG.md, CONTRIBUTING.md, etc.) for all generated projects.
--   [x] Create template interpolation system:
-    -   [x] Support dynamic values: `{crate_name}`, `{author}`, `{year}`, `{license}`, `{edition}`.
--   [x] Implement shell completions for all major shells
--   [x] Polish CLI output with console for a user-friendly UX
--   [x] All lints and tests pass
--   [x] Add Miri compatibility for all tests
-    -   [x] Modify filesystem operations with `if cfg!(miri)` conditionals
-    -   [x] Fix error handling in test helpers
-    -   [x] Adjust time-based operations in template handling
--   [x] Establish benchmarking infrastructure
-    -   [x] Add criterion-based benchmarks with pprof integration
-    -   [x] Create performance benchmark commands
-    -   [x] Identify and begin optimizing template rendering bottlenecks
+- [x] Implement core CLI with `clap`:
+  - [x] Root command setup and versioning.
+  - [x] Support flags: `--bin`, `--lib`, `--edition`, `--license`, `--git`, `--path`, `--yes`, `--interactive`.
+- [x] Implement interactive prompts with `dialoguer`/`inquire`:
+  - [x] Project name prompt with validation
+  - [x] Project type selection
+  - [x] Configuration confirmation
+- [x] Build minimal and extended project template structures:
+  - [x] Create `.vscode/`, `.cargo/`, `.editorconfig`, `.gitignore` templates.
+  - [x] Setup documentation stubs (README.md, CHANGELOG.md, CONTRIBUTING.md, etc.) for all generated projects.
+- [x] Create template interpolation system:
+  - [x] Support dynamic values: `{crate_name}`, `{author}`, `{year}`, `{license}`, `{edition}`.
+- [x] Implement shell completions for all major shells
+- [x] Polish CLI output with console for a user-friendly UX
+- [x] All lints and tests pass
+- [x] Add Miri compatibility for all tests
+  - [x] Modify filesystem operations with `if cfg!(miri)` conditionals
+  - [x] Fix error handling in test helpers
+  - [x] Adjust time-based operations in template handling
+- [x] Establish benchmarking infrastructure
+  - [x] Add criterion-based benchmarks with pprof integration
+  - [x] Create performance benchmark commands
+  - [x] Identify and begin optimizing template rendering bottlenecks
 
 ⸻
 
@@ -100,20 +100,20 @@ with-benchmarks = ["criterion", "pprof"]
 
 ### Already Completed in v0.1.x
 
--   [x] Doctor command (project/environment diagnostics)
--   [x] Path validation for safe directory operations
--   [x] CI/CD improvements:
-    -   [x] Specialized Rust caching with Leafwing-Studios/cargo-cache
-    -   [x] Modern toolchain installation with crusty-pie/toolchain
--   [x] Testing and validation improvements:
-    -   [x] Make tests compatible with Miri for memory safety validation
-    -   [x] Establish benchmarking infrastructure for performance profiling
-        -   [x] Criterion-based benchmarks with pprof integration
-        -   [x] Performance testing commands
-        -   [x] Template rendering bottleneck identification
--   [x] Performance optimization foundation:
-    -   [x] Add criterion-based benchmarks with pprof integration
-    -   [x] Begin optimizing template engine operations
+- [x] Doctor command (project/environment diagnostics)
+- [x] Path validation for safe directory operations
+- [x] CI/CD improvements:
+  - [x] Specialized Rust caching with Leafwing-Studios/cargo-cache
+  - [x] Modern toolchain installation with crusty-pie/toolchain
+- [x] Testing and validation improvements:
+  - [x] Make tests compatible with Miri for memory safety validation
+  - [x] Establish benchmarking infrastructure for performance profiling
+    - [x] Criterion-based benchmarks with pprof integration
+    - [x] Performance testing commands
+    - [x] Template rendering bottleneck identification
+- [x] Performance optimization foundation:
+  - [x] Add criterion-based benchmarks with pprof integration
+  - [x] Begin optimizing template engine operations
 
 ### Currently in Progress
 
@@ -128,29 +128,31 @@ with-benchmarks = ["criterion", "pprof"]
 ### 🖥️ TUI Mode (ratatui + crossterm)
 
 - Create new crate: `crates/quickstart-tui`
-    - [ ] Type: Library crate with `crates/quickstart-tui/src/lib.rs`
-    - [ ] Controlled via `with-tui` feature flag in `quickstart-cli`
-    - [ ] Uses `ratatui` and `crossterm` with `default-features = false`
-    - [ ] Depends on `quickstart-lib`
-    - [ ] Added to `[workspace.members]` in `Cargo.toml` at project root
+  - [ ] Type: Library crate with `crates/quickstart-tui/src/lib.rs`
+  - [ ] Controlled via `with-tui` feature flag in `quickstart-cli`
+  - [ ] Uses `ratatui` and `crossterm` with `default-features = false`
+  - [ ] Depends on `quickstart-lib`
+  - [ ] Added to `[workspace.members]` in `Cargo.toml` at project root
 
 - Expose public entrypoint:
-    - [ ] `pub fn launch_tui(args: &Args) -> Result<()>` in `crates/quickstart-tui/src/lib.rs`
-    - [ ] Called directly from `crates/quickstart-cli/src/main.rs` if compiled with `--features tui` and `--interactive` is passed
+  - [ ] `pub fn launch_tui(args: &Args) -> Result<()>` in `crates/quickstart-tui/src/lib.rs`
+  - [ ] Called directly from `crates/quickstart-cli/src/main.rs` if compiled with `--features tui` and `--interactive` is passed
 
 - Internal file structure:
-    - [ ] `crates/quickstart-tui/src/layout.rs` — UI rendering and layout components
-    - [ ] `crates/quickstart-tui/src/events.rs` — Terminal input, event loop, exit signals
-    - [ ] `crates/quickstart-tui/src/app_state.rs` — State machine for user choices and configuration
-    - [ ] `crates/quickstart-tui/src/lib.rs` — Public entrypoint and coordination
+  - [ ] `crates/quickstart-tui/src/layout.rs` — UI rendering and layout components
+  - [ ] `crates/quickstart-tui/src/events.rs` — Terminal input, event loop, exit signals
+  - [ ] `crates/quickstart-tui/src/app_state.rs` — State machine for user choices and configuration
+  - [ ] `crates/quickstart-tui/src/lib.rs` — Public entrypoint and coordination
 
 - CLI integration (in `crates/quickstart-cli/src/main.rs`):
-    - [ ] Add feature-gated conditional:
+  - [ ] Add feature-gated conditional:
+
         ```rust
         #[cfg(feature = "tui")]
         Args { interactive: true, .. } => quickstart_tui::launch_tui(&args),
         ```
-    - [ ] No `crates/quickstart-cli/src/mode/tui.rs` required — all logic is delegated
+
+  - [ ] No `crates/quickstart-cli/src/mode/tui.rs` required — all logic is delegated
 
 - Compilation strategy:
-    - [ ] Compile only with `--features tui`
+  - [ ] Compile only with `--features tui`

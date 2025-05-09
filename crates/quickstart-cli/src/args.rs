@@ -17,6 +17,10 @@ pub struct Cli {
     /// The subcommand to execute
     #[command(subcommand)]
     pub command: Commands,
+
+    /// Run in dry-run mode (generates no files)
+    #[arg(global = true, long, help = "Run in dry-run mode (generates no files)")]
+    pub dry_run: bool,
 }
 
 /// Subcommands supported by cargo-quickstart

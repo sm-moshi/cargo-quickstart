@@ -14,7 +14,7 @@ memory-bank/
 *.pdb
 *.profdata
 *.profraw
-.cargo/config.toml
+!.cargo/config.toml
 crates/quickstart-lib/tmp/
 crates/quickstart-cli/tmp/
 crates/quickstart-cli/test-project/

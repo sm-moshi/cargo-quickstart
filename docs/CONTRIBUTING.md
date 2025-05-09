@@ -7,12 +7,14 @@ Thank you for your interest in contributing to cargo-quickstart! This document p
 1. **Rust Setup**
    - Minimum Rust version: 1.82.0
    - Use `rustup` to install the toolchain:
+
      ```bash
      rustup install 1.82.0
      ```
 
 2. **Development Tools**
    Required tools for development:
+
    ```bash
    cargo install cargo-msrv cargo-audit cargo-udeps
    ```
@@ -22,11 +24,13 @@ Thank you for your interest in contributing to cargo-quickstart! This document p
 The project is split into two crates:
 
 ### quickstart-cli
+
 - **doctor**: System health checks (`--features doctor`)
 - **completions**: Shell completion generation (`--features completions`)
 - **test-utils**: Testing utilities (dev only)
 
 ### quickstart-lib
+
 - **test-utils**: Testing utilities for integration tests
 
 ## Development Workflow 🔄
@@ -42,6 +46,7 @@ The project is split into two crates:
    - Add detailed description if needed
 
 3. **Testing**
+
    ```bash
    cargo test --workspace
    cargo test --workspace --features test-utils
@@ -49,6 +54,7 @@ The project is split into two crates:
 
 4. **Code Style**
    - Run before committing:
+
      ```bash
      cargo fmt
      cargo clippy --workspace --all-features

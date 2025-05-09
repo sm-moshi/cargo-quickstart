@@ -10,3 +10,8 @@
 // TODO: Implement the TUI mode
 // TODO: Implement the wizard mode
 //! Have docs/ROADMAP.md in mind
+//!
+
+pub mod manual;
+pub mod tui;
+pub mod wizard;

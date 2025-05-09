@@ -9,6 +9,7 @@
 		"llvm-vs-code-extensions.lldb-dap",
 		"vadimcn.vscode-lldb",
 		"markis.code-coverage",
-		"usernamehw.errorlens"
+		"usernamehw.errorlens",
+		"barbosshack.crates-io"
 	]
 }

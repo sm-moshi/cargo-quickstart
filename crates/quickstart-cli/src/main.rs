@@ -3,7 +3,10 @@
 mod args;
 mod commands;
 mod errors;
+mod mode;
 mod ui;
+use mode::wizard;
+use quickstart_tui::run_tui;
 
 use args::{Cli, Commands};
 use clap::Parser;
@@ -19,10 +22,26 @@ fn main() -> Result<(), CliError> {
     // Route to the appropriate command handler
     match cli.command {
         Commands::New(args) => {
-            commands::execute_new(args).map_err(|e| CliError::CommandError(e.to_string()))?
+            if args.yes {
+                commands::execute_new(args).map_err(|e| CliError::CommandError(e.to_string()))?
+            } else {
+                wizard::run(&args, cli.dry_run).map_err(|e| {
+                    CliError::Other(format!("Wizard mode failed for 'new' command: {e}"))
+                })?;
+            }
         }
         Commands::Init(args) => {
-            commands::execute_init(args).map_err(|e| CliError::CommandError(e.to_string()))?
+            if args.yes {
+                commands::execute_init(args).map_err(|e| CliError::CommandError(e.to_string()))?
+            } else if args.interactive {
+                run_tui(args.name.clone(), cli.dry_run).map_err(|e| {
+                    CliError::Other(format!("TUI mode failed for 'init' command: {e}"))
+                })?;
+            } else {
+                wizard::run(&args, cli.dry_run).map_err(|e| {
+                    CliError::Other(format!("Wizard mode failed for 'init' command: {e}"))
+                })?;
+            }
         }
         Commands::ListTemplates => {
             commands::execute_list_templates().map_err(|e| CliError::CommandError(e.to_string()))?

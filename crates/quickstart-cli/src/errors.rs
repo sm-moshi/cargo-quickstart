@@ -26,6 +26,14 @@ pub enum CliError {
     #[error("Template error: {0}")]
     TemplateError(String),
 
+    /// Error from interactive prompts
+    #[error("Interactive prompt error: {0}")]
+    InquireError(String),
+
+    /// Error from the core library (quickstart_lib)
+    #[error("Library error: {0}")]
+    LibraryError(#[from] Report),
+
     /// Other errors that don't fit specific categories
     #[error("Error: {0}")]
     Other(String),

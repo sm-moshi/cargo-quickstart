@@ -34,6 +34,7 @@ indicatif = { workspace = true, default-features = false }
 console = { workspace = true }
 clap_complete = { workspace = true, optional = true }
 quickstart-lib = { path = "../quickstart-lib", version = "^0.2.0" }
+quickstart-tui = { path = "../quickstart-tui", version = "^0.2.0" }
 which = { workspace = true, default-features = false, optional = true }
 thiserror = { workspace = true }
 libc = { workspace = true }
@@ -47,6 +48,7 @@ predicates = { workspace = true, default-features = false }
 pretty_assertions = { workspace = true }
 tempfile = { workspace = true }
 quickstart-lib = { path = "../quickstart-lib", features = ["test-utils"], version = "^0.2.0" }
+quickstart-tui = { path = "../quickstart-tui", version = "^0.2.0" }
 criterion = { workspace = true, default-features = false, features = ["html_reports"] }
 uuid = { workspace = true, default-features = false, features = ["v4"] }
 pprof = { workspace = true, features = ["flamegraph", "frame-pointer", "criterion"] }
