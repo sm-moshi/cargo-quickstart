@@ -35,7 +35,7 @@ serde = { version = "1.0.219", features = ["derive"] }
 tempfile = { version = "3.20.0", default-features = false }
 thiserror = "2.0.12"
 which = { version = "7.0.3", features = ["tracing"], default-features = false }
-libc = { version = "0.2.172" }
+libc = { version = "0.2.173" }
 inquire = { version = "0.7.5", default-features = false, features = ["crossterm"] }
 anyhow = { version = "1.0.98", default-features = false }
 criterion = { version = "0.5.1", default-features = false, features = ["html_reports"] }
