@@ -1,6 +1,10 @@
 [workspace]
 default-members = ["crates/quickstart-cli"]
-members = ["crates/quickstart-cli", "crates/quickstart-lib", "crates/quickstart-tui"]
+members = [
+    "crates/quickstart-cli",
+    "crates/quickstart-lib",
+    "crates/quickstart-tui",
+]
 resolver = "2"
 
 [workspace.package]
@@ -19,31 +23,52 @@ version = "0.2.0"
 msrv = "1.82.0"
 
 [workspace.dependencies]
-ratatui = { version = "0.30.0-alpha.2", default-features = false }
-crossterm = { version = "0.29.0", default-features = false, features = ["event-stream"] }
-color-eyre = { version = "0.6.4" }
+ratatui = { version = "0.30.0-alpha.5", default-features = false }
+crossterm = { version = "0.29.0", default-features = false, features = [
+    "event-stream",
+] }
+color-eyre = { version = "0.6.5" }
 quickstart-lib = { path = "crates/quickstart-lib" }
-assert_cmd = { version = "2.0.17", features = ["color"], default-features = false }
-clap = { version = "4.5.37", features = ["cargo", "derive", "std", "wrap_help", "error-context", "suggestions"], default-features = false }
-clap_complete = "4.5.50"
+assert_cmd = { version = "2.0.17", features = [
+    "color",
+], default-features = false }
+clap = { version = "4.5.40", features = [
+    "cargo",
+    "derive",
+    "std",
+    "wrap_help",
+    "error-context",
+    "suggestions",
+], default-features = false }
+clap_complete = "4.5.54"
 chrono = { version = "0.4.41", default-features = false }
 handlebars = { version = "6.3.2", default-features = false }
-indicatif = { version = "0.17.11", features = ["improved_unicode"], default-features = false }
+indicatif = { version = "0.17.11", features = [
+    "improved_unicode",
+], default-features = false }
 mockall = { version = "0.13.1", default-features = false }
-console = { version = "0.15.11", default-features = false }
+console = { version = "0.16.0", default-features = false }
 pathdiff = "0.2.3"
 predicates = { version = "3.1.3", default-features = false }
 pretty_assertions = "1.4.1"
 serde = { version = "1.0.219", features = ["derive"] }
-tempfile = { version = "3.19.1", default-features = false }
+tempfile = { version = "3.20.0", default-features = false }
 thiserror = "2.0.12"
 which = { version = "7.0.3", features = ["tracing"], default-features = false }
-libc = { version = "0.2.172" }
-inquire = { version = "0.7.5", default-features = false, features = ["crossterm"] }
+libc = { version = "0.2.174" }
+inquire = { version = "0.7.5", default-features = false, features = [
+    "crossterm",
+] }
 anyhow = { version = "1.0.98", default-features = false }
-criterion = { version = "0.5.1", default-features = false, features = ["html_reports"] }
-uuid = { version = "1.16.0", default-features = false, features = ["v4"] }
-pprof = { version = "0.14.0", features = ["flamegraph", "frame-pointer", "criterion"] }
+criterion = { version = "0.6.0", default-features = false, features = [
+    "html_reports",
+] }
+uuid = { version = "1.17.0", default-features = false, features = ["v4"] }
+pprof = { version = "0.15.0", features = [
+    "flamegraph",
+    "frame-pointer",
+    "criterion",
+] }
 
 [profile.dev]
 codegen-units = 16
