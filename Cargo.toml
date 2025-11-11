@@ -40,7 +40,7 @@ inquire = { version = "0.7.5", default-features = false, features = ["crossterm"
 anyhow = { version = "1.0.100", default-features = false }
 criterion = { version = "0.5.1", default-features = false, features = ["html_reports"] }
 uuid = { version = "1.18.1", default-features = false, features = ["v4"] }
-pprof = { version = "0.14.1", features = ["flamegraph", "frame-pointer", "criterion"] }
+pprof = { version = "0.15.0", features = ["flamegraph", "frame-pointer", "criterion"] }
 
 [profile.dev]
 codegen-units = 16
