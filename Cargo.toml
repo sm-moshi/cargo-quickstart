@@ -23,7 +23,7 @@ assert_cmd = { version = "2.0.17", features = ["color"], default-features = fals
 clap = { version = "4.5.51", features = ["cargo", "derive", "std", "wrap_help", "error-context", "suggestions"], default-features = false }
 clap_complete = "4.5.60"
 color-eyre = { version = "0.6.4", default-features = false }
-chrono = { version = "0.4.41", default-features = false }
+chrono = { version = "0.4.42", default-features = false }
 handlebars = { version = "6.3.2", default-features = false }
 indicatif = { version = "0.17.12", features = ["improved_unicode"], default-features = false }
 mockall = { version = "0.13.1", default-features = false }
