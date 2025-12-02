@@ -39,7 +39,7 @@ libc = { version = "0.2.177" }
 inquire = { version = "0.9.1", default-features = false, features = ["crossterm"] }
 anyhow = { version = "1.0.100", default-features = false }
 criterion = { version = "0.7.0", default-features = false, features = ["html_reports"] }
-uuid = { version = "1.18.1", default-features = false, features = ["v4"] }
+uuid = { version = "1.19.0", default-features = false, features = ["v4"] }
 pprof = { version = "0.15.0", features = ["flamegraph", "frame-pointer", "criterion"] }
 
 [profile.dev]
