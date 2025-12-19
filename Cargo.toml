@@ -21,7 +21,7 @@ msrv = "1.82.0"
 [workspace.dependencies]
 assert_cmd = { version = "2.1.1", features = ["color"], default-features = false }
 clap = { version = "4.5.51", features = ["cargo", "derive", "std", "wrap_help", "error-context", "suggestions"], default-features = false }
-clap_complete = "4.5.60"
+clap_complete = "4.5.62"
 color-eyre = { version = "0.6.4", default-features = false }
 chrono = { version = "0.4.42", default-features = false }
 handlebars = { version = "6.3.2", default-features = false }
